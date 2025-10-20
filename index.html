@@ -77,7 +77,25 @@
   padding: 12px 0 20px 0;
   margin-top: 40px;
 }
+#education.card {
+  min-width: 100%;  
+}
 
+.edu-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.edu-list li {
+  margin-bottom: 10px;
+  line-height: 1.4;
+  font-size: 15px;
+}
+
+.edu-sub {
+  font-size: 14px;
+  color: var(--muted);
+}
 body {
   margin-bottom: 0;
 }
@@ -130,8 +148,11 @@ main.container {
       <div class="about">
         <h1>About Me</h1>
         <p>
-          I'm a SOC / Cybersecurity Analyst passionate about turning complex threats into clear, actionable insights.I investigate real-world intrusions — from phishing and malware to web exploitation and PowerShell-based attacks — using tools like QRadar, Splunk, and CrowdStrike Falcon.My focus is on precision triage, MITRE ATT&CK mapping, and strengthening detection logic across SOC environments.Every alert is a story — my job is to uncover its meaning before it becomes a breach.
-        </p>
+  I'm a SOC / Cybersecurity Analyst passionate about turning complex threats into clear, actionable insights.
+  I investigate real-world intrusions — from phishing and malware to web exploitation and PowerShell-based attacks — using tools like QRadar, Splunk, and CrowdStrike Falcon.
+  My focus is on precision triage, MITRE ATT&CK mapping, and strengthening detection logic across SOC environments.
+  Every alert is a story — my job is to uncover its meaning before it becomes a breach.
+</p>
         <p>
           <a class="btn" href="Alexander_Isoev_SOC_Portfolio.pdf" download>
             <!-- download icon -->
@@ -149,14 +170,23 @@ main.container {
               <li>Threat intel enrichment & IOC hunting</li>
             </ul>
           </div>
-          <div class="card" id="education">
-            <h3>Education</h3>
-            <ul>
-              <li><strong>CompTIA Security+</strong></li>
-              <li>RangeForce Cybersecurity Analyst Program (251 modules, 96+ hrs)</li>
-              <li>College of Communications No. 54, Moscow — Bachelor's in Information Security of Telecommunication Systems</li>
-            </ul>
-          </div>
+         <div class="card" id="education">
+  <h3>Education</h3>
+  <ul class="edu-list">
+    <li>
+      🎓 <strong>CompTIA Security+</strong><br>
+      <span class="edu-sub">CompTIA, 2024</span>
+    </li>
+    <li>
+      🎓 <strong>RangeForce Cybersecurity Analyst Program</strong><br>
+      <span class="edu-sub">(251 modules, 96+ hrs)</span>
+    </li>
+    <li>
+      🎓 <strong>BSc Information Security of Telecommunication Systems</strong><br>
+      <span class="edu-sub">College of Communications No. 54, Moscow</span>
+    </li>
+  </ul>
+</div>
         </div>
       </div>
     </section>

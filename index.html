@@ -1,142 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alexander Isoev — SOC / Cybersecurity Analyst</title>
+  <meta name="description" content="SOC / Cybersecurity Analyst portfolio — real-world style SOC cases, MITRE ATT&CK mapping, EDR triage, and hands-on analysis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      background-color: #0d1117;
-      color: #e6edf3;
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-      animation: fadeIn 1.4s ease-in;
+    :root{
+      --bg:#0d1117; --panel:#0f1623; --panel-2:#0b1220; --text:#e6edf3; --muted:#9aa4b2;
+      --accent:#f0b90b; --accent-2:#f8d34b; --link:#7aa2f7; --green:#34d399;
+      --card:#111827; --border:#1f2a3a;
     }
-    h1 {
-  color: #f0b90b;
-  animation: glow 2.5s ease-in-out infinite alternate;
-}
-@keyframes glow {
-  from { text-shadow: 0 0 8px #f0b90b, 0 0 16px #f0b90b33; }
-  to { text-shadow: 0 0 14px #f8d34b, 0 0 24px #f0b90b66; }
-}
-    h2 { margin-top: 0; }
-    a.button {
-      display: inline-block;
-      background: #238636;
-      color: white;
-      padding: 12px 22px;
-      border-radius: 8px;
-      text-decoration: none;
-      margin: 10px;
-      transition: 0.2s;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:linear-gradient(180deg, var(--bg) 0%, #0b1320 100%);
+      color:var(--text);
     }
-    a.button:hover { background: #2ea043; }
-    img {
-      border-radius: 10px;
-      margin: 30px 0;
-      width: 80%;
-      max-width: 800px;
-      box-shadow: 0 0 20px #ffae00;
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1150px; margin:0 auto; padding:24px}
+    /* NAV */
+    .nav{position:sticky; top:0; z-index:50; background:rgba(13,17,23,.75); backdrop-filter:blur(8px); border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 24px}
+    .brand{font-weight:800; letter-spacing:.2px}
+    .brand span{color:var(--accent)}
+    .nav a{color:var(--text); opacity:.9}
+    .nav-links{display:flex; gap:18px; flex-wrap:wrap}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; background:var(--accent); color:#0d1117; font-weight:700; border:1px solid #00000022; box-shadow:0 6px 18px rgba(240,185,11,.18); transition:transform .15s ease, box-shadow .15s ease}
+    .btn:hover{transform:translateY(-1px); box-shadow:0 10px 22px rgba(240,185,11,.28)}
+    .btn.ghost{background:transparent; color:var(--text); border:1px solid var(--border); box-shadow:none}
+    .btn.ghost:hover{border-color:#2a3a52}
+
+    /* HERO */
+    .hero{border:1px solid var(--border); background: radial-gradient(1200px 400px at 50% -10%, rgba(240,185,11,.07), transparent 60%), linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%); border-radius:24px; padding:28px}
+    .hero-grid{display:grid; grid-template-columns:300px 1fr; gap:28px}
+    .avatar-wrap{position:relative; width:220px; height:220px; margin:auto; border-radius:999px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,.35), 0 0 0 6px rgba(240,185,11,.08)}
+    .avatar{width:100%; height:100%; object-fit:cover}
+    .badge{position:absolute; right:10px; bottom:10px; background:rgba(15,22,35,.9); border:1px solid var(--border); color:var(--accent); padding:6px 10px; border-radius:999px; font-weight:700; font-size:12px}
+    .title{font-size:34px; font-weight:800; margin:2px 0 8px}
+    .subtitle{font-weight:700; opacity:.95}
+    .tagline{color:var(--muted); margin:12px 0 18px}
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin:18px 0}
+    .pill-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px}
+    .pill{background:#182235; border:1px solid var(--border); color:#c8d2e0; padding:8px 12px; border-radius:999px; font-weight:600; font-size:13px}
+
+    /* SECTIONS */
+    section{margin-top:28px}
+    .section-title{font-size:20px; font-weight:800; margin:10px 0 14px}
+    .card{border:1px solid var(--border); background:var(--card); border-radius:16px; padding:16px}
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+    .table{width:100%; border-collapse:collapse; font-size:14px}
+    .table th,.table td{border:1px solid var(--border); padding:12px; text-align:left}
+    .table th{background:#0f1a2a}
+
+    /* Projects */
+    .projects{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px}
+    .proj-card{border:1px solid var(--border); background:linear-gradient(180deg, #0f1623, #0c1420); border-radius:16px; padding:16px; transition:transform .15s ease, box-shadow .15s ease}
+    .proj-card:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.35)}
+    .proj-title{font-weight:800}
+    .proj-tags{margin-top:12px; display:flex; gap:8px; flex-wrap:wrap}
+    .tag{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--border); color:#cbd5e1; background:#131c2b}
+
+    /* Footer */
+    footer{opacity:.8; text-align:center; padding:32px 0}
+
+    /* Responsive */
+    @media (max-width: 960px){
+      .hero-grid{grid-template-columns:1fr}
+      .projects{grid-template-columns:1fr 1fr}
     }
-    section {
-      max-width: 850px;
-      margin: 40px auto;
-      line-height: 1.6;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    @media (max-width: 640px){
+      .projects{grid-template-columns:1fr}
+      .avatar-wrap{width:180px; height:180px}
+      .title{font-size:28px}
     }
   </style>
 </head>
-<meta name="description" content="SOC / Cybersecurity Analyst portfolio — Real-world style SOC investigations, MITRE ATT&CK mapping, EDR triage, and incident analysis by Alexander Isoev.">
-<meta name="keywords" content="SOC Analyst, Cybersecurity, MITRE ATT&CK, Blue Team, Incident Response, SIEM, EDR, QRadar, Splunk">
-
 <body>
+  <header class="nav">
+    <div class="nav-inner container">
+      <div class="brand">Alexander <span>Isoev</span></div>
+      <nav class="nav-links">
+        <a href="#about">Bio</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#tools">Tools</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-  <!-- === HEADER === -->
-  <h1>Alexander Isoev</h1>
-  <h2>SOC / Cybersecurity Analyst</h2>
-  <p>Real-world style SOC investigations — log triage, EDR analysis, and MITRE ATT&CK mapping.</p>
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="left" style="text-align:center">
+          <div class="avatar-wrap">
+            <img class="avatar" src="https://avatars.githubusercontent.com/u/175056028?v=4" alt="Alexander Isoev"/>
+            <div class="badge">SOC / Blue Team</div>
+          </div>
+          <div class="pill-row" style="justify-content:center; margin-top:16px">
+            <span class="pill">Philadelphia, PA (EST)</span>
+            <a class="pill" href="mailto:alexanderisoevf@gmail.com">alexanderisoevf@gmail.com</a>
+            <a class="pill" href="https://linkedin.com/in/alexanderisoev" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="pill" href="https://github.com/PurePootato" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+        <div class="right">
+          <div class="subtitle">Cybersecurity Analyst | SOC Analyst</div>
+          <h1 class="title">Hi, I'm Alexander Isoev</h1>
+          <p class="tagline">Real‑world style SOC investigations with MITRE ATT&CK mapping, EDR triage, and hands‑on analysis.</p>
+          <div class="cta">
+            <a class="btn" href="Alexander_Isoev_SOC_Portfolio.pdf" download>📄 Download Portfolio (PDF)</a>
+            <a class="btn ghost" href="https://purepootato.github.io/SOC-Incident-Reports" target="_blank" rel="noopener">View SOC Cases</a>
+          </div>
+          <div class="pill-row">
+            <span class="pill">SOC</span>
+            <span class="pill">SIEM</span>
+            <span class="pill">EDR</span>
+            <span class="pill">MITRE ATT&CK</span>
+            <span class="pill">Incident Response</span>
+            <span class="pill">English & Russian</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- === BADGES === -->
-  <p style="font-size:14px; color:#8b949e; margin-bottom:20px;">
-<span style="color:#f0b90b;">⚡ Real-world SOC portfolio</span> — hands-on investigations, EDR triage & MITRE ATT&CK mapping.
-</p>
+    <!-- ABOUT -->
+    <section id="about">
+      <h2 class="section-title">About Me</h2>
+      <div class="card">
+        I'm a cybersecurity analyst focused on real‑world SOC operations — investigating phishing, malware, and PowerShell‑based intrusions. I specialize in log triage, EDR investigations, and MITRE ATT&CK mapping. Passionate about turning complex incidents into structured case reports.
+      </div>
+    </section>
 
-  <p>
-    <img src="https://img.shields.io/badge/Focus-SOC%20%7C%20SIEM%20%7C%20EDR-critical" />
-    <img src="https://img.shields.io/badge/Tools-QRadar%20%7C%20Splunk%20%7C%20CrowdStrike-blueviolet" />
-    <img src="https://img.shields.io/badge/Framework-MITRE%20ATT%26CK-red" />
-    <img src="https://img.shields.io/badge/Threat_Intel-VirusTotal%20%7C%20AbuseIPDB%20%7C%20Talos-informational" />
-    <img src="https://img.shields.io/badge/Certification-Security%2B-success" />
-    <img src="https://img.shields.io/badge/Language-English%20%7C%20Russian-lightgrey" />
-  </p>
+    <!-- INTERESTS & EDUCATION -->
+    <section class="grid-2" id="education">
+      <div class="card">
+        <h3 class="section-title" style="margin-top:0">Interests</h3>
+        <ul>
+          <li>Incident detection & response</li>
+          <li>EDR investigations & process telemetry</li>
+          <li>Threat intel enrichment & IOC hunting</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 class="section-title" style="margin-top:0">Education & Certifications</h3>
+        <ul>
+          <li><strong>CompTIA Security+</strong></li>
+          <li>RangeForce Cybersecurity Analyst Program (251 modules, 96+ hrs)</li>
+        </ul>
+      </div>
+    </section>
 
-  <!-- === GIF SECTION === -->
-  <figure style="margin: 28px auto 22px; max-width: 850px;">
-    <img
-      src="real_time__hacker_attack_map.gif"
-      alt="Global SOC Attack Map"
-      title="Global SOC Attack Map"
-      loading="lazy"
-      style="
-        width: 100%;
-        height: auto;
-        border-radius: 14px;
-        display: block;
-        margin: 0 auto;
-        filter: brightness(0.98) contrast(1.05);
-        box-shadow:
-          0 0 0 3px rgba(255, 199, 0, 0.18) inset,
-          0 12px 26px rgba(0,0,0,0.35),
-          0 0 34px rgba(255, 200, 0, 0.28);
-        animation: fadeIn 1.5s ease-out;
-      "
-    />
-    <figcaption style="text-align:center; margin-top:10px; color:#c9d1d9; font-size:14px; opacity:.9;">
-      Global SOC Attack Map — demo animation (non-live)
-    </figcaption>
-  </figure>
+    <!-- SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">Highlighted Skills</h2>
+      <div class="card grid-2">
+        <ul>
+          <li>Incident triage & investigation</li>
+          <li>Log correlation & anomaly detection</li>
+          <li>MITRE ATT&CK mapping</li>
+          <li>IOC enrichment & threat intel lookups</li>
+        </ul>
+        <ul>
+          <li>Structured JIRA‑style incident tickets</li>
+          <li>Windows analysis (PowerShell, registry, tasks)</li>
+          <li>Containment recommendations</li>
+          <li>English & Russian communication</li>
+        </ul>
+      </div>
+    </section>
 
-  <!-- === BUTTONS === -->
-  <div>
-    <a class="button" href="https://github.com/PurePootato/SOC-Incident-Reports" target="_blank">View My SOC Cases</a>
-    <a class="button" href="./portfolioAlexanderIsoev/SOC_Portfolio_Alexander__Isoev.pdf" target="_blank">View My Portfolio (PDF)</a>
-  </div>
+    <!-- TOOLS TABLE -->
+    <section id="tools">
+      <h2 class="section-title">Tools & Technologies</h2>
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr><th>Category</th><th>Tools</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>SIEM / Log Analysis</td><td>IBM QRadar, Splunk, Elastic SIEM</td></tr>
+            <tr><td>EDR / Threat Detection</td><td>CrowdStrike Falcon, Defender for Endpoint</td></tr>
+            <tr><td>Network / IDS</td><td>Suricata, Zeek</td></tr>
+            <tr><td>Threat Intelligence</td><td>VirusTotal, Talos, AbuseIPDB, GreyNoise</td></tr>
+            <tr><td>Frameworks</td><td>MITRE ATT&CK, NIST 800‑61</td></tr>
+            <tr><td>Scripting & Automation</td><td>PowerShell, Python (parsing & automation)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-  <!-- === ABOUT ME === -->
-  <section>
-    <h2>About Me</h2>
-    <p>I'm a cybersecurity analyst focused on real-world SOC operations — investigating phishing, malware, and PowerShell-based intrusions.</p>
-    <p>I specialize in log triage, EDR investigations, and MITRE ATT&CK mapping. Passionate about turning complex incidents into structured reports.</p>
-  </section>
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="projects">
+        <a class="proj-card" href="https://github.com/PurePootato/SOC-Incident-Reports" target="_blank" rel="noopener">
+          <div class="proj-title">SOC‑Incident‑Reports</div>
+          <p style="margin:8px 0 0">Real‑world style SOC investigations: log triage, MITRE mapping, and containment.</p>
+          <div class="proj-tags">
+            <span class="tag">QRadar</span><span class="tag">Splunk</span><span class="tag">Suricata</span><span class="tag">CrowdStrike</span>
+          </div>
+        </a>
+        <a class="proj-card" href="Alexander_Isoev_SOC_Portfolio.pdf" download>
+          <div class="proj-title">SOC Portfolio (PDF)</div>
+          <p style="margin:8px 0 0">Case studies with Alerts → Analysis → Actions → MITRE mapping.</p>
+          <div class="proj-tags">
+            <span class="tag">T1059.001</span><span class="tag">T1055</span><span class="tag">T1110</span>
+          </div>
+        </a>
+        <a class="proj-card" href="https://purepootato.github.io/" target="_blank" rel="noopener">
+          <div class="proj-title">GitHub Pages Site</div>
+          <p style="margin:8px 0 0">Public portfolio website with quick access to cases & contact.</p>
+          <div class="proj-tags">
+            <span class="tag">HTML/CSS</span><span class="tag">GitHub Pages</span>
+          </div>
+        </a>
+      </div>
+    </section>
 
-  <!-- === TOOLS & FRAMEWORKS === -->
-  <section>
-    <h2>Tools & Frameworks</h2>
-    <p><b>SIEM:</b> IBM QRadar, Splunk, Elastic SIEM</p>
-    <p><b>EDR:</b> CrowdStrike Falcon, Defender for Endpoint</p>
-    <p><b>Threat Intelligence:</b> VirusTotal, AbuseIPDB, Talos, GreyNoise</p>
-    <p><b>Frameworks:</b> MITRE ATT&CK, NIST 800-61</p>
-  </section>
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2 class="section-title">Connect with Me</h2>
+      <div class="card" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center">
+        <a class="btn" href="mailto:alexanderisoevf@gmail.com">✉️ Email</a>
+        <a class="btn ghost" href="https://linkedin.com/in/alexanderisoev" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn ghost" href="https://github.com/PurePootato" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </section>
 
-  <!-- === CONNECT WITH ME === -->
-  <section>
-    <h2>Connect with Me</h2>
-    <a href="https://www.linkedin.com/in/alexanderisoev" target="_blank" style="margin:0 10px;text-decoration:none;color:#58a6ff;">LinkedIn</a> |
-    <a href="mailto:alexanderisoevf@gmail.com" style="margin:0 10px;text-decoration:none;color:#58a6ff;">Email</a> |
-    <a href="https://github.com/PurePootato" target="_blank" style="margin:0 10px;text-decoration:none;color:#58a6ff;">GitHub</a>
-  </section>
+    <footer>
+      “Real‑world security starts with visibility — and visibility begins with good analysis.”<br/>
+      © <span id="year"></span> Alexander Isoev — SOC / Cybersecurity Analyst
+    </footer>
+  </main>
 
-  <!-- === FOOTER === -->
-  <footer style="margin-top:50px; color:#8b949e; font-size:13px;">
-    “Real-world security starts with visibility — and visibility begins with good analysis.”<br>
-    © 2025 Alexander Isoev — SOC / Cybersecurity Analyst
-  </footer>
-
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
-

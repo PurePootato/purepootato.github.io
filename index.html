@@ -11,8 +11,10 @@
       color: #e6edf3;
       font-family: 'Segoe UI', sans-serif;
       text-align: center;
+      animation: fadeIn 1.4s ease-in;
     }
     h1 { color: #f0b90b; }
+    h2 { margin-top: 0; }
     a.button {
       display: inline-block;
       background: #238636;
@@ -31,46 +33,97 @@
       max-width: 800px;
       box-shadow: 0 0 20px #ffae00;
     }
+    section {
+      max-width: 850px;
+      margin: 40px auto;
+      line-height: 1.6;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
+
 <body>
+
+  <!-- === HEADER === -->
   <h1>Alexander Isoev</h1>
   <h2>SOC / Cybersecurity Analyst</h2>
   <p>Real-world style SOC investigations — log triage, EDR analysis, and MITRE ATT&CK mapping.</p>
-<figure style="margin: 28px auto 22px; max-width: 850px;">
-  <img
-    src="real_time_hacker_attack_map.gif"
-    alt="Global SOC Attack Map"
-    title="Global SOC Attack Map"
-    loading="lazy"
-    style="
-      width: 100%;
-      height: auto;
-      border-radius: 14px;
-      display: block;
-      margin: 0 auto;
-      filter: brightness(0.98) contrast(1.05);
-      box-shadow:
-        0 0 0 3px rgba(255, 199, 0, 0.18) inset,
-        0 12px 26px rgba(0,0,0,0.35),
-        0 0 34px rgba(255, 200, 0, 0.28);
-      animation: fadeIn 1.5s ease-out;
-    "
-  />
-  <figcaption style="text-align:center; margin-top:10px; color:#c9d1d9; font-size:14px; opacity:.9;">
-    Global SOC Attack Map — demo animation (non-live)
-  </figcaption>
-</figure>
 
-<style>
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-</style>
+  <!-- === BADGES === -->
+  <p>
+    <img src="https://img.shields.io/badge/Focus-SOC%20%7C%20SIEM%20%7C%20EDR-critical" />
+    <img src="https://img.shields.io/badge/Tools-QRadar%20%7C%20Splunk%20%7C%20CrowdStrike-blueviolet" />
+    <img src="https://img.shields.io/badge/Framework-MITRE%20ATT%26CK-red" />
+    <img src="https://img.shields.io/badge/Threat_Intel-VirusTotal%20%7C%20AbuseIPDB%20%7C%20Talos-informational" />
+    <img src="https://img.shields.io/badge/Certification-Security%2B-success" />
+    <img src="https://img.shields.io/badge/Language-English%20%7C%20Russian-lightgrey" />
+  </p>
+
+  <!-- === GIF SECTION === -->
+  <figure style="margin: 28px auto 22px; max-width: 850px;">
+    <img
+      src="real_time_hacker_attack_map.gif"
+      alt="Global SOC Attack Map"
+      title="Global SOC Attack Map"
+      loading="lazy"
+      style="
+        width: 100%;
+        height: auto;
+        border-radius: 14px;
+        display: block;
+        margin: 0 auto;
+        filter: brightness(0.98) contrast(1.05);
+        box-shadow:
+          0 0 0 3px rgba(255, 199, 0, 0.18) inset,
+          0 12px 26px rgba(0,0,0,0.35),
+          0 0 34px rgba(255, 200, 0, 0.28);
+        animation: fadeIn 1.5s ease-out;
+      "
+    />
+    <figcaption style="text-align:center; margin-top:10px; color:#c9d1d9; font-size:14px; opacity:.9;">
+      Global SOC Attack Map — demo animation (non-live)
+    </figcaption>
+  </figure>
+
+  <!-- === BUTTONS === -->
   <div>
     <a class="button" href="https://github.com/PurePootato/SOC-Incident-Reports" target="_blank">View My SOC Cases</a>
     <a class="button" href="portfolioAlexanderIsoev.pdf" target="_blank">View My Portfolio (PDF)</a>
   </div>
+
+  <!-- === ABOUT ME === -->
+  <section>
+    <h2>About Me</h2>
+    <p>I'm a cybersecurity analyst focused on real-world SOC operations — investigating phishing, malware, and PowerShell-based intrusions.</p>
+    <p>I specialize in log triage, EDR investigations, and MITRE ATT&CK mapping. Passionate about turning complex incidents into structured reports.</p>
+  </section>
+
+  <!-- === TOOLS & FRAMEWORKS === -->
+  <section>
+    <h2>Tools & Frameworks</h2>
+    <p><b>SIEM:</b> IBM QRadar, Splunk, Elastic SIEM</p>
+    <p><b>EDR:</b> CrowdStrike Falcon, Defender for Endpoint</p>
+    <p><b>Threat Intelligence:</b> VirusTotal, AbuseIPDB, Talos, GreyNoise</p>
+    <p><b>Frameworks:</b> MITRE ATT&CK, NIST 800-61</p>
+  </section>
+
+  <!-- === CONNECT WITH ME === -->
+  <section>
+    <h2>Connect with Me</h2>
+    <a href="https://www.linkedin.com/in/alexanderisoev" target="_blank" style="margin:0 10px;text-decoration:none;color:#58a6ff;">LinkedIn</a> |
+    <a href="mailto:alexanderisoevf@gmail.com" style="margin:0 10px;text-decoration:none;color:#58a6ff;">Email</a> |
+    <a href="https://github.com/PurePootato" target="_blank" style="margin:0 10px;text-decoration:none;color:#58a6ff;">GitHub</a>
+  </section>
+
+  <!-- === FOOTER === -->
+  <footer style="margin-top:50px; color:#8b949e; font-size:13px;">
+    “Real-world security starts with visibility — and visibility begins with good analysis.”<br>
+    © 2025 Alexander Isoev — SOC / Cybersecurity Analyst
+  </footer>
+
 </body>
 </html>
+

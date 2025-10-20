@@ -13,7 +13,14 @@
       text-align: center;
       animation: fadeIn 1.4s ease-in;
     }
-    h1 { color: #f0b90b; }
+    h1 {
+  color: #f0b90b;
+  animation: glow 2.5s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from { text-shadow: 0 0 8px #f0b90b, 0 0 16px #f0b90b33; }
+  to { text-shadow: 0 0 14px #f8d34b, 0 0 24px #f0b90b66; }
+}
     h2 { margin-top: 0; }
     a.button {
       display: inline-block;
@@ -44,6 +51,8 @@
     }
   </style>
 </head>
+<meta name="description" content="SOC / Cybersecurity Analyst portfolio — Real-world style SOC investigations, MITRE ATT&CK mapping, EDR triage, and incident analysis by Alexander Isoev.">
+<meta name="keywords" content="SOC Analyst, Cybersecurity, MITRE ATT&CK, Blue Team, Incident Response, SIEM, EDR, QRadar, Splunk">
 
 <body>
 
@@ -53,6 +62,10 @@
   <p>Real-world style SOC investigations — log triage, EDR analysis, and MITRE ATT&CK mapping.</p>
 
   <!-- === BADGES === -->
+  <p style="font-size:14px; color:#8b949e; margin-bottom:20px;">
+<span style="color:#f0b90b;">⚡ Real-world SOC portfolio</span> — hands-on investigations, EDR triage & MITRE ATT&CK mapping.
+</p>
+
   <p>
     <img src="https://img.shields.io/badge/Focus-SOC%20%7C%20SIEM%20%7C%20EDR-critical" />
     <img src="https://img.shields.io/badge/Tools-QRadar%20%7C%20Splunk%20%7C%20CrowdStrike-blueviolet" />

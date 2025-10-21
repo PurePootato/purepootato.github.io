@@ -107,6 +107,36 @@ main.container {
       .hero{grid-template-columns:1fr}
       .projects{grid-template-columns:1fr}
     }
+
+    /* === WAVES ACROSS BACKGROUND === */
+    .bg-waves {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.95;
+    }
+
+    @keyframes sway {
+      0%   { transform: translateY(0) scale(1); }
+      50%  { transform: translateY(8px) scale(1.01); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    .bg-waves path:nth-of-type(1) { animation: sway 12s ease-in-out infinite; }
+    .bg-waves path:nth-of-type(2) { animation: sway 16s ease-in-out infinite reverse; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bg-waves path { animation: none; }
+    }
+
+    header.nav,
+    main.container {
+      position: relative;
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
@@ -237,5 +267,25 @@ main.container {
   </main>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <svg class="bg-waves" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="blurWave" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="18" />
+      </filter>
+      <linearGradient id="wave1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"  stop-color="#7CF3C7" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#3BD09F" stop-opacity="0.07"/>
+      </linearGradient>
+      <linearGradient id="wave2" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#9AF7DA" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#5BE6B9" stop-opacity="0.05"/>
+      </linearGradient>
+    </defs>
+
+    <path filter="url(#blurWave)" fill="url(#wave1)"
+          d="M0,650 C260,580 380,760 580,700 C800,630 880,480 1120,520 C1280,550 1380,520 1440,540 L1440,900 L0,900 Z"/>
+    <path filter="url(#blurWave)" fill="url(#wave2)"
+          d="M0,590 C220,560 400,720 600,680 C780,640 980,520 1180,540 C1320,560 1400,560 1440,570 L1440,900 L0,900 Z"/>
+  </svg>
 </body>
 </html>

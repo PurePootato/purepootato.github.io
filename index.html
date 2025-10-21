@@ -22,20 +22,6 @@
       --border:#17453a;       /* borders */
       --shadow:0 14px 28px rgba(0,0,0,.25);
     }
-    .hero{ position:relative; overflow:hidden;
-  background:
-    radial-gradient(1100px 500px at 75% -10%, rgba(75,214,170,.12), transparent 60%),
-    radial-gradient(900px 420px at 0% -15%,  rgba(91,230,185,.10), transparent 60%),
-    linear-gradient(145deg, #123b33, #0e2f27);
-}
-.hero-waves{ position:absolute; inset:auto 0 0 0; width:100%; height:min(48vh,520px); pointer-events:none; z-index:0; }
-.hero > *:not(.hero-waves){ position:relative; z-index:1; }
-
-@keyframes drift{ 0%{transform:translateY(0) scale(1)} 50%{transform:translateY(6px) scale(1.02)} 100%{transform:translateY(0) scale(1)} }
-.hero-waves path:nth-of-type(1){ animation:drift 9s ease-in-out infinite; }
-.hero-waves path:nth-of-type(2){ animation:drift 11s ease-in-out infinite reverse; }
-@media (prefers-reduced-motion:reduce){ .hero-waves path{ animation:none; } }
-
     *{box-sizing:border-box}
     body{margin:0; font-family:Inter, system-ui, -apple-system; color:var(--text);
       background:
@@ -208,26 +194,6 @@ main.container {
 </div>
         </div>
       </div>
-      <svg class="hero-waves" viewBox="0 0 1440 600" aria-hidden="true" focusable="false">
-    <defs>
-      <filter id="blur15" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="15" />
-      </filter>
-      <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%"  stop-color="#7CF3C7" stop-opacity="0.22"/>
-        <stop offset="100%" stop-color="#3BD09F" stop-opacity="0.10"/>
-      </linearGradient>
-      <linearGradient id="g2" x1="1" y1="0" x2="0" y2="1">
-        <stop offset="0%"  stop-color="#9AF7DA" stop-opacity="0.18"/>
-        <stop offset="100%" stop-color="#5BE6B9" stop-opacity="0.08"/>
-      </linearGradient>
-    </defs>
-
-    <path filter="url(#blur15)" fill="url(#g1)"
-          d="M0,420 C220,360 320,520 520,480 C740,430 820,300 1060,340 C1230,370 1360,330 1440,360 L1440,600 L0,600 Z"/>
-    <path filter="url(#blur15)" fill="url(#g2)"
-          d="M0,460 C200,430 360,540 560,520 C760,500 900,380 1100,410 C1280,440 1380,420 1440,440 L1440,600 L0,600 Z"/>
-  </svg>
     </section>
 
     <!-- PROJECTS -->

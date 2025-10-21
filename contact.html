@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Alexander Isoev</title>
+  <meta name="description" content="Contact Alexander Isoev — SOC / Cybersecurity Analyst." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0a1a16; --bg-2:#0e2a23; --panel:#0f2f27; --card:#0c221d;
+      --text:#eef4f2; --muted:#a7b8b3; --accent:#93e0c7; --accent-2:#6cd5b5;
+      --chip:#153a31; --border:#17453a; --shadow:0 14px 28px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system; color:var(--text);
+      background:
+       radial-gradient(900px 340px at 70% 0%, #164d40 0%, transparent 55%),
+       radial-gradient(800px 300px at -10% 10%, #1a3f35 0%, transparent 55%),
+       linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 100%);
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* NAV */
+    .nav{position:sticky; top:0; z-index:40; backdrop-filter:blur(10px);
+      background:rgba(12,32,27,.7); border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:1100px; margin:0 auto; padding:14px 20px; display:flex; gap:24px; align-items:center}
+    .brand{font-weight:800}
+    .nav-links{margin-left:auto; display:flex; gap:22px; flex-wrap:wrap}
+    .nav-links a{color:var(--text); opacity:.9}
+    .active{color:var(--accent)}
+
+    .container{max-width:1100px; margin:0 auto; padding:30px 20px}
+    h1{margin:0 0 6px}
+    .sub{color:var(--muted); margin:0 0 20px}
+
+    /* Contact page layout */
+    .contact-wrap{display:grid; grid-template-columns: 2fr 1fr; gap:20px}
+    .panel{background:linear-gradient(145deg, #123b33, #0e2f27); border:1px solid var(--border);
+      border-radius:18px; padding:20px; box-shadow:var(--shadow)}
+
+    .gif-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px}
+    .gif-tile{position:relative; overflow:hidden; border-radius:14px; border:1px solid var(--border); background:#0d2621}
+    .gif-tile img{width:100%; height:180px; object-fit:cover; display:block; transition:transform .25s ease}
+    .gif-tile:hover img{transform:scale(1.04)}
+    .gif-label{position:absolute; left:10px; bottom:8px; font-size:12px; background:rgba(0,0,0,.35);
+      padding:4px 8px; border-radius:999px}
+
+    .contact-card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px}
+    .contact-card h3{margin:0 0 8px}
+    .contact-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px;
+      border:1px solid #0b211c; background:var(--accent); color:#0b1a16; font-weight:700;
+      box-shadow:0 10px 22px rgba(108,213,181,.25); transition:transform .15s ease}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-ghost{background:transparent; color:var(--accent); border:1px solid var(--border)}
+
+    .chip{display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px;
+      background:var(--chip); border:1px solid var(--border); color:#cfe7e1; margin-right:8px}
+
+    footer{opacity:.8; text-align:center; padding:30px 0; margin-top:30px}
+
+    @media (max-width:900px){
+      .contact-wrap{grid-template-columns:1fr}
+      .gif-grid{grid-template-columns:repeat(2,1fr)}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand"><a href="index.html" style="color:var(--text); text-decoration:none">Alexander Isoev</a></div>
+      <nav class="nav-links">
+        <a href="index.html#bio">Bio</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#education">Education</a>
+        <a class="active" href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Contact</h1>
+    <p class="sub">Short demo gifs + quick links to reach me.</p>
+
+    <div class="contact-wrap">
+      <!-- GIFs -->
+      <section class="panel">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px">
+          <h2 style="margin:0">Recent Work (GIF)</h2>
+          <span class="chip">SOC / Blue Team</span>
+        </div>
+        <div class="gif-grid">
+          <!-- Замените пути на свои файлы в репозитории /gif/ -->
+          <a class="gif-tile" href="portfolioAlexanderIsoev/SOC_Portfolio_Alexander__Isoev.pdf" target="_blank" rel="noopener">
+            <img src="gif/siem_triage.gif" alt="SIEM triage"><span class="gif-label">SIEM triage</span>
+          </a>
+          <a class="gif-tile" href="https://github.com/PurePootato/SOC-Incident-Reports" target="_blank" rel="noopener">
+            <img src="gif/edr_hunt.gif" alt="EDR hunting"><span class="gif-label">EDR hunting</span>
+          </a>
+          <a class="gif-tile" href="portfolioAlexanderIsoev/Alexander__Isoev_Cybersecurity_Analyst.pdf" target="_blank" rel="noopener">
+            <img src="gif/reporting.gif" alt="Reporting"><span class="gif-label">Reporting</span>
+          </a>
+          <a class="gif-tile" href="index.html#projects">
+            <img src="gif/mitre_map.gif" alt="MITRE mapping"><span class="gif-label">MITRE map</span>
+          </a>
+          <a class="gif-tile" href="portfolioAlexanderIsoev/SOC_Portfolio_Alexander__Isoev.pdf" target="_blank" rel="noopener">
+            <img src="gif/phishing.gif" alt="Phishing"><span class="gif-label">Phishing</span>
+          </a>
+          <a class="gif-tile" href="https://github.com/PurePootato" target="_blank" rel="noopener">
+            <img src="gif/tools.gif" alt="Tooling"><span class="gif-label">Tooling</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Контакты -->
+      <aside class="contact-card">
+        <h3>Let’s connect</h3>
+        <p style="opacity:.9; margin:0 0 10px">
+          Open to SOC / Detection Engineering / Incident Response roles.
+        </p>
+        <div class="contact-actions">
+          <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=alexanderisoevf@gmail.com&su=Hello%20Alexander&body=Hi%20Alexander%2C"
+             target="_blank" rel="noopener">✉️ Email</a>
+          <a class="btn btn-ghost" href="https://linkedin.com/in/alexanderisoev" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-ghost" href="https://github.com/PurePootato" target="_blank" rel="noopener">GitHub</a>
+        </div>
+
+        <div style="height:10px"></div>
+        <h4 style="margin:10px 0 6px">Quick docs</h4>
+        <div class="contact-actions">
+          <a class="btn btn-ghost" href="Alexander_Isoev_Experience.pdf" target="_blank" rel="noopener">Experience PDF</a>
+          <a class="btn btn-ghost" href="education/Education_Alexander_Isoev.pdf" target="_blank" rel="noopener">Education PDF</a>
+          <a class="btn btn-ghost" href="portfolioAlexanderIsoev/SOC_Portfolio_Alexander__Isoev.pdf" target="_blank" rel="noopener">Portfolio PDF</a>
+        </div>
+      </aside>
+    </div>
+
+    <footer>© <span id="year"></span> Alexander Isoev — SOC / Cybersecurity Analyst</footer>
+  </main>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

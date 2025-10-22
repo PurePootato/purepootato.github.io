@@ -408,28 +408,24 @@ function dragEnd(){
   wrap.classList.remove('dragging');
 
   
-  const MIN = 12; 
+  const MIN = 3; 
+  const dir = (deltaX < 0) ? 1 : -1;
 
+  
   if (Math.abs(deltaX) < MIN) {
-    // Почти не тянули — остаёмся на месте
     setX(-current * slideW, true);
     deltaX = 0;
     start();
     return;
   }
 
-  // Направление: влево — предыдущий, вправо — следующий
-  const dir = (deltaX < 0) ? 1 : -1;
   let target = current + dir;
-
-  // Не вылетаем за «клоны»
   const minIndex = 0;
   const maxIndex = slides.length + 1;
   target = Math.max(minIndex, Math.min(maxIndex, target));
 
-  // Быстрая, чуть короче анимация
   animating = true;
-  track.style.transition = 'transform .30s ease-out';
+  track.style.transition = 'transform .30s ease-out'; 
   current = target;
   setX(-current * slideW, true);
   updateDots();
@@ -437,7 +433,6 @@ function dragEnd(){
   deltaX = 0;
   start();
 }
-
 viewport.addEventListener('pointerdown', e => {
   if(e.button !== 0) return;
   viewport.setPointerCapture(e.pointerId);

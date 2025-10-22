@@ -38,7 +38,7 @@
 
     .container{max-width:1100px; margin:0 auto; padding:30px 20px}
 
-    /* BG WAVES (как на главной) */
+    /* BG WAVES  */
     .bg-waves{ position:fixed; inset:0; width:100%; height:100vh; pointer-events:none; z-index:0; opacity:.95; }
     @keyframes sway{0%{transform:translateY(0) scale(1)}50%{transform:translateY(8px) scale(1.01)}100%{transform:translateY(0) scale(1)}}
     .bg-waves path:nth-of-type(1){animation:sway 12s ease-in-out infinite}
@@ -244,7 +244,8 @@
   <div class="callout-title">Highlighted case — Phishing / Malicious Attachment</div>
   <p>
      Phishing email with a disguised attachment (<code>finance-report.pdf.exe.zip</code>) was analyzed in a sandbox and confirmed
-    as a <strong>Trojan</strong> (45/65 VT). The embedded link redirected to a <strong>malicious website</strong>.
+    as a <strong>Trojan</strong> (45/65 VT). The message impersonated a company employee to increase trust, and the embedded link
+    redirected to a <strong>malicious website</strong>.
   </p>
 </aside>
 </section>

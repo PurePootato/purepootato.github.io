@@ -62,7 +62,41 @@
     .box{background:linear-gradient(145deg, #123b33, #0e2f27); border:1px solid var(--border); border-radius:18px; padding:22px}
 
     footer {opacity:.8; text-align:center; padding: 24px 0 28px; margin-top: 30px;}
-
+/* === Featured SOC Cases — Horizontal Slider === */
+.cs-wrap{margin-top:40px}
+.cs-frame{
+  position:relative; overflow:hidden;
+  background:linear-gradient(145deg,#123b33,#0e2f27);
+  border:1px solid var(--border); border-radius:22px;
+  padding:18px; box-shadow:var(--shadow);
+}
+.cs-viewport{
+  overflow:hidden;
+  touch-action: pan-y;          
+  -webkit-overflow-scrolling: touch;
+}
+.cs-track{display:flex; gap:0; transition:transform .55s ease; will-change:transform;}
+.cs-slide{min-width:100%; flex:0 0 100%; padding:8px; box-sizing:border-box}
+.cs-card{display:grid; grid-template-columns:180px 1fr; gap:20px; align-items:center;}
+.cs-avatar{width:150px; height:150px; border-radius:999px; object-fit:cover;
+  box-shadow:0 0 0 6px rgba(147,224,199,.08)}
+.cs-title{margin:0 0 6px; font-size:24px; font-weight:800}
+.cs-text{color:#e8f3f0; line-height:1.6; margin:6px 0 0}
+.cs-chips{display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 10px}
+.cs-arrow{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:38px; height:38px; border-radius:10px; border:1px solid var(--border);
+  background:var(--card); color:var(--text); cursor:pointer; opacity:.9; z-index:2;
+}
+.cs-prev{left:10px} .cs-next{right:10px}
+.cs-arrow:hover{filter:brightness(1.1)}
+.cs-dots{display:flex; gap:8px; justify-content:center; margin-top:14px}
+.cs-dot{width:36px; height:6px; border-radius:999px; background:#1a3c33; border:1px solid var(--border); opacity:.6; cursor:pointer}
+.cs-dot.is-active{opacity:1; background:var(--accent)}
+@media (max-width:900px){
+  .cs-card{grid-template-columns:1fr; text-align:center}
+  .cs-avatar{width:110px; height:110px}
+}
     @media (max-width: 900px){
       .grid{grid-template-columns:1fr}
     }
@@ -172,61 +206,172 @@
         <p class="muted" style="margin-top:10px">* Evidence available on request (redacted incident notes &amp; screenshots).</p>
       </div>
     </section>
-<!-- === Featured SOC Cases Section === -->
- <section class="cases-wrap" aria-label="Featured SOC Cases">
-   <div class="cases-head">
-     <h2>Featured SOC Cases</h2>
-     <span class="tag">Live</span>
-   </div>
+    <!-- === Featured SOC Cases (Slider) === -->
+<section class="cs-wrap" id="cases">
+  <div class="cs-frame">
+    <button class="cs-arrow cs-prev" aria-label="Previous slide">❮</button>
+    <button class="cs-arrow cs-next" aria-label="Next slide">❯</button>
 
-   <div class="cases-ticker">
-     <div class="cases-track">
-       <!-- === ЦИКЛ 1 === -->
-       <a class="case-pill" href="https://github.com/PurePootato/SOC-Incident-Reports#coldfusion-recon" target="_blank" rel="noopener">
-         ColdFusion Recon <span class="mitre">T1595.002</span>
-       </a>
-       <a class="case-pill" href="https://github.com/PurePootato/SOC-Incident-Reports#reflected-xss" target="_blank" rel="noopener">
-         Reflected XSS (SearchPHP) <span class="mitre">T1059 / T1595</span>
-       </a>
-       <a class="case-pill" href="https://github.com/PurePootato/SOC-Incident-Reports#cgi-bin-shell" target="_blank" rel="noopener">
-         CGI-Bin Shell Exec Attempt <span class="mitre">T1190</span>
-       </a>
-       <a class="case-pill" href="https://github.com/PurePootato/SOC-Incident-Reports#lfi-probe" target="_blank" rel="noopener">
-         LFI Probe /proc/self/environ <span class="mitre">T1595.002 · T1083</span>
-       </a>
-       <a class="case-pill" href="https://github.com/PurePootato/SOC-Incident-Reports#rce-m0zi" target="_blank" rel="noopener">
-         RCE → Mozi Botnet Download <span class="mitre">T1105 · T1059.004</span>
-       </a>
-       <a class="case-pill" href="https://github.com/PurePootato/SOC-Incident-Reports#powershell-process-injection" target="_blank" rel="noopener">
-         PowerShell Process Injection <span class="mitre">T1055 · T1059.001</span>
-       </a>
+    <div class="cs-track">
+      <!-- Slide 1 -->
+      <article class="cs-slide">
+        <div class="cs-card">
+          <div class="cs-left">
+            <img class="cs-avatar" src="Alexander_Isoev.jpeg" alt="Alexander Isoev">
+          </div>
+          <div class="cs-right">
+            <h3 class="cs-title">ColdFusion Recon</h3>
+            <div class="cs-chips">
+              <span class="chip">QRadar</span><span class="chip">Suricata</span>
+              <span class="chip">MITRE: T1595.002</span>
+            </div>
+            <p class="cs-text">
+              Detected probing of <code>/CFIDE/</code> paths & components. Correlated across WAF, EDR, and Suricata to confirm reconnaissance.
+            </p>
+          </div>
+        </div>
+      </article>
 
-       <!-- === ЦИКЛ 2 (дубликат) === -->
-       <a class="case-pill" href="https://github.com/PurePootato/SOC-Incident-Reports#coldfusion-recon" target="_blank" rel="noopener">
-         ColdFusion Recon <span class="mitre">T1595.002</span>
-       </a>
-       <a class="case-pill" href="https://github.com/PurePootato/SOC-Incident-Reports#reflected-xss" target="_blank" rel="noopener">
-         Reflected XSS (SearchPHP) <span class="mitre">T1059 / T1595</span>
-       </a>
-       <a class="case-pill" href="https://github.com/PurePootato/SOC-Incident-Reports#cgi-bin-shell" target="_blank" rel="noopener">
-         CGI-Bin Shell Exec Attempt <span class="mitre">T1190</span>
-       </a>
-       <a class="case-pill" href="https://github.com/PurePootato/SOC-Incident-Reports#lfi-probe" target="_blank" rel="noopener">
-         LFI Probe /proc/self/environ <span class="mitre">T1595.002 · T1083</span>
-       </a>
-       <a class="case-pill" href="https://github.com/PurePootato/SOC-Incident-Reports#rce-m0zi" target="_blank" rel="noopener">
-         RCE → Mozi Botnet Download <span class="mitre">T1105 · T1059.004</span>
-       </a>
-       <a class="case-pill" href="https://github.com/PurePootato/SOC-Incident-Reports#powershell-process-injection" target="_blank" rel="noopener">
-         PowerShell Process Injection <span class="mitre">T1055 · T1059.001</span>
-       </a>
-     </div>
-   </div>
- </section>
+      <!-- Slide 2 -->
+      <article class="cs-slide">
+        <div class="cs-card">
+          <div class="cs-left">
+            <img class="cs-avatar" src="Alexander_Isoev.jpeg" alt="Alexander Isoev">
+          </div>
+          <div class="cs-right">
+            <h3 class="cs-title">Reflected XSS</h3>
+            <div class="cs-chips">
+              <span class="chip">Splunk</span><span class="chip">Elastic SIEM</span>
+              <span class="chip">MITRE: T1059 / T1595</span>
+            </div>
+            <p class="cs-text">
+              Investigated encoded payloads in <code>searchdata</code> param — correlated anomalies in Suricata and confirmed benign testing.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Slide 3 -->
+      <article class="cs-slide">
+        <div class="cs-card">
+          <div class="cs-left">
+            <img class="cs-avatar" src="Alexander_Isoev.jpeg" alt="Alexander Isoev">
+          </div>
+          <div class="cs-right">
+            <h3 class="cs-title">PowerShell Process Injection</h3>
+            <div class="cs-chips">
+              <span class="chip">CrowdStrike</span><span class="chip">Windows Logs</span>
+              <span class="chip">MITRE: T1055 · T1059.001</span>
+            </div>
+            <p class="cs-text">
+              PowerShell injection into explorer.exe, isolated host and updated detection rules. Documented containment in JIRA.
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+  <div class="cs-dots"></div>
+</section>
     <footer>© <span id="year"></span> Alexander Isoev — SOC / Cybersecurity Analyst</footer>
   </main>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+(function(){
+  const wrap = document.querySelector('.cs-wrap');
+  if(!wrap) return;
+
+  const track = wrap.querySelector('.cs-track');
+  const slides = Array.from(track.children);
+  const prevBtn = wrap.querySelector('.cs-prev');
+  const nextBtn = wrap.querySelector('.cs-next');
+  const dotsBox = wrap.querySelector('.cs-dots');
+
+  // оборачиваем трек
+  const viewport = document.createElement('div');
+  viewport.className = 'cs-viewport';
+  track.parentNode.insertBefore(viewport, track);
+  viewport.appendChild(track);
+
+  // клоны для бесконечного цикла
+  const firstClone = slides[0].cloneNode(true);
+  const lastClone  = slides[slides.length-1].cloneNode(true);
+  track.insertBefore(lastClone, slides[0]);
+  track.appendChild(firstClone);
+
+  // точки
+  slides.forEach((_,i)=>{
+    const b = document.createElement('button');
+    b.className = 'cs-dot' + (i===0?' is-active':'');
+    b.addEventListener('click', ()=>goTo(i,true));
+    dotsBox.appendChild(b);
+  });
+  const dots = Array.from(dotsBox.children);
+
+  let current = 1, slideW = 0, timer = null, hovering=false, animating=false;
+
+  function measure(){
+    slideW = viewport.clientWidth;
+    track.style.transform = `translateX(${-current*slideW}px)`;
+  }
+
+  function setX(x, anim=true){
+    track.style.transition = anim ? 'transform .55s ease' : 'none';
+    track.style.transform = `translateX(${x}px)`;
+  }
+
+  function updateDots(){
+    dots.forEach(d=>d.classList.remove('is-active'));
+    dots[(current-1+slides.length)%slides.length].classList.add('is-active');
+  }
+
+  function goTo(i,manual){
+    if(animating) return;
+    animating = true;
+    current = i+1;
+    setX(-current*slideW,true);
+    updateDots();
+    if(manual) restart();
+  }
+
+  function next(){if(animating)return;animating=true;current++;setX(-current*slideW,true);updateDots();}
+  function prev(){if(animating)return;animating=true;current--;setX(-current*slideW,true);updateDots();}
+
+  track.addEventListener('transitionend',()=>{
+    if(current===slides.length+1){current=1;setX(-current*slideW,false);}
+    if(current===0){current=slides.length;setX(-current*slideW,false);}
+    animating=false;
+  });
+
+  prevBtn.onclick=prev; nextBtn.onclick=next;
+
+  // автопрокрутка
+  function start(){timer=setInterval(()=>{if(!hovering)next();},5000);}
+  function stop(){clearInterval(timer);}
+  function restart(){stop();start();}
+  wrap.onmouseenter=()=>hovering=true;
+  wrap.onmouseleave=()=>hovering=false;
+
+  // drag (мышь и тач)
+  let startX=0,deltaX=0,isDown=false,dragged=false;
+  function dragStart(x){stop();isDown=true;deltaX=0;dragged=false;startX=x;track.style.transition='none';}
+  function dragMove(x){if(!isDown)return;deltaX=x-startX;if(Math.abs(deltaX)>5)dragged=true;setX(-current*slideW+deltaX,false);}
+  function dragEnd(){if(!isDown)return;isDown=false;
+    if(Math.abs(deltaX)>slideW*0.2){deltaX<0?next():prev();}else{setX(-current*slideW,true);}
+    start();deltaX=0;
+  }
+  viewport.addEventListener('pointerdown',e=>{if(e.button!==0)return;viewport.setPointerCapture(e.pointerId);dragStart(e.clientX);});
+  viewport.addEventListener('pointermove',e=>dragMove(e.clientX));
+  viewport.addEventListener('pointerup',e=>{viewport.releasePointerCapture(e.pointerId);dragEnd();});
+  viewport.addEventListener('pointercancel',dragEnd);
+  viewport.addEventListener('mouseleave',()=>{if(isDown)dragEnd();});
+  track.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();dragged=false;}},true);
+
+  window.addEventListener('resize',measure);
+  measure();start();updateDots();
+})();
+</script>
 
   <!-- Same decorative waves as index -->
   <svg class="bg-waves" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">

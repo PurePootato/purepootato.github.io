@@ -379,7 +379,7 @@
   nextBtn.addEventListener('click', () => { next(); restart(); });
 
   // Автопрокрутка
-  function start(){ timer=setInterval(()=>{ if(!hovering) next(); },6000); }
+  function start(){ timer=setInterval(()=>{ if(!hovering) next(); },4000); }
   function stop(){ clearInterval(timer); timer=null; }
   function restart(){ stop(); start(); }
 

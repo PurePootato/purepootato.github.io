@@ -159,6 +159,39 @@
   border:1px solid var(--border); border-radius:16px; padding:16px 18px; box-shadow:var(--shadow)
 }
 .callout-title{font-weight:800; margin-bottom:6px}
+    /* compact list style for responsibilities/outcomes */
+.clean-list { list-style:none; padding:0; margin:8px 0 0; }
+.clean-list li {
+  position:relative;
+  padding-left:34px;
+  margin:10px 0;
+  line-height:1.45;
+  font-size:15px;
+  color: #e8f3f0;
+}
+.clean-list li::before{
+  content: "✓";
+  position:absolute;
+  left:0;
+  top:2px;
+  width:24px;
+  height:24px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:6px;
+  background: rgba(108,213,181,.08);
+  color: var(--accent);
+  font-weight:700;
+  font-size:13px;
+  border:1px solid rgba(108,213,181,.08);
+}
+
+/* slightly stronger headings */
+.responsibilities h3, .outcomes h3 { margin-bottom:8px }
+
+/* optional: make Outcomes feel distinct */
+.outcomes { background: linear-gradient(145deg,#122f2a,#0c2a23); }
   </style>
 </head>
 <body>
@@ -252,28 +285,27 @@
     
     <!-- RESPONSIBILITIES -->
     <section class="grid" style="margin-top:8px">
-      <div class="card">
-        <h3>Key Responsibilities</h3>
-        <ul>
-          <li>Monitored and analyzed alerts in Splunk, IBM QRadar, and Elastic SIEM to detect suspicious activity and anomalies.</li>
-          <li>Performed endpoint triage with CrowdStrike Falcon, focusing on process injection (<strong>T1055</strong>) and PowerShell abuse (<strong>T1059.001</strong>).</li>
-          <li>Investigated phishing &amp; malware cases: decoded URLs, extracted payloads, enriched IOCs with threat-intel tools.</li>
-          <li>Authored incident documentation &amp; JIRA tickets with ATT&amp;CK mapping, containment steps, and evidence.</li>
-          <li>Assisted in detection rule tuning to reduce false positives and improve signal-to-noise ratio.</li>
-          <li>Collaborated with senior analysts during shift handovers and cross-tool investigations.</li>
-        </ul>
-      </div>
+  <div class="card responsibilities">
+    <h3>Key Responsibilities</h3>
+    <ul class="clean-list">
+      <li><strong>Monitor & Triage:</strong> review and prioritize alerts across Splunk, QRadar and Elastic to surface high-risk events.</li>
+      <li><strong>Endpoint Forensics:</strong> perform triage in CrowdStrike Falcon (process injection, PowerShell abuse) and validate containment.</li>
+      <li><strong>Threat Enrichment:</strong> decode payloads/URLs and enrich IOCs using VirusTotal, GreyNoise, AbuseIPDB and community telemetry.</li>
+      <li><strong>Detection Engineering:</strong> tune correlation rules and detection logic to reduce noise and improve SNR.</li>
+      <li><strong>Incident Documentation:</strong> create structured investigation notes, ATT&CK mapping and JIRA playbooks for repeatable handovers.</li>
+    </ul>
+  </div>
 
-      <div class="card">
-        <h3>Results &amp; Highlights</h3>
-        <ul>
-          <li>Optimized QRadar rules (≈ <strong>−20% false positives</strong>).</li>
-          <li>Mapped <strong>12+ MITRE</strong> techniques across investigated incidents.</li>
-          <li>Authored SOC playbooks improving triage consistency and handover quality.</li>
-          <li>Identified PowerShell injection chains and strengthened related detections.</li>
-        </ul>
-        <p class="muted" style="margin-top:10px">* Evidence available on request (redacted incident notes &amp; screenshots).</p>
-      </div>
+  <div class="card outcomes">
+    <h3>Results & Highlights</h3>
+    <ul class="clean-list">
+      <li><strong>Reduced false positives</strong> in QRadar (~<strong>−20%</strong>) through targeted rule tuning and contextual enrichments.</li>
+      <li><strong>Mapped 12+</strong> MITRE techniques across incidents to improve detection coverage and reporting.</li>
+      <li><strong>Produced SOC playbooks</strong> that standardized triage and improved shift handover clarity.</li>
+      <li><strong>Identified and blocked</strong> malicious infrastructure and IOCs; documented containment steps in JIRA.</li>
+    </ul>
+    <p class="muted" style="margin-top:12px">* Detailed evidence and redacted notes available on request.</p>
+  </div>
     </section>
     <!-- === Featured SOC Cases (Slider) === -->
 <section class="cs-wrap" id="cases" role="region" aria-roledescription="carousel" aria-label="Featured SOC Cases">

@@ -293,12 +293,14 @@ main.container {
   <script>
   (function () {
     const links = document.querySelectorAll('.nav-links a');
-    const here = location.pathname.replace(/\/index\.html?$/, '/'); 
+    // Проверяем, главная ли страница (учитывает /, /index.html и /portfolio/)
+    const isIndex = /\/(?:index\.html?)?$/.test(location.pathname);
+
     links.forEach(a => {
-  
-      const samePage = a.getAttribute('href') === '#home' && (here === '/' || here === '');
+      const href = a.getAttribute('href') || '';
+      const sameHome = href === '#home' && isIndex;
       const samePath = a.pathname === location.pathname && !a.hash;
-      if (samePage || samePath) a.setAttribute('aria-current', 'page');
+      if (sameHome || samePath) a.setAttribute('aria-current', 'page');
     });
   })();
 </script>

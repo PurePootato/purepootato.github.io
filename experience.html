@@ -284,13 +284,80 @@
             <p class="cs-text">
               PowerShell injection into explorer.exe, isolated host and updated detection rules. Documented containment in JIRA.
             </p>
-          </div>
-        </div>
+          </div> <!-- /cs-right -->
+        </div>   <!-- /cs-card -->
       </article>
-    </div>
-  </div>
+    </div> <!-- /cs-track -->
+  </div> <!-- /cs-frame -->
   <div class="cs-dots"></div>
+</section> <!-- /cs-wrap -->
+      <!-- === Detailed SOC Incident Cases === -->
+<section class="box" style="margin-top:40px">
+  <h2 style="margin-top:0">Web Attack Cases (QRadar / Suricata)</h2>
+  <div style="overflow-x:auto">
+    <table style="width:100%; border-collapse:collapse; font-size:14px; margin-top:10px;">
+      <thead>
+        <tr style="background:#10352d;">
+          <th style="padding:8px 10px; border:1px solid var(--border); text-align:left;">Incident</th>
+          <th style="padding:8px 10px; border:1px solid var(--border); text-align:left;">Description</th>
+          <th style="padding:8px 10px; border:1px solid var(--border); text-align:left;">Tools</th>
+          <th style="padding:8px 10px; border:1px solid var(--border); text-align:left;">MITRE ATT&CK</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:8px 10px; border:1px solid var(--border);">ColdFusion Reconnaissance</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">Probing <code>/CFIDE/componentutils/</code> — reconnaissance scanning.</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">QRadar, Suricata</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">T1595.002 (Active Scanning)</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 10px; border:1px solid var(--border);">Reflected XSS</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">Automated reflected XSS probes via <code>searchdata</code> param.</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">Splunk, Elastic SIEM</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">T1059.007 / T1595</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 10px; border:1px solid var(--border);">SQL Injection Attempt</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">Detected UNION SELECT &amp; SLEEP() exploitation attempts.</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">QRadar, WAF Logs</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">T1190 (Exploit Public-Facing App)</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 10px; border:1px solid var(--border);">PHP RCE &amp; Directory Traversal</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">Dual attack: <code>auto_prepend_file</code> &amp; traversal via <code>index.php?lang=../../</code>.</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">Suricata, Apache Logs</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">T1190 / T1006 / T1059.004</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </section>
+
+<section class="box" style="margin-top:30px">
+  <h2 style="margin-top:0">EDR Cases (CrowdStrike Falcon)</h2>
+  <div style="overflow-x:auto">
+    <table style="width:100%; border-collapse:collapse; font-size:14px; margin-top:10px;">
+      <thead>
+        <tr style="background:#10352d;">
+          <th style="padding:8px 10px; border:1px solid var(--border); text-align:left;">Incident</th>
+          <th style="padding:8px 10px; border:1px solid var(--border); text-align:left;">Description</th>
+          <th style="padding:8px 10px; border:1px solid var(--border); text-align:left;">Tools</th>
+          <th style="padding:8px 10px; border:1px solid var(--border); text-align:left;">MITRE ATT&CK</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:8px 10px; border:1px solid var(--border);">PowerShell Process Injection</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">ExecutionPolicy bypass → <code>Start-Hollow.ps1</code> → explorer.exe injection.</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">CrowdStrike Falcon, Windows Logs</td>
+          <td style="padding:8px 10px; border:1px solid var(--border);">T1055 / T1059.001 / T1105</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
     <footer>© <span id="year"></span> Alexander Isoev — SOC / Cybersecurity Analyst</footer>
   </main>
 
@@ -319,12 +386,13 @@
   track.appendChild(firstClone);
 
   // Точки
-  slides.forEach((_,i)=>{
-    const b = document.createElement('button');
-    b.className = 'cs-dot' + (i===0?' is-active':'');
-    dotsBox.appendChild(b);
-  });
-  const dots = Array.from(dotsBox.children);
+  slides.forEach((_, i) => {
+  const b = document.createElement('button');
+  b.className = 'cs-dot' + (i===0 ? ' is-active' : '');
+  b.addEventListener('click', () => goTo(i, true)); 
+  dotsBox.appendChild(b);
+});
+const dots = Array.from(dotsBox.children);
 
   let current = 1, slideW = 0, timer = null, hovering=false, animating=false;
 

@@ -388,7 +388,7 @@ function dragMove(x){
   deltaX = x - startX;
 
   
-  const limit = slideW * 1.15;
+  const limit = slideW * 1.00;
   const offset = clamp(deltaX, -limit, limit);
 
   if(Math.abs(offset) > 4) dragged = true;
@@ -403,32 +403,33 @@ function dragMove(x){
 }
 
 function dragEnd(){
-  if(!isDown) return;
+  if (!isDown) return;
   isDown = false;
   wrap.classList.remove('dragging');
 
   
-  const threshold = slideW * 0.25;
+  const MIN = 12; 
 
-  if(Math.abs(deltaX) <= threshold){
+  if (Math.abs(deltaX) < MIN) {
+    // Почти не тянули — остаёмся на месте
     setX(-current * slideW, true);
     deltaX = 0;
     start();
     return;
   }
 
-  
-  const steps = Math.max(1, Math.round(Math.abs(deltaX) / slideW));
-  const dir = deltaX < 0 ? 1 : -1; 
-  let target = current + dir * steps;
+  // Направление: влево — предыдущий, вправо — следующий
+  const dir = (deltaX < 0) ? 1 : -1;
+  let target = current + dir;
 
-  
+  // Не вылетаем за «клоны»
   const minIndex = 0;
   const maxIndex = slides.length + 1;
   target = Math.max(minIndex, Math.min(maxIndex, target));
 
-  
+  // Быстрая, чуть короче анимация
   animating = true;
+  track.style.transition = 'transform .35s ease-out';
   current = target;
   setX(-current * slideW, true);
   updateDots();
@@ -436,7 +437,6 @@ function dragEnd(){
   deltaX = 0;
   start();
 }
-
 
 viewport.addEventListener('pointerdown', e => {
   if(e.button !== 0) return;

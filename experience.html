@@ -372,30 +372,57 @@
   // --- DRAG FIXED ---
   let startX = 0, deltaX = 0, isDown = false, dragged = false, raf = null;
 let baseX = 0; 
-
+let startY = 0, deltaY = 0;
+  let snappedThisDrag = false;  
+  function commit(dir){              
+  if (animating) return;
+  animating = true;
+  snappedThisDrag = true;
+  let target = current + dir;
+  const minIndex = 0, maxIndex = slides.length + 1;
+  target = Math.max(minIndex, Math.min(maxIndex, target));
+  current = target;
+  track.style.transition = 'transform .18s ease-out'; 
+  setX(-current * slideW, true);
+  updateDots();
+}
 function clamp(v, min, max){ return Math.min(max, Math.max(min, v)); }
 
-function dragStart(x){
-  stop(); 
+function dragStart(x, y){
+  stop();
   isDown = true; dragged = false; deltaX = 0; startX = x;
-  baseX = -current * slideW;           
+  startY = y; deltaY = 0;
+  snappedThisDrag = false;        
+  baseX = -current * slideW;
   wrap.classList.add('dragging');
-  track.style.transition = 'none';     
+  track.style.transition = 'none';
 }
 
-function dragMove(x){
+function dragMove(x, y){
   if(!isDown) return;
+
   deltaX = x - startX;
+  deltaY = y - startY;
 
-  
-  const limit = slideW * 1.00;
+  const horizontalIntent = Math.abs(deltaX) > Math.abs(deltaY) + 2;
+
+  if (!horizontalIntent || snappedThisDrag) return;
+
+  const SNAP = 2; 
+
+  if (Math.abs(deltaX) >= SNAP){
+   
+    const dir = (deltaX < 0) ? 1 : -1;
+    commit(dir);
+    return; 
+  }
+
+  const limit = slideW * 1.0;
   const offset = clamp(deltaX, -limit, limit);
-
-  if(Math.abs(offset) > 6) dragged = true;
+  if (Math.abs(offset) > 3) dragged = true;
 
   if(!raf){
     raf = requestAnimationFrame(()=>{
-      
       setX(baseX + offset, false);
       raf = null;
     });
@@ -407,46 +434,33 @@ function dragEnd(){
   isDown = false;
   wrap.classList.remove('dragging');
 
-  
-  const MIN = 3; 
-  const dir = (deltaX < 0) ? 1 : -1;
-
-  
-  if (Math.abs(deltaX) < MIN) {
-    setX(-current * slideW, true);
-    deltaX = 0;
+  if (snappedThisDrag){
+    deltaX = 0; deltaY = 0;
     start();
     return;
   }
 
-  let target = current + dir;
-  const minIndex = 0;
-  const maxIndex = slides.length + 1;
-  target = Math.max(minIndex, Math.min(maxIndex, target));
-
-  animating = true;
-  track.style.transition = 'transform .30s ease-out'; 
-  current = target;
   setX(-current * slideW, true);
-  updateDots();
-
-  deltaX = 0;
+  deltaX = 0; deltaY = 0;
   start();
 }
 viewport.addEventListener('pointerdown', e => {
-  if(e.button !== 0) return;
+  if (e.button !== 0) return;
   viewport.setPointerCapture(e.pointerId);
-  dragStart(e.clientX);
+  dragStart(e.clientX, e.clientY); 
 });
 
 viewport.addEventListener('pointermove', e => {
-  if (isDown) e.preventDefault();   
-  dragMove(e.clientX);
+  
+  const hIntent = Math.abs(e.clientX - startX) > Math.abs(e.clientY - startY) + 2;
+  if (isDown && hIntent) e.preventDefault();
+  dragMove(e.clientX, e.clientY);   
 }, { passive: false });
 
 viewport.addEventListener('pointerup', e => {
   viewport.releasePointerCapture(e.pointerId);
   dragEnd();
+
 });
 viewport.addEventListener('pointercancel', dragEnd);
 viewport.addEventListener('mouseleave', () => { if(isDown) dragEnd(); });

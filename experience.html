@@ -75,7 +75,6 @@
   touch-action: pan-y;          
   -webkit-overflow-scrolling: touch;
 }
-.cs-track{display:flex; gap:0; transition:transform .55s ease; will-change:transform;}
 .cs-slide{min-width:100%; flex:0 0 100%; padding:8px; box-sizing:border-box}
 .cs-card{display:grid; grid-template-columns:180px 1fr; gap:20px; align-items:center;}
 .cs-avatar{width:150px; height:150px; border-radius:999px; object-fit:cover;
@@ -88,8 +87,16 @@
   width:38px; height:38px; border-radius:10px; border:1px solid var(--border);
   background:var(--card); color:var(--text); cursor:pointer; opacity:.9; z-index:2;
 }
-.cs-prev{left:10px} .cs-next{right:10px}
+.cs-prev{left:10px}
+.cs-next{right:10px}
 .cs-arrow:hover{filter:brightness(1.1)}
+
+.cs-track{
+  display:flex; gap:0;
+  transition:transform .55s ease;
+  will-change:transform;
+  transform: translate3d(0,0,0); 
+}
 .cs-dots{display:flex; gap:8px; justify-content:center; margin-top:14px}
 .cs-dot{width:36px; height:6px; border-radius:999px; background:#1a3c33; border:1px solid var(--border); opacity:.6; cursor:pointer}
 .cs-dot.is-active{opacity:1; background:var(--accent)}
@@ -319,13 +326,13 @@
   let current = 1, slideW = 0, timer = null, hovering=false, animating=false;
 
   function measure(){
-    slideW = viewport.clientWidth;
+    slideW = Math.round(viewport.getBoundingClientRect().width);
     setX(-current*slideW, false);
   }
 
   function setX(x, animate=true){
     track.style.transition = animate ? 'transform .55s ease' : 'none';
-    track.style.transform  = `translateX(${x}px)`;
+   track.style.transform  = `translate3d(${x}px,0,0)`;
   }
 
   function updateDots(){
@@ -374,7 +381,7 @@
   function dragMove(x){
     if(!isDown) return;
     deltaX = x - startX;
-    const limit = slideW * 0.6;
+    const limit = slideW * 0.35;
     const offset = clamp(deltaX, -limit, limit);
     if(Math.abs(offset)>5) dragged=true;
     if(!raf){

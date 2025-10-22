@@ -287,71 +287,107 @@
           </div> <!-- /cs-right -->
         </div>   <!-- /cs-card -->
       </article>
-      <!-- Slide 4: Web Attack Cases -->
-<article class="cs-slide cs-slide--wide">
-  <div class="cs-wide">
-    <h2>Web Attack Cases (QRadar / Suricata)</h2>
-    <div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Incident</th><th>Description</th><th>Tools</th><th>MITRE ATT&CK</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ColdFusion Reconnaissance</td>
-            <td>Probing <code>/CFIDE/componentutils/</code> — reconnaissance scanning.</td>
-            <td>QRadar, Suricata</td>
-            <td>T1595.002 (Active Scanning)</td>
-          </tr>
-          <tr>
-            <td>Reflected XSS</td>
-            <td>Automated reflected XSS probes via <code>searchdata</code> param.</td>
-            <td>Splunk, Elastic SIEM</td>
-            <td>T1059.007 / T1595</td>
-          </tr>
-          <tr>
-            <td>SQL Injection Attempt</td>
-            <td>Detected UNION SELECT &amp; SLEEP() exploitation attempts.</td>
-            <td>QRadar, WAF Logs</td>
-            <td>T1190 (Exploit Public-Facing App)</td>
-          </tr>
-          <tr>
-            <td>PHP RCE &amp; Directory Traversal</td>
-            <td>Dual attack: <code>auto_prepend_file</code> &amp; traversal via <code>index.php?lang=../../</code>.</td>
-            <td>Suricata, Apache Logs</td>
-            <td>T1190 / T1006 / T1059.004</td>
-          </tr>
-        </tbody>
-      </table>
+     <!-- CGI-Bin Shell Execution Attempt -->
+<article class="cs-slide">
+  <div class="cs-card">
+    <div class="cs-left">
+      <img class="cs-avatar" src="Alexander_Isoev.jpeg" alt="Alexander Isoev">
+    </div>
+    <div class="cs-right">
+      <h3 class="cs-title">CGI-Bin Shell Execution Attempt</h3>
+      <div class="cs-chips">
+        <span class="chip">QRadar</span><span class="chip">Suricata</span>
+        <span class="chip">MITRE: T1190</span><span class="chip">T1059.004</span>
+      </div>
+      <p class="cs-text">
+        Path traversal to execute <code>/bin/sh</code> via <code>/cgi-bin/</code> with double-encoded payloads.  
+        Correlated WAF/IDS hits and blocked activity.
+      </p>
     </div>
   </div>
 </article>
 
-<!-- Slide 5: EDR Cases -->
-<article class="cs-slide cs-slide--wide">
-  <div class="cs-wide">
-    <h2>EDR Cases (CrowdStrike Falcon)</h2>
-    <div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Incident</th><th>Description</th><th>Tools</th><th>MITRE ATT&amp;CK</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>PowerShell Process Injection</td>
-            <td>ExecutionPolicy bypass → <code>Start-Hollow.ps1</code> → explorer.exe injection.</td>
-            <td>CrowdStrike Falcon, Windows Logs</td>
-            <td>T1055 / T1059.001 / T1105</td>
-          </tr>
-        </tbody>
-      </table>
+<!-- LFI Probe — /proc/self/environ -->
+<article class="cs-slide">
+  <div class="cs-card">
+    <div class="cs-left">
+      <img class="cs-avatar" src="Alexander_Isoev.jpeg" alt="Alexander Isoev">
+    </div>
+    <div class="cs-right">
+      <h3 class="cs-title">LFI Probe — /proc/self/environ</h3>
+     <div class="cs-chips">
+  <span class="chip">QRadar</span><span class="chip">Suricata</span>
+  <span class="chip">MITRE: T1595.002</span><span class="chip">T1006</span>
+</div>
+      <p class="cs-text">
+        Automated attempts to read <code>/proc/self/environ</code> for env disclosure/LFI recon.  
+        All requests returned 403; flagged and enriched with threat intel.
+      </p>
     </div>
   </div>
 </article>
+
+<!-- SQL Injection — UNION & Time-Based Blind -->
+<article class="cs-slide">
+  <div class="cs-card">
+    <div class="cs-left">
+      <img class="cs-avatar" src="Alexander_Isoev.jpeg" alt="Alexander Isoev">
+    </div>
+    <div class="cs-right">
+      <h3 class="cs-title">SQLi — UNION & Time-Based Blind</h3>
+      <div class="cs-chips">
+        <span class="chip">QRadar</span><span class="chip">WAF Logs</span>
+        <span class="chip">MITRE: T1190</span><span class="chip">T1595.002</span>
+      </div>
+      <p class="cs-text">
+        Attempts against <code>/admin/update-issue-bookdeals.php</code> using <code>UNION SELECT</code> and <code>SLEEP()</code>.  
+        Detected by WAF, correlated in SIEM, no data exfil observed.
+      </p>
+    </div>
+  </div>
+</article>
+
+<!-- RCE Attempt — CGI Command Injection & Mozi Download -->
+<article class="cs-slide">
+  <div class="cs-card">
+    <div class="cs-left">
+      <img class="cs-avatar" src="Alexander_Isoev.jpeg" alt="Alexander Isoev">
+    </div>
+    <div class="cs-right">
+      <h3 class="cs-title">RCE — CGI Cmd Injection & Mozi</h3>
+      <div class="cs-chips">
+        <span class="chip">QRadar</span><span class="chip">Suricata</span>
+        <span class="chip">MITRE: T1190</span><span class="chip">T1105</span>
+      </div>
+      <p class="cs-text">
+        Outbound to <code>/setup.cgi</code> using <code>wget + sh</code> to download <code>Mozi.m</code>.  
+        Requests blocked (403); added IOC blocks and tuned rules.
+      </p>
+    </div>
+  </div>
+</article>
+
+<!-- PHP RCE & Directory Traversal Attempt -->
+<article class="cs-slide">
+  <div class="cs-card">
+    <div class="cs-left">
+      <img class="cs-avatar" src="Alexander_Isoev.jpeg" alt="Alexander Isoev">
+    </div>
+    <div class="cs-right">
+      <h3 class="cs-title">PHP RCE & Directory Traversal</h3>
+      <div class="cs-chips">
+        <span class="chip">Suricata</span><span class="chip">Apache Logs</span>
+        <span class="chip">MITRE: T1190</span><span class="chip">T1006</span><span class="chip">T1059.004</span>
+      </div>
+      <p class="cs-text">
+        Abuse of <code>allow_url_include=1</code> / <code>auto_prepend_file</code> + traversal via
+        <code>index.php?lang=../../</code>. Blocked; detections hardened.
+      </p>
+    </div>
+  </div>
+</article>
+
+
     </div> <!-- /cs-track -->
   </div> <!-- /cs-frame -->
   <div class="cs-dots"></div>

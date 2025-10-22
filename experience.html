@@ -117,6 +117,8 @@
 @media (max-width:900px){
   .cs-card{ min-height: 260px; }
 }
+    .cs-viewport { cursor: grab; overscroll-behavior: contain; }
+.cs-wrap.dragging .cs-viewport { cursor: grabbing; }
   </style>
 </head>
 <body>
@@ -368,61 +370,101 @@
   wrap.addEventListener('mouseleave', ()=>hovering=false);
 
   // --- DRAG FIXED ---
-  let startX=0, deltaX=0, isDown=false, dragged=false, raf=null;
+  let startX = 0, deltaX = 0, isDown = false, dragged = false, raf = null;
+let baseX = 0; 
 
-  function clamp(v, min, max){ return Math.min(max, Math.max(min, v)); }
+function clamp(v, min, max){ return Math.min(max, Math.max(min, v)); }
 
-  function dragStart(x){
-    stop();
-    isDown=true; dragged=false; deltaX=0; startX=x;
-    wrap.classList.add('dragging');
-    track.style.transition='none';
+function dragStart(x){
+  stop(); 
+  isDown = true; dragged = false; deltaX = 0; startX = x;
+  baseX = -current * slideW;           
+  wrap.classList.add('dragging');
+  track.style.transition = 'none';     
+}
+
+function dragMove(x){
+  if(!isDown) return;
+  deltaX = x - startX;
+
+  
+  const limit = slideW * 1.15;
+  const offset = clamp(deltaX, -limit, limit);
+
+  if(Math.abs(offset) > 4) dragged = true;
+
+  if(!raf){
+    raf = requestAnimationFrame(()=>{
+      
+      setX(baseX + offset, false);
+      raf = null;
+    });
   }
-  function dragMove(x){
-    if(!isDown) return;
-    deltaX = x - startX;
-    const limit = slideW * 0.95;
-    const offset = clamp(deltaX, -limit, limit);
-    if(Math.abs(offset)>5) dragged=true;
-    if(!raf){
-      raf=requestAnimationFrame(()=>{ setX(-current*slideW+offset,false); raf=null; });
-    }
-  }
-  function dragEnd(){
-    if(!isDown) return;
-    isDown=false;
-    wrap.classList.remove('dragging');
-    const threshold = slideW* 0.25;
-    if (Math.abs(deltaX) > threshold) {
-    const steps = Math.min(
-      slides.length,                          
-      Math.max(1, Math.round(Math.abs(deltaX) / slideW))
-    );
-    if (deltaX < 0) {
-      for (let i = 0; i < steps; i++) next();
-    } else {
-      for (let i = 0; i < steps; i++) prev();
-    }
-  } else {
+}
+
+function dragEnd(){
+  if(!isDown) return;
+  isDown = false;
+  wrap.classList.remove('dragging');
+
+  
+  const threshold = slideW * 0.25;
+
+  if(Math.abs(deltaX) <= threshold){
     setX(-current * slideW, true);
+    deltaX = 0;
+    start();
+    return;
   }
+
+  
+  const steps = Math.max(1, Math.round(Math.abs(deltaX) / slideW));
+  const dir = deltaX < 0 ? 1 : -1; 
+  let target = current + dir * steps;
+
+  
+  const minIndex = 0;
+  const maxIndex = slides.length + 1;
+  target = Math.max(minIndex, Math.min(maxIndex, target));
+
+  
+  animating = true;
+  current = target;
+  setX(-current * slideW, true);
+  updateDots();
 
   deltaX = 0;
   start();
 }
 
-  viewport.addEventListener('pointerdown',e=>{ if(e.button!==0)return; viewport.setPointerCapture(e.pointerId); dragStart(e.clientX); });
-  viewport.addEventListener('pointermove', e => {
+
+viewport.addEventListener('pointerdown', e => {
+  if(e.button !== 0) return;
+  viewport.setPointerCapture(e.pointerId);
+  dragStart(e.clientX);
+});
+
+viewport.addEventListener('pointermove', e => {
   if (isDown) e.preventDefault();   
   dragMove(e.clientX);
 }, { passive: false });
-  viewport.addEventListener('pointerup',e=>{ viewport.releasePointerCapture(e.pointerId); dragEnd(); });
-  viewport.addEventListener('pointercancel',dragEnd);
-  viewport.addEventListener('mouseleave',()=>{ if(isDown) dragEnd(); });
-  track.addEventListener('click',e=>{ if(dragged){ e.preventDefault(); e.stopPropagation(); dragged=false; }},true);
 
-  window.addEventListener('resize',measure);
-  measure(); start(); updateDots();
+viewport.addEventListener('pointerup', e => {
+  viewport.releasePointerCapture(e.pointerId);
+  dragEnd();
+});
+viewport.addEventListener('pointercancel', dragEnd);
+viewport.addEventListener('mouseleave', () => { if(isDown) dragEnd(); });
+
+
+track.addEventListener('click', e => {
+  if(dragged){ e.preventDefault(); e.stopPropagation(); dragged = false; }
+}, true);
+  window.addEventListener('resize', measure);
+  measure();          
+  start();             
+  updateDots();        
+
 })();
 </script>
 

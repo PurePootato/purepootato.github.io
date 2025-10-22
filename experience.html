@@ -381,7 +381,7 @@
   function dragMove(x){
     if(!isDown) return;
     deltaX = x - startX;
-    const limit = slideW * 0.35;
+    const limit = slideW * 0.95;
     const offset = clamp(deltaX, -limit, limit);
     if(Math.abs(offset)>5) dragged=true;
     if(!raf){
@@ -392,14 +392,30 @@
     if(!isDown) return;
     isDown=false;
     wrap.classList.remove('dragging');
-    const threshold = slideW*0.18;
-    if(Math.abs(deltaX)>threshold){ deltaX<0?next():prev(); } else { setX(-current*slideW,true); }
-    deltaX=0;
-    start();
+    const threshold = slideW* 0.25;
+    if (Math.abs(deltaX) > threshold) {
+    const steps = Math.min(
+      slides.length,                          
+      Math.max(1, Math.round(Math.abs(deltaX) / slideW))
+    );
+    if (deltaX < 0) {
+      for (let i = 0; i < steps; i++) next();
+    } else {
+      for (let i = 0; i < steps; i++) prev();
+    }
+  } else {
+    setX(-current * slideW, true);
   }
 
+  deltaX = 0;
+  start();
+}
+
   viewport.addEventListener('pointerdown',e=>{ if(e.button!==0)return; viewport.setPointerCapture(e.pointerId); dragStart(e.clientX); });
-  viewport.addEventListener('pointermove',e=>dragMove(e.clientX));
+  viewport.addEventListener('pointermove', e => {
+  if (isDown) e.preventDefault();   
+  dragMove(e.clientX);
+}, { passive: false });
   viewport.addEventListener('pointerup',e=>{ viewport.releasePointerCapture(e.pointerId); dragEnd(); });
   viewport.addEventListener('pointercancel',dragEnd);
   viewport.addEventListener('mouseleave',()=>{ if(isDown) dragEnd(); });

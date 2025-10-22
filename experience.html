@@ -117,7 +117,48 @@
 @media (max-width:900px){
   .cs-card{ min-height: 260px; }
 }
-   
+   /* === Compact Experience Section === */
+.xp{margin-top:18px; display:grid; gap:16px}
+.kpi-row{
+  display:grid; grid-template-columns:repeat(4,minmax(160px,1fr));
+  gap:12px;
+}
+.kpi{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:14px 16px; box-shadow:var(--shadow)}
+.kpi .num{font-size:24px; font-weight:800; line-height:1}
+.kpi .label{color:var(--muted); margin-top:6px; font-size:13px}
+
+@media (max-width:900px){
+  .kpi-row{grid-template-columns:repeat(2,minmax(140px,1fr))}
+}
+
+.tool-stack{
+  display:flex; flex-wrap:wrap; gap:8px;
+  background:linear-gradient(145deg,#123b33,#0e2f27);
+  border:1px solid var(--border); border-radius:16px; padding:12px 14px; box-shadow:var(--shadow)
+}
+.tool-stack span{
+  font-size:12px; padding:6px 10px; border-radius:999px;
+  background:var(--chip); border:1px solid var(--border); color:#cfe7e1
+}
+
+.impact{
+  background:var(--card); border:1px solid var(--border); border-radius:16px;
+  padding:18px; box-shadow:var(--shadow)
+}
+.impact h3{margin:0 0 8px}
+.checklist{margin:8px 0 0; padding-left:0; list-style:none}
+.checklist li{position:relative; padding-left:26px; margin:10px 0}
+.checklist li::before{
+  content:""; position:absolute; left:0; top:6px; width:16px; height:16px; border-radius:50%;
+  border:1px solid var(--border); background:var(--chip);
+  box-shadow:inset 0 0 0 3px rgba(147,224,199,.25)
+}
+
+.callout{
+  background:linear-gradient(145deg,#11362f,#0e2f27);
+  border:1px solid var(--border); border-radius:16px; padding:16px 18px; box-shadow:var(--shadow)
+}
+.callout-title{font-weight:800; margin-bottom:6px}
   </style>
 </head>
 <body>
@@ -152,53 +193,56 @@
     </section>
 
     <!-- TOOLING -->
-    <section class="grid">
-      <div class="card">
-        <h3>SIEM &amp; EDR</h3>
-        <div class="stack">
-          <span class="chip">Splunk</span>
-          <span class="chip">IBM QRadar</span>
-          <span class="chip">Elastic SIEM</span>
-          <span class="chip">CrowdStrike Falcon</span>
-        </div>
-      </div>
+    <section class="xp">
+  <!-- KPI row -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="num">−20%</div>
+      <div class="label">False Positives (QRadar)</div>
+    </div>
+    <div class="kpi">
+      <div class="num">12+</div>
+      <div class="label">MITRE techniques mapped</div>
+    </div>
+    <div class="kpi">
+      <div class="num">9 mo</div>
+      <div class="label">SOC rotations &amp; handovers</div>
+    </div>
+    <div class="kpi">
+      <div class="num">3 SIEM</div>
+      <div class="label">Splunk · QRadar · Elastic</div>
+    </div>
+  </div>
 
-      <div class="card">
-        <h3>Network &amp; Intel</h3>
-        <div class="stack">
-          <span class="chip">Suricata</span>
-          <span class="chip">Wireshark</span>
-          <span class="chip">AbuseIPDB</span>
-          <span class="chip">Shodan</span>
-          <span class="chip">GreyNoise</span>
-          <span class="chip">Censys</span>
-          <span class="chip">VirusTotal</span>
-        </div>
-      </div>
+  <!-- Tools compact -->
+  <div class="tool-stack">
+    <span>Splunk</span><span>IBM QRadar</span><span>Elastic SIEM</span><span>CrowdStrike</span>
+    <span>Suricata</span><span>Wireshark</span><span>Shodan</span><span>AbuseIPDB</span>
+    <span>GreyNoise</span><span>Censys</span><span>VirusTotal</span>
+    <span>MITRE ATT&amp;CK</span><span>NIST IR</span><span>Jira</span><span>Confluence</span>
+    <span>PowerShell</span><span>Regex</span><span>Python (basic)</span>
+  </div>
 
-      <div class="card">
-        <h3>Malware &amp; Analysis</h3>
-        <div class="stack">
-          <span class="chip">ANY.RUN</span>
-          <span class="chip">Hybrid Analysis</span>
-          <span class="chip">EchoTrail</span>
-        </div>
-      </div>
+  <!-- Impact & responsibilities -->
+  <div class="impact">
+    <h3>Impact &amp; Responsibilities</h3>
+    <ul class="checklist">
+      <li>Alert triage and correlation in Splunk, QRadar, and Elastic; anomaly hunting.</li>
+<li>Endpoint investigation in CrowdStrike: <strong>T1055</strong> (process injection) and <strong>T1059.001</strong> (PowerShell).</li>
+<li>Decoded URLs/payloads and enriched IOCs (VirusTotal, GreyNoise, AbuseIPDB).</li>
+<li>Tuned correlation rules (≈ <strong>−20% FP</strong>) and improved signal-to-noise ratio.</li>
+<li>Wrote incident documentation with ATT&amp;CK mapping and containment steps.</li>
+<li>Consistent shift handovers and standardized notes/JIRA tickets.</li>
+    </ul>
+  </div>
 
-      <div class="card">
-        <h3>Frameworks &amp; Workflow</h3>
-        <div class="stack">
-          <span class="chip">MITRE ATT&amp;CK</span>
-          <span class="chip">NIST IR</span>
-          <span class="chip">JIRA</span>
-          <span class="chip">Confluence</span>
-          <span class="chip">PowerShell</span>
-          <span class="chip">Regex</span>
-          <span class="chip">Python (basic)</span>
-        </div>
-      </div>
-    </section>
-
+  <!-- Callout case -->
+  <aside class="callout">
+    <div class="callout-title">Highlighted case — PowerShell Injection</div>
+     <p>ExecutionPolicy bypass → <code>Start-Hollow.ps1</code> → injection into <code>explorer.exe</code>. Host isolated, rules updated, JIRA documented. MITRE: <strong>T1055</strong>, <strong>T1059.001</strong>.</p>
+  </aside>
+</section>
+    
     <!-- RESPONSIBILITIES -->
     <section class="grid" style="margin-top:8px">
       <div class="card">

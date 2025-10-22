@@ -38,7 +38,10 @@
     .brand{font-weight:800; letter-spacing:.2px}
     .nav-links{margin-left:auto; display:flex; gap:22px; flex-wrap:wrap}
     .nav-links a{color:var(--text); opacity:.9}
-
+.nav-links a[aria-current="page"]{
+  color: var(--accent);
+  font-weight: 700;
+}
     .container{max-width:1100px; margin:0 auto; padding:30px 20px}
 
     /* HERO LAYOUT similar to screenshot */
@@ -145,7 +148,7 @@ main.container {
     <div class="nav-inner">
       <div class="brand">Alexander Isoev</div>
       <nav class="nav-links">
-        <a href="#home">Home</a>
+        <a href="#home" aria-current="page">Home</a>
         <a href="experience.html">Experience</a>
         <a href="https://github.com/PurePootato/SOC-Incident-Reports/blob/main/README.md" 
    target="_blank" 
@@ -157,7 +160,7 @@ main.container {
     </div>
   </header>
 
-  <main class="container">
+ <main id="home" class="container">
     <!-- HERO -->
     <section id="bio" class="hero">
       <aside class="profile">
@@ -287,5 +290,17 @@ main.container {
     <path filter="url(#blurWave)" fill="url(#wave2)"
           d="M0,590 C220,560 400,720 600,680 C780,640 980,520 1180,540 C1320,560 1400,560 1440,570 L1440,900 L0,900 Z"/>
   </svg>
+  <script>
+  (function () {
+    const links = document.querySelectorAll('.nav-links a');
+    const here = location.pathname.replace(/\/index\.html?$/, '/'); 
+    links.forEach(a => {
+  
+      const samePage = a.getAttribute('href') === '#home' && (here === '/' || here === '');
+      const samePath = a.pathname === location.pathname && !a.hash;
+      if (samePage || samePath) a.setAttribute('aria-current', 'page');
+    });
+  })();
+</script>
 </body>
 </html>

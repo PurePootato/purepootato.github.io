@@ -100,6 +100,16 @@
     @media (max-width: 900px){
       .grid{grid-template-columns:1fr}
     }
+    .cs-wrap.dragging .cs-track { transition: none !important; cursor: grabbing; }
+.cs-wrap.dragging .cs-card, 
+.cs-wrap.dragging .cs-card * { user-select: none; -webkit-user-select: none; }
+.cs-avatar { pointer-events: none; }
+.cs-avatar, .cs-card img { -webkit-user-drag: none; user-drag: none; }
+.cs-viewport { touch-action: pan-y; }
+.cs-card{ min-height: 220px; }
+@media (max-width:900px){
+  .cs-card{ min-height: 260px; }
+}
   </style>
 </head>
 <body>
@@ -288,19 +298,16 @@
   const nextBtn = wrap.querySelector('.cs-next');
   const dotsBox = wrap.querySelector('.cs-dots');
 
-  // оборачиваем трек
   const viewport = document.createElement('div');
   viewport.className = 'cs-viewport';
   track.parentNode.insertBefore(viewport, track);
   viewport.appendChild(track);
 
-  // клоны для бесконечного цикла
   const firstClone = slides[0].cloneNode(true);
   const lastClone  = slides[slides.length-1].cloneNode(true);
   track.insertBefore(lastClone, slides[0]);
   track.appendChild(firstClone);
 
-  // точки
   slides.forEach((_,i)=>{
     const b = document.createElement('button');
     b.className = 'cs-dot' + (i===0?' is-active':'');
@@ -313,12 +320,12 @@
 
   function measure(){
     slideW = viewport.clientWidth;
-    track.style.transform = `translateX(${-current*slideW}px)`;
+    setX(-current*slideW, false);
   }
 
-  function setX(x, anim=true){
-    track.style.transition = anim ? 'transform .55s ease' : 'none';
-    track.style.transform = `translateX(${x}px)`;
+  function setX(x, animate=true){
+    track.style.transition = animate ? 'transform .55s ease' : 'none';
+    track.style.transform  = `translateX(${x}px)`;
   }
 
   function updateDots(){
@@ -327,49 +334,72 @@
   }
 
   function goTo(i,manual){
-    if(animating) return;
+    if (animating) return;
     animating = true;
     current = i+1;
-    setX(-current*slideW,true);
+    setX(-current*slideW, true);
     updateDots();
-    if(manual) restart();
+    if (manual) restart();
   }
 
-  function next(){if(animating)return;animating=true;current++;setX(-current*slideW,true);updateDots();}
-  function prev(){if(animating)return;animating=true;current--;setX(-current*slideW,true);updateDots();}
+  function next(){ if(animating) return; animating=true; current++; setX(-current*slideW,true); updateDots(); }
+  function prev(){ if(animating) return; animating=true; current--; setX(-current*slideW,true); updateDots(); }
 
   track.addEventListener('transitionend',()=>{
-    if(current===slides.length+1){current=1;setX(-current*slideW,false);}
-    if(current===0){current=slides.length;setX(-current*slideW,false);}
+    if(current===slides.length+1){ current=1; setX(-current*slideW,false); }
+    if(current===0){ current=slides.length; setX(-current*slideW,false); }
     animating=false;
   });
 
-  prevBtn.onclick=prev; nextBtn.onclick=next;
+  prevBtn.onclick = prev;
+  nextBtn.onclick = next;
 
-  // автопрокрутка
-  function start(){timer=setInterval(()=>{if(!hovering)next();},5000);}
-  function stop(){clearInterval(timer);}
-  function restart(){stop();start();}
-  wrap.onmouseenter=()=>hovering=true;
-  wrap.onmouseleave=()=>hovering=false;
+  function start(){ timer=setInterval(()=>{ if(!hovering) next(); },5000); }
+  function stop(){ clearInterval(timer); timer=null; }
+  function restart(){ stop(); start(); }
+  wrap.addEventListener('mouseenter', ()=>hovering=true);
+  wrap.addEventListener('mouseleave', ()=>hovering=false);
 
-  // drag (мышь и тач)
-  let startX=0,deltaX=0,isDown=false,dragged=false;
-  function dragStart(x){stop();isDown=true;deltaX=0;dragged=false;startX=x;track.style.transition='none';}
-  function dragMove(x){if(!isDown)return;deltaX=x-startX;if(Math.abs(deltaX)>5)dragged=true;setX(-current*slideW+deltaX,false);}
-  function dragEnd(){if(!isDown)return;isDown=false;
-    if(Math.abs(deltaX)>slideW*0.2){deltaX<0?next():prev();}else{setX(-current*slideW,true);}
-    start();deltaX=0;
+  // --- DRAG FIXED ---
+  let startX=0, deltaX=0, isDown=false, dragged=false, raf=null;
+
+  function clamp(v, min, max){ return Math.min(max, Math.max(min, v)); }
+
+  function dragStart(x){
+    stop();
+    isDown=true; dragged=false; deltaX=0; startX=x;
+    wrap.classList.add('dragging');
+    track.style.transition='none';
   }
-  viewport.addEventListener('pointerdown',e=>{if(e.button!==0)return;viewport.setPointerCapture(e.pointerId);dragStart(e.clientX);});
+  function dragMove(x){
+    if(!isDown) return;
+    deltaX = x - startX;
+    const limit = slideW * 0.6;
+    const offset = clamp(deltaX, -limit, limit);
+    if(Math.abs(offset)>5) dragged=true;
+    if(!raf){
+      raf=requestAnimationFrame(()=>{ setX(-current*slideW+offset,false); raf=null; });
+    }
+  }
+  function dragEnd(){
+    if(!isDown) return;
+    isDown=false;
+    wrap.classList.remove('dragging');
+    const threshold = slideW*0.18;
+    if(Math.abs(deltaX)>threshold){ deltaX<0?next():prev(); } else { setX(-current*slideW,true); }
+    deltaX=0;
+    start();
+  }
+
+  viewport.addEventListener('pointerdown',e=>{ if(e.button!==0)return; viewport.setPointerCapture(e.pointerId); dragStart(e.clientX); });
   viewport.addEventListener('pointermove',e=>dragMove(e.clientX));
-  viewport.addEventListener('pointerup',e=>{viewport.releasePointerCapture(e.pointerId);dragEnd();});
+  viewport.addEventListener('pointerup',e=>{ viewport.releasePointerCapture(e.pointerId); dragEnd(); });
   viewport.addEventListener('pointercancel',dragEnd);
-  viewport.addEventListener('mouseleave',()=>{if(isDown)dragEnd();});
-  track.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();dragged=false;}},true);
+  viewport.addEventListener('mouseleave',()=>{ if(isDown) dragEnd(); });
+  track.addEventListener('click',e=>{ if(dragged){ e.preventDefault(); e.stopPropagation(); dragged=false; }},true);
 
   window.addEventListener('resize',measure);
-  measure();start();updateDots();
+  measure(); start(); updateDots();
 })();
 </script>
 

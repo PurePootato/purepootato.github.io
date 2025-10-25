@@ -72,6 +72,35 @@
       .contact-wrap{grid-template-columns:1fr}
       .gif-grid{grid-template-columns:repeat(2,1fr)}
     }
+/* 1) Шире контейнер + высота до низа экрана */
+.container{
+  max-width: 1200px;               /* было 1100 */
+  padding: 60px 20px 120px;
+  min-height: calc(100vh - 70px);  /* прижимает футер вниз */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2) Баланс колонок */
+.contact-wrap{
+  grid-template-columns: minmax(0, 1.6fr) minmax(320px, 1fr);
+  gap: 24px;
+  margin-top: 10px;
+}
+
+/* 3) GIF-сетка: 4 колонки на очень широких экранах */
+@media (min-width: 1200px){
+  .gif-grid{ grid-template-columns: repeat(4, 1fr); }
+  .gif-tile img{ height: 165px; } /* немного ниже, чтобы ряд не был слишком высоким */
+}
+
+/* 4) Sticky для правого блока (необязательно, но удобно) */
+@media (min-width: 900px){
+  .contact-card{
+    position: sticky;
+    top: 84px;                      /* не прилипает к самому краю */
+  }
+}
   </style>
 </head>
 <body>

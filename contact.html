@@ -81,19 +81,42 @@
   flex-direction: column;
 }
 
-/* 2) Баланс колонок */
+/* 2) Баланс колонок + позиционирование для glow */
 .contact-wrap{
+  position: relative;                          /* нужно для псевдоэлемента */
   grid-template-columns: minmax(0, 1.6fr) minmax(320px, 1fr);
-  gap: 24px;
-  margin-top: 10px;
+  gap: 40px;                                   /* было 24 */
+  margin-top: 30px;                            /* было 10 */
+  justify-content: center;                     /* выравниваем по центру на широких экранах */
 }
-
 /* 3) GIF-сетка: 4 колонки на очень широких экранах */
 @media (min-width: 1200px){
   .gif-grid{ grid-template-columns: repeat(4, 1fr); }
   .gif-tile img{ height: 165px; } /* немного ниже, чтобы ряд не был слишком высоким */
 }
+/* Мягкий glow под всей контактной секцией */
+.contact-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 280px;
+  background: radial-gradient(
+    circle at center,
+    rgba(150, 230, 210, 0.08) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  z-index: 0;                                  /* glow под блоками */
+}
 
+/* Чтобы glow не перекрывал содержимое */
+.panel,
+.contact-card {
+  position: relative;
+  z-index: 1;
+}
 /* 4) Sticky для правого блока (необязательно, но удобно) */
 @media (min-width: 900px){
   .contact-card{

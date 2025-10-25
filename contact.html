@@ -15,15 +15,26 @@
       --chip:#153a31; --border:#17453a; --shadow:0 14px 28px rgba(0,0,0,.25);
     }
     *{box-sizing:border-box}
-   body {
+  body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system;
   color: var(--text);
-  background-color: #071a14;
+  background-color: #081611;
   background-image:
-    radial-gradient(1200px circle at 70% 20%, rgba(100, 255, 200, 0.08), transparent 70%),
-    radial-gradient(900px circle at 20% 70%, rgba(80, 200, 160, 0.05), transparent 70%),
-    linear-gradient(180deg, #061b15 0%, #0a1f19 50%, #0e2a23 100%);
+    radial-gradient(900px circle at 70% 20%, rgba(80, 255, 200, 0.08), transparent 70%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(70, 180, 140, 0.05) 0px,
+      rgba(70, 180, 140, 0.05) 2px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(70, 180, 140, 0.05) 0px,
+      rgba(70, 180, 140, 0.05) 2px,
+      transparent 4px
+    ),
+    linear-gradient(180deg, #061a14 0%, #0a251e 100%);
   background-blend-mode: screen, overlay, normal;
   background-attachment: fixed;
 }

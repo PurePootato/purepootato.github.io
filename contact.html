@@ -66,7 +66,6 @@
   transition: transform .25s ease;
 }
 .gif-tile:hover img{transform: scale(1.04);}
-    .gif-tile:hover img{transform:scale(1.04)}
     .gif-label{position:absolute; left:10px; bottom:8px; font-size:12px; background:rgba(0,0,0,.35);
       padding:4px 8px; border-radius:999px}
 
@@ -83,7 +82,14 @@
       background:var(--chip); border:1px solid var(--border); color:#cfe7e1; margin-right:8px}
 
     footer{opacity:.8; text-align:center; padding:30px 0; margin-top:30px}
-
+.quote {
+  margin-top: 70px;
+  text-align: center;
+  font-style: italic;
+  color: rgba(147, 224, 199, 0.8);
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
     @media (max-width:900px){
       .contact-wrap{grid-template-columns:1fr}
       .gif-grid{grid-template-columns:repeat(2,1fr)}
@@ -181,7 +187,9 @@
         </div>
       </aside>
     </div>
-
+<section class="quote">
+  <p>“Security is not a product — it’s a mindset.”</p>
+</section>
     <footer>© <span id="year"></span> Alexander Isoev — SOC / Cybersecurity Analyst</footer>
   </main>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>

@@ -46,10 +46,26 @@
     .contact-wrap{display:grid; grid-template-columns: 2fr 1fr; gap:20px}
     .panel{background:linear-gradient(145deg, #123b33, #0e2f27); border:1px solid var(--border);
       border-radius:18px; padding:20px; box-shadow:var(--shadow)}
-
-    .gif-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px}
-    .gif-tile{position:relative; overflow:hidden; border-radius:14px; border:1px solid var(--border); background:#0d2621}
-    .gif-tile img{width:100%; height:180px; object-fit:cover; display:block; transition:transform .25s ease}
+.gif-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* оставляем 3 колонки */
+  gap: 12px;                              /* немного меньше расстояние */
+}
+.gif-tile{
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #0d2621;
+}
+.gif-tile img{
+  width: 100%;
+  height: 155px;                          /* было 180 → делаем компактнее */
+  object-fit: cover;
+  display: block;
+  transition: transform .25s ease;
+}
+.gif-tile:hover img{transform: scale(1.04);}
     .gif-tile:hover img{transform:scale(1.04)}
     .gif-label{position:absolute; left:10px; bottom:8px; font-size:12px; background:rgba(0,0,0,.35);
       padding:4px 8px; border-radius:999px}
@@ -88,34 +104,6 @@
   gap: 40px;                                   /* было 24 */
   margin-top: 30px;                            /* было 10 */
   justify-content: center;                     /* выравниваем по центру на широких экранах */
-}
-/* 3) GIF-сетка: 4 колонки на очень широких экранах */
-@media (min-width: 1200px){
-  .gif-grid{ grid-template-columns: repeat(4, 1fr); }
-  .gif-tile img{ height: 165px; } /* немного ниже, чтобы ряд не был слишком высоким */
-}
-/* Мягкий glow под всей контактной секцией */
-.contact-wrap::after {
-  content: "";
-  position: absolute;
-  bottom: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 280px;
-  background: radial-gradient(
-    circle at center,
-    rgba(150, 230, 210, 0.08) 0%,
-    rgba(0, 0, 0, 0) 70%
-  );
-  z-index: 0;                                  /* glow под блоками */
-}
-
-/* Чтобы glow не перекрывал содержимое */
-.panel,
-.contact-card {
-  position: relative;
-  z-index: 1;
 }
 /* 4) Sticky для правого блока (необязательно, но удобно) */
 @media (min-width: 900px){

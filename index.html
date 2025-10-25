@@ -140,12 +140,22 @@ main.container {
       position: relative;
       z-index: 1;
     }
-    /* === Gold outline on all blocks === */
+    /* === Soft gold outline with rounded edges === */
 .profile, .about, .card, .proj {
-  border: 1px solid transparent;                   /* нужно прозрачным для градиента */
-  border-image: linear-gradient(90deg, #d4b45f 0%, #cfa84a 100%);
-  border-image-slice: 1;
-  box-shadow: 0 0 10px rgba(207,168,74,0.15);      /* мягкое “золотое” свечение */
+  border: 1px solid rgba(207, 168, 74, 0.35);       /* мягкое золото */
+  border-radius: 18px;                              /* скругленные углы */
+  box-shadow:
+    0 0 10px rgba(207, 168, 74, 0.15),
+    inset 0 0 4px rgba(207, 168, 74, 0.1);          /* лёгкое внутреннее свечение */
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Подсветка при наведении */
+.profile:hover, .about:hover, .card:hover, .proj:hover {
+  border-color: rgba(212, 180, 95, 0.55);
+  box-shadow:
+    0 0 20px rgba(207, 168, 74, 0.35),
+    inset 0 0 6px rgba(207, 168, 74, 0.2);
 }
   </style>
 </head>

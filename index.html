@@ -140,22 +140,22 @@ main.container {
       position: relative;
       z-index: 1;
     }
-    /* === Soft ice-blue outline with rounded edges === */
+   /* === Platinum Ice Accent (balanced for SOC aesthetic) === */
 .profile, .about, .card, .proj {
-  border: 1px solid rgba(147, 184, 255, 0.35);       /* мягкий ледяной контур */
-  border-radius: 18px;                               /* скругленные углы */
+  border: 1px solid rgba(166, 212, 255, 0.35);      /* платиново-синий */
+  border-radius: 18px;
   box-shadow:
-    0 0 10px rgba(147, 184, 255, 0.15),
-    inset 0 0 4px rgba(168, 229, 255, 0.1);          /* лёгкое внутреннее свечение */
+    0 0 12px rgba(166, 212, 255, 0.18),             /* внешнее холодное свечение */
+    inset 0 0 6px rgba(216, 198, 138, 0.08);        /* мягкий золотой подтон */
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* Подсветка при наведении */
+/* Hover glow */
 .profile:hover, .about:hover, .card:hover, .proj:hover {
-  border-color: rgba(168, 229, 255, 0.55);           /* чуть ярче при hover */
+  border-color: rgba(166, 212, 255, 0.55);
   box-shadow:
-    0 0 20px rgba(147, 184, 255, 0.35),
-    inset 0 0 6px rgba(168, 229, 255, 0.2);
+    0 0 20px rgba(166, 212, 255, 0.35),
+    inset 0 0 8px rgba(216, 198, 138, 0.12);
 }
   </style>
 </head>

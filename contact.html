@@ -19,12 +19,17 @@
   margin: 0;
   font-family: Inter, system-ui, -apple-system;
   color: var(--text);
-  background-color: #061812;
+  background-color: #071612;
   background-image:
-    radial-gradient(700px circle at 50% 40%, rgba(80, 255, 200, 0.12), transparent 70%),
-    radial-gradient(1200px circle at 20% 80%, rgba(70, 200, 150, 0.06), transparent 80%),
-    linear-gradient(180deg, #061a14 0%, #0d2922 100%);
-  background-blend-mode: screen, overlay, normal;
+    repeating-linear-gradient(
+      45deg,
+      rgba(50, 150, 120, 0.05) 0px,
+      rgba(50, 150, 120, 0.05) 1px,
+      transparent 3px
+    ),
+    radial-gradient(1000px circle at 80% 20%, rgba(90, 240, 190, 0.08), transparent 70%),
+    linear-gradient(180deg, #061a14 0%, #0b231d 100%);
+  background-blend-mode: overlay, screen, normal;
   background-attachment: fixed;
 }
     a{color:var(--accent); text-decoration:none}

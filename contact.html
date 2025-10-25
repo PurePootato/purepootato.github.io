@@ -15,23 +15,7 @@
       --chip:#153a31; --border:#17453a; --shadow:0 14px 28px rgba(0,0,0,.25);
     }
     *{box-sizing:border-box}
-  body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system;
-  color: var(--text);
-  background-color: #071612;
-  background-image:
-    repeating-linear-gradient(
-      45deg,
-      rgba(50, 150, 120, 0.05) 0px,
-      rgba(50, 150, 120, 0.05) 1px,
-      transparent 3px
-    ),
-    radial-gradient(1000px circle at 80% 20%, rgba(90, 240, 190, 0.08), transparent 70%),
-    linear-gradient(180deg, #061a14 0%, #0b231d 100%);
-  background-blend-mode: overlay, screen, normal;
-  background-attachment: fixed;
-}
+ 
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
 
@@ -128,9 +112,75 @@
     top: 84px;                      /* не прилипает к самому краю */
   }
 }
+    /* === Layered Green Strata (ломаные слои) === */
+:root{
+  --strata-1:#0e2c25;
+  --strata-2:#11362f;
+  --strata-3:#144238;
+  --strata-4:#0c241e;
+  --strata-5:#0a1c17;
+}
+
+/* контейнер со слоями — фиксированный фон позади всего */
+.bg-strata{
+  position: fixed;
+  inset: 0;
+  z-index: 0;            /* ниже контента */
+  pointer-events: none;  /* не перекрывает клики */
+  opacity: .55;          /* общая мягкость эффекта */
+}
+
+/* каждый слой — это многоугольник с «ломаным» краем */
+.bg-strata .layer{
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+/* набор полигонов (можно править точки по вкусу) */
+.bg-strata .l1{
+  background: var(--strata-1);
+  clip-path: polygon(0% 18%, 22% 24%, 46% 20%, 66% 26%, 84% 22%, 100% 27%, 100% 0%, 0% 0%);
+}
+.bg-strata .l2{
+  background: var(--strata-2);
+  clip-path: polygon(0% 34%, 18% 30%, 40% 37%, 62% 32%, 80% 38%, 100% 33%, 100% 22%, 0% 22%);
+  opacity:.9;
+}
+.bg-strata .l3{
+  background: var(--strata-3);
+  clip-path: polygon(0% 52%, 20% 46%, 38% 54%, 60% 48%, 78% 56%, 100% 50%, 100% 36%, 0% 36%);
+  opacity:.85;
+}
+.bg-strata .l4{
+  background: var(--strata-4);
+  clip-path: polygon(0% 70%, 22% 64%, 44% 72%, 64% 66%, 82% 74%, 100% 68%, 100% 52%, 0% 52%);
+  opacity:.8;
+}
+.bg-strata .l5{
+  background: var(--strata-5);
+  clip-path: polygon(0% 88%, 24% 82%, 46% 90%, 66% 84%, 84% 92%, 100% 86%, 100% 68%, 0% 68%);
+  opacity:.75;
+}
+
+/* чтобы контент гарантированно был поверх */
+header.nav, main.container, footer{ position: relative; z-index: 1; }
+
+/* помягче для тех, у кого системное «меньше эффектов» */
+@media (prefers-reduced-motion: reduce){
+  .bg-strata{ opacity:.4; }
+}
   </style>
 </head>
 <body>
+   <!-- фоновые ломаные слои -->
+  <div class="bg-strata" aria-hidden="true">
+    <div class="layer l1"></div>
+    <div class="layer l2"></div>
+    <div class="layer l3"></div>
+    <div class="layer l4"></div>
+    <div class="layer l5"></div>
+  </div>
   <!-- NAV -->
   <header class="nav">
   <div class="nav-inner">

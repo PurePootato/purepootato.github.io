@@ -140,6 +140,13 @@ main.container {
       position: relative;
       z-index: 1;
     }
+    /* === Gold outline on all blocks === */
+.profile, .about, .card, .proj {
+  border: 1px solid transparent;                   /* нужно прозрачным для градиента */
+  border-image: linear-gradient(90deg, #d4b45f 0%, #cfa84a 100%);
+  border-image-slice: 1;
+  box-shadow: 0 0 10px rgba(207,168,74,0.15);      /* мягкое “золотое” свечение */
+}
   </style>
 </head>
 <body>

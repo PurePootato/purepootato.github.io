@@ -8,71 +8,68 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
-    /* === Palette === */
     :root{
-      --bg:#0a1a16; --bg-2:#0e2a23; --panel:#0f2f27; --card:#0c221d;
-      --text:#eef4f2; --muted:#a7b8b3; --accent:#93e0c7; --accent-2:#6cd5b5;
-      --chip:#153a31; --border:#17453a; --shadow:0 14px 28px rgba(0,0,0,.25);
+      --bg:#0a1a16;           /* deep green */
+      --bg-2:#0e2a23;         /* darker green */
+      --panel:#0f2f27;        /* panel green */
+      --card:#0c221d;         /* cards */
+      --text:#eef4f2;         /* main text */
+      --muted:#a7b8b3;        /* secondary */
+      --accent:#93e0c7;       /* mint */
+      --accent-2:#6cd5b5;     /* mint hover */
+      --chip:#153a31;         /* pill bg */
+      --border:#17453a;       /* borders */
+      --shadow:0 14px 28px rgba(0,0,0,.25);
     }
-
     *{box-sizing:border-box}
     body{
-      margin:0; 
-      font-family:Inter, system-ui, -apple-system; 
-      color:var(--text);
-      background: transparent; 
+      margin:0; font-family:Inter, system-ui, -apple-system; color:var(--text);
+      background:
+        radial-gradient(900px 340px at 70% 0%, #164d40 0%, transparent 55%),
+        radial-gradient(800px 300px at -10% 10%, #1a3f35 0%, transparent 55%),
+        linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 100%);
     }
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
 
     /* NAV */
-    .nav{position:sticky; top:0; z-index:40; backdrop-filter:blur(10px);
-      background:rgba(12,32,27,.7); border-bottom:1px solid var(--border)}
-    .nav-inner{max-width:1100px; margin:0 auto; padding:14px 20px; display:flex; gap:24px; align-items:center}
-    .brand{font-weight:800}
+    .nav{position:sticky; top:0; z-index:40; backdrop-filter:blur(10px); background:rgba(12,32,27,.7); border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:1100px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:24px}
+    .brand{font-weight:800; letter-spacing:.2px}
     .nav-links{margin-left:auto; display:flex; gap:22px; flex-wrap:wrap}
     .nav-links a{color:var(--text); opacity:.9}
     .nav-links a[aria-current="page"]{ color:var(--accent); font-weight:700; }
 
-    /* Layout */
-    .container{
-      max-width:1200px; margin:0 auto; padding:60px 20px 120px;
-      min-height:calc(100vh - 70px);
-      display:flex; flex-direction:column;
-      position:relative; z-index:1;
-    }
+    /* LAYOUT */
+    .container{max-width:1100px; margin:0 auto; padding:30px 20px}
     h1{margin:0 0 6px}
     .sub{color:var(--muted); margin:0 0 20px}
 
-    .contact-wrap{
-      display:grid; grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr);
-      gap:40px; margin-top:30px;
+    .contact-wrap{display:grid; grid-template-columns: 2fr 1fr; gap:20px}
+    @media (max-width:900px){
+      .contact-wrap{grid-template-columns:1fr}
+      .gif-grid{grid-template-columns:repeat(2,1fr)}
     }
 
-    /* Panels — STANFORD STYLE */
+    /* CARDS (как на главной) */
+    .panel{background:linear-gradient(145deg,#123b33,#0e2f27); border:1px solid var(--border); border-radius:18px; padding:20px; box-shadow:var(--shadow)}
+    .contact-card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px}
+
+    /* Общий платиновый акцент как на главной */
     .panel, .contact-card {
-      background: rgba(12, 38, 31, 0.5);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(147, 224, 199, 0.18);
-      border-radius: 22px;
-      box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.25),
-        inset 0 0 25px rgba(147, 224, 199, 0.06);
-      transition: all 0.35s ease;
-      position: relative;
-      z-index: 2;
+      border: 1px solid rgba(166, 212, 255, 0.35);
+      box-shadow:
+        0 0 12px rgba(166, 212, 255, 0.18),
+        inset 0 0 6px rgba(216, 198, 138, 0.08);
+      transition: box-shadow .3s ease, border-color .3s ease;
     }
     .panel:hover, .contact-card:hover {
-      background: rgba(12, 38, 31, 0.7);
-      transform: translateY(-3px);
-      box-shadow: 
-        0 18px 40px rgba(0, 0, 0, 0.35),
-        inset 0 0 30px rgba(147, 224, 199, 0.1);
+      border-color: rgba(166, 212, 255, 0.55);
+      box-shadow:
+        0 0 20px rgba(166, 212, 255, 0.35),
+        inset 0 0 8px rgba(216, 198, 138, 0.12);
     }
-    .panel{padding:20px} .contact-card{padding:18px}
 
     /* GIF grid */
     .gif-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
@@ -83,94 +80,24 @@
 
     /* Buttons */
     .contact-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
-    .btn{
-      display:inline-flex; align-items:center; gap:10px; padding:10px 14px;
-      border-radius:12px; border:1px solid #0b211c;
-      background:var(--accent); color:#0b1a16; font-weight:700;
-      box-shadow:0 10px 22px rgba(108,213,181,.25); transition:transform .15s ease
-    }
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; border:1px solid #0b211c; background:var(--accent); color:#0b1a16; font-weight:700; box-shadow:0 10px 22px rgba(108,213,181,.25); transition:transform .15s ease}
     .btn:hover{transform:translateY(-1px)}
     .btn-ghost{background:transparent; color:var(--accent); border:1px solid var(--border)}
 
     .chip{display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--border); color:#cfe7e1; margin-right:8px}
 
-    footer{opacity:.8; text-align:center; padding:30px 0; margin-top:30px}
-    .quote{margin-top:70px; text-align:center; font-style:italic; color:rgba(147,224,199,.8); font-size:16px; letter-spacing:.5px}
+    footer{opacity:.8; text-align:center; padding:12px 0 20px 0; margin-top:40px}
 
-    @media (min-width:900px){ .contact-card{ position:sticky; top:84px; } }
-    @media (max-width:900px){
-      .contact-wrap{grid-template-columns:1fr}
-      .gif-grid{grid-template-columns:repeat(2,1fr)}
-    }
-
-    /* === STANFORD AI LAB — "ЛОМАНЫЕ", РАЗМЫТЫЕ СЛОИ === */
-    .bg-facets {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .bg-facets svg {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      animation: drift 35s ease-in-out infinite;
-    }
-
-    @keyframes drift {
-      0%, 100% { transform: translateX(0) translateY(0); }
-      50% { transform: translateX(-20px) translateY(8px); }
-    }
-
-    .bg-facets::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 25%, rgba(147,224,199,0.1) 0%, transparent 55%);
-      z-index: 1;
-      pointer-events: none;
-      animation: pulse 25s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 1; }
-    }
-
-    @media (max-width: 900px) {
-      .bg-facets svg { animation-duration: 45s; }
-      .bg-facets::before { background: radial-gradient(circle at 50% 35%, rgba(147,224,199,0.08) 0%, transparent 65%); }
-    }
-
-    header.nav, main.container, footer { position:relative; z-index:1; }
+    /* WAVES (тот же фон, что на главной) */
+    .bg-waves{position:fixed; inset:0; width:100%; height:100vh; pointer-events:none; z-index:0; opacity:.95;}
+    @keyframes sway{0%{transform:translateY(0) scale(1)}50%{transform:translateY(8px) scale(1.01)}100%{transform:translateY(0) scale(1)}}
+    .bg-waves path:nth-of-type(1){animation:sway 12s ease-in-out infinite;}
+    .bg-waves path:nth-of-type(2){animation:sway 16s ease-in-out infinite reverse;}
+    @media (prefers-reduced-motion:reduce){.bg-waves path{animation:none}}
+    header.nav, main.container{position:relative; z-index:1}
   </style>
 </head>
 <body>
-  <!-- STANFORD AI LAB BACKGROUND -->
-  <div class="bg-facets" aria-hidden="true">
-    <svg viewBox="0 0 1440 1024" preserveAspectRatio="none" class="organic-bg">
-      <defs>
-        <filter id="noise">
-          <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" seed="3"/>
-          <feColorMatrix type="saturate" values="1.2"/>
-        </filter>
-        <filter id="soft-blur">
-          <feGaussianBlur stdDeviation="4"/>
-        </filter>
-      </defs>
-
-      <path d="M0,1024 L0,720 L180,740 L360,710 L540,730 L720,760 L900,740 L1080,720 L1260,750 L1440,730 L1440,1024 Z" fill="#0a1a16" filter="url(#noise)"/>
-      <path d="M0,1024 L0,620 L200,650 L400,610 L600,630 L800,660 L1000,640 L1200,620 L1400,650 L1440,630 L1440,1024 Z" fill="#0c2c25" opacity="0.92" filter="url(#soft-blur)"/>
-      <path d="M0,1024 L0,500 L220,530 L440,490 L660,510 L880,540 L1100,520 L1320,500 L1440,520 L1440,1024 Z" fill="#123a32" opacity="0.88" filter="url(#soft-blur)"/>
-      <path d="M0,1024 L0,380 L240,410 L480,370 L720,390 L960,420 L1200,400 L1380,380 L1440,400 L1440,1024 Z" fill="#0f2f27" opacity="0.82" filter="url(#soft-blur)"/>
-      <path d="M0,1024 L0,220 L280,260 L520,220 L780,240 L1040,270 L1300,250 L1440,230 L1440,1024 Z" fill="#15463b" opacity="0.75" filter="url(#soft-blur)"/>
-    </svg>
-  </div>
-
   <!-- NAV -->
   <header class="nav">
     <div class="nav-inner">
@@ -178,9 +105,9 @@
       <nav class="nav-links">
         <a href="index.html#home">Home</a>
         <a href="experience.html">Experience</a>
-        <a href="https://github.com/PurePootato/SOC-Incident-Reports/blob/main/README.md" target="_blank" rel="noopener">Projects</a>
+        <a href="https://github.com/PurePootato/SOC-Incident-Reports/blob/main/README.md" target="_blank" rel="noopener" title="View SOC Incident Reports on GitHub">Projects</a>
         <a href="Alexander_Isoev_Education.pdf" target="_blank" rel="noopener">Education</a>
-        <a href="contact.html">Contact</a>
+        <a href="contact.html" aria-current="page">Contact</a>
       </nav>
     </div>
   </header>
@@ -190,21 +117,34 @@
     <p class="sub">Work as a SOC analyst.</p>
 
     <div class="contact-wrap">
+      <!-- GIFs -->
       <section class="panel">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px">
           <h2 style="margin:0">🍃🍃🍃</h2>
           <span class="chip">SOC / Blue Team</span>
         </div>
         <div class="gif-grid">
-          <div class="gif-tile"><img src="SOC_rofl1.gif" alt="SOC vs Pentest" loading="lazy"><span class="gif-label">SOC vs Pentest</span></div>
-          <div class="gif-tile"><img src="SOC_rofl2.gif" alt="A typical day" loading="lazy"><span class="gif-label">A typical day</span></div>
-          <div class="gif-tile"><img src="SOC_rofl3.gif" alt="Incident Escalation" loading="lazy"><span class="gif-label">Incident Escalation</span></div>
+          <div class="gif-tile">
+            <img src="SOC_rofl1.gif" alt="SOC vs Pentest" loading="lazy">
+            <span class="gif-label">SOC vs Pentest</span>
+          </div>
+          <div class="gif-tile">
+            <img src="SOC_rofl2.gif" alt="A typical day" loading="lazy">
+            <span class="gif-label">A typical day</span>
+          </div>
+          <div class="gif-tile">
+            <img src="SOC_rofl3.gif" alt="Incident Escalation" loading="lazy">
+            <span class="gif-label">Incident Escalation</span>
+          </div>
         </div>
       </section>
 
+      <!-- Контакты -->
       <aside class="contact-card">
         <h3>Let’s connect</h3>
-        <p style="opacity:.9; margin:0 0 10px">Open to SOC / Detection Engineering / Incident Response roles.</p>
+        <p style="opacity:.9; margin:0 0 10px">
+          Open to SOC / Detection Engineering / Incident Response roles.
+        </p>
         <div class="contact-actions">
           <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=alexanderisoevf@gmail.com&su=Hello%20Alexander&body=Hi%20Alexander%2C" target="_blank" rel="noopener">✉️ Email</a>
           <a class="btn btn-ghost" href="https://linkedin.com/in/alexanderisoev" target="_blank" rel="noopener">LinkedIn</a>
@@ -221,22 +161,23 @@
       </aside>
     </div>
 
-    <section class="quote"><p>“Security is not a product — it’s a mindset.”</p></section>
+    <section class="quote" style="margin-top:28px; text-align:center; font-style:italic; color:rgba(147,224,199,.8); font-size:16px; letter-spacing:.5px">
+      “Security is not a product — it’s a mindset.”
+    </section>
+
     <footer>© <span id="year"></span> Alexander Isoev — SOC / Cybersecurity Analyst</footer>
   </main>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    (function () {
-      const links = document.querySelectorAll('.nav-links a');
-      const isIndex = /\/(?:index\.html?)?$/.test(location.pathname);
-      links.forEach(a => {
-        const href = a.getAttribute('href') || '';
-        const sameHome = href.endsWith('#home') && isIndex;
-        const samePath = a.pathname === location.pathname && !a.hash;
-        if (sameHome || samePath) a.setAttribute('aria-current', 'page');
-      });
-    })();
-  </script>
-</body>
-</html>
+  <!-- WAVES (как на главной) -->
+  <svg class="bg-waves" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="blurWave" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="18" />
+      </filter>
+      <linearGradient id="wave1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"  stop-color="#7CF3C7" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#3BD09F" stop-opacity="0.07"/>
+      </linearGradient>
+      <linearGradient id="wave2" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#9AF7DA" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#5BE6B9" stop-

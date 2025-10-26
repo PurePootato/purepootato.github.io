@@ -28,7 +28,7 @@
       margin:0;
       font-family:Inter, system-ui, -apple-system;
       color:var(--text);
-      /* фон — как на главной */
+      /* ФОН — 1 в 1 как на главной */
       background:
         radial-gradient(900px 340px at 70% 0%, #164d40 0%, transparent 55%),
         radial-gradient(800px 300px at -10% 10%, #1a3f35 0%, transparent 55%),
@@ -65,9 +65,6 @@
       border-radius:16px;
       padding:18px;
       box-shadow:var(--shadow);
-    }
-    /* Platinum Ice accent — ровно как на главной */
-    .card{
       border: 1px solid rgba(166,212,255,0.35);
       box-shadow:
         0 0 12px rgba(166,212,255,0.18),
@@ -108,24 +105,23 @@
       .gif-grid{grid-template-columns:repeat(2,1fr)}
     }
 
-    /* Волны фона — как на главной */
-   .bg-waves{
-  position: fixed;
-  left: 0; right: 0;
-  top: -12vh;      /* чуть выше верхнего края */
-  width: 100%;
-  height: 140vh;   /* выше, чем экран, чтобы низ не отрезался */
-  pointer-events: none;
-  z-index: 0;
-  opacity: .95;
-}
+    /* ВОЛНЫ — 1 в 1 как на главной */
+    .bg-waves {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.95;
+    }
     @keyframes sway{0%{transform:translateY(0) scale(1)}50%{transform:translateY(8px) scale(1.01)}100%{transform:translateY(0) scale(1)}}
     .bg-waves path:nth-of-type(1){animation:sway 12s ease-in-out infinite}
     .bg-waves path:nth-of-type(2){animation:sway 16s ease-in-out infinite reverse}
     @media (prefers-reduced-motion:reduce){.bg-waves path{animation:none}}
 
-    /* гарантируем, что контент над волнами */
-    header.nav, main.container{position:relative; z-index:1}
+    /* Контент над волнами */
+    header.nav, main.container { position:relative; z-index:1; }
   </style>
 </head>
 <body>
@@ -196,7 +192,7 @@
     <footer>© <span id="year"></span> Alexander Isoev — SOC / Cybersecurity Analyst</footer>
   </main>
 
-  <!-- WAVES — как на главной -->
+  <!-- WAVES — те же, что на главной -->
   <svg class="bg-waves" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
     <defs>
       <filter id="blurWave" x="-30%" y="-30%" width="160%" height="160%">

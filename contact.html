@@ -109,7 +109,16 @@
     }
 
     /* Волны фона — как на главной */
-    .bg-waves{position:fixed; inset:0; width:100%; height:100vh; pointer-events:none; z-index:0; opacity:.95}
+   .bg-waves{
+  position: fixed;
+  left: 0; right: 0;
+  top: -12vh;      /* чуть выше верхнего края */
+  width: 100%;
+  height: 140vh;   /* выше, чем экран, чтобы низ не отрезался */
+  pointer-events: none;
+  z-index: 0;
+  opacity: .95;
+}
     @keyframes sway{0%{transform:translateY(0) scale(1)}50%{transform:translateY(8px) scale(1.01)}100%{transform:translateY(0) scale(1)}}
     .bg-waves path:nth-of-type(1){animation:sway 12s ease-in-out infinite}
     .bg-waves path:nth-of-type(2){animation:sway 16s ease-in-out infinite reverse}

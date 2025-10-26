@@ -8,26 +8,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     /* === Palette from index (deep emerald + mint accent) === */
     :root{
-      --bg:#0a1a16;           /* deep green */
-      --bg-2:#0e2a23;         /* darker green */
-      --panel:#0f2f27;        /* panel green */
-      --card:#0c221d;         /* cards */
-      --text:#eef4f2;         /* main text */
-      --muted:#a7b8b3;        /* secondary */
-      --accent:#93e0c7;       /* mint */
-      --accent-2:#6cd5b5;     /* mint hover */
-      --chip:#153a31;         /* pill bg */
-      --border:#17453a;       /* borders */
-      --shadow:0 14px 28px rgba(0,0,0,.25);
+      --bg:#0a1a16; --bg-2:#0e2a23; --panel:#0f2f27; --card:#0c221d;
+      --text:#eef4f2; --muted:#a7b8b3; --accent:#93e0c7; --accent-2:#6cd5b5;
+      --chip:#153a31; --border:#17453a; --shadow:0 14px 28px rgba(0,0,0,.25);
     }
 
     *{box-sizing:border-box}
     body{
       margin:0; font-family:Inter, system-ui, -apple-system; color:var(--text);
-      /* same flowing gradient as on the home page */
+      /* плавный общий фон под гранями */
       background:
         radial-gradient(900px 340px at 70% 0%, #164d40 0%, transparent 55%),
         radial-gradient(800px 300px at -10% 10%, #1a3f35 0%, transparent 55%),
@@ -47,42 +40,31 @@
 
     /* Layout */
     .container{
-      max-width:1200px;
-      margin:0 auto;
-      padding:60px 20px 120px;
+      max-width:1200px; margin:0 auto; padding:60px 20px 120px;
       min-height:calc(100vh - 70px);
       display:flex; flex-direction:column;
-      position:relative; z-index:1; /* keep above bg waves */
+      position:relative; z-index:1; /* выше фона */
     }
     h1{margin:0 0 6px}
     .sub{color:var(--muted); margin:0 0 20px}
 
     .contact-wrap{
-      display:grid;
-      grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr);
-      gap:40px;
-      margin-top:30px;
+      display:grid; grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr);
+      gap:40px; margin-top:30px;
     }
 
-    /* Panels with “platinum ice” border/glow for consistency */
+    /* Panels */
     .panel,.contact-card{
       background:linear-gradient(145deg,#123b33,#0e2f27);
-      border:1px solid rgba(166,212,255,.35);
-      border-radius:18px;
-      box-shadow:
-        0 0 12px rgba(166,212,255,.18),
-        inset 0 0 6px rgba(216,198,138,.08);
+      border:1px solid rgba(166,212,255,.35); border-radius:18px;
+      box-shadow:0 0 12px rgba(166,212,255,.18), inset 0 0 6px rgba(216,198,138,.08);
       transition:box-shadow .3s ease,border-color .3s ease;
     }
     .panel:hover,.contact-card:hover{
       border-color:rgba(166,212,255,.55);
-      box-shadow:
-        0 0 20px rgba(166,212,255,.35),
-        inset 0 0 8px rgba(216,198,138,.12);
+      box-shadow:0 0 20px rgba(166,212,255,.35), inset 0 0 8px rgba(216,198,138,.12);
     }
-
-    .panel{padding:20px}
-    .contact-card{padding:18px}
+    .panel{padding:20px} .contact-card{padding:18px}
 
     /* GIF grid */
     .gif-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
@@ -108,19 +90,61 @@
     .quote{margin-top:70px; text-align:center; font-style:italic; color:rgba(147,224,199,.8); font-size:16px; letter-spacing:.5px}
 
     /* Sticky sidebar on wide */
-    @media (min-width:900px){
-      .contact-card{ position:sticky; top:84px; }
-    }
+    @media (min-width:900px){ .contact-card{ position:sticky; top:84px; } }
     @media (max-width:900px){
       .contact-wrap{grid-template-columns:1fr}
       .gif-grid{grid-template-columns:repeat(2,1fr)}
     }
 
-    /* Keep content above bg svg */
+    /* === Faceted Green Background — exact layout (как на референсе) === */
+    .bg-facets{ position:fixed; inset:0; z-index:0; pointer-events:none; }
+    .bg-facets .base{ position:absolute; inset:0;
+      background:linear-gradient(180deg,#0a1a16 0%, #0e2a23 100%);
+    }
+    .bg-facets .facet{ position:absolute; inset:0; }
+    .bg-facets .f1{ background:#11362f; }
+    .bg-facets .f2{ background:#0f2f27; }
+    .bg-facets .f3{ background:#144238; }
+    .bg-facets .f4{ background:#10352d; }
+    .bg-facets .f5{ background:#0c241e; }
+
+    .bg-facets .f1{
+      clip-path:polygon(0% 13%,10% 16%,26% 14%,42% 18%,60% 15%,76% 18%,86% 12%,100% 17%,100% 0%,0% 0%);
+    }
+    .bg-facets .f2{
+      clip-path:polygon(0% 30%,9% 26%,24% 33%,40% 28%,57% 33%,74% 29%,90% 34%,100% 31%,100% 13%,0% 13%);
+    }
+    .bg-facets .f3{
+      clip-path:polygon(0% 46%,12% 55%,30% 50%,46% 56%,58% 48%,66% 52%,82% 49%,100% 52%,100% 30%,0% 30%);
+    }
+    .bg-facets .f4{
+      clip-path:polygon(0% 65%,14% 61%,30% 69%,48% 63%,66% 71%,80% 66%,92% 69%,100% 66%,100% 46%,0% 46%);
+    }
+    .bg-facets .f5{
+      clip-path:polygon(0% 100%,0% 65%,18% 72%,36% 68%,54% 76%,72% 71%,90% 78%,100% 74%,100% 100%);
+    }
+
+    @media (max-width:900px){
+      .bg-facets .f1{ clip-path:polygon(0% 15%,20% 17%,40% 17%,60% 18%,80% 15%,100% 18%,100% 0%,0% 0%); }
+      .bg-facets .f2{ clip-path:polygon(0% 31%,22% 30%,44% 32%,66% 30%,88% 33%,100% 31%,100% 15%,0% 15%); }
+      .bg-facets .f3{ clip-path:polygon(0% 48%,24% 52%,48% 55%,66% 50%,88% 52%,100% 52%,100% 31%,0% 31%); }
+    }
+
+    /* контент поверх фона (дублирую на всякий) */
     header.nav, main.container, footer { position:relative; z-index:1; }
   </style>
 </head>
 <body>
+  <!-- Faceted Green Background (CSS clip-path, static) -->
+  <div class="bg-facets" aria-hidden="true">
+    <div class="facet base"></div>
+    <div class="facet f1"></div>
+    <div class="facet f2"></div>
+    <div class="facet f3"></div>
+    <div class="facet f4"></div>
+    <div class="facet f5"></div>
+  </div>
+
   <!-- NAV -->
   <header class="nav">
     <div class="nav-inner">
@@ -147,27 +171,16 @@
           <span class="chip">SOC / Blue Team</span>
         </div>
         <div class="gif-grid">
-          <div class="gif-tile">
-            <img src="SOC_rofl1.gif" alt="SOC vs Pentest" loading="lazy">
-            <span class="gif-label">SOC vs Pentest</span>
-          </div>
-          <div class="gif-tile">
-            <img src="SOC_rofl2.gif" alt="A typical day" loading="lazy">
-            <span class="gif-label">A typical day</span>
-          </div>
-          <div class="gif-tile">
-            <img src="SOC_rofl3.gif" alt="Incident Escalation" loading="lazy">
-            <span class="gif-label">Incident Escalation</span>
-          </div>
+          <div class="gif-tile"><img src="SOC_rofl1.gif" alt="SOC vs Pentest" loading="lazy"><span class="gif-label">SOC vs Pentest</span></div>
+          <div class="gif-tile"><img src="SOC_rofl2.gif" alt="A typical day" loading="lazy"><span class="gif-label">A typical day</span></div>
+          <div class="gif-tile"><img src="SOC_rofl3.gif" alt="Incident Escalation" loading="lazy"><span class="gif-label">Incident Escalation</span></div>
         </div>
       </section>
 
       <!-- Contacts -->
       <aside class="contact-card">
         <h3>Let’s connect</h3>
-        <p style="opacity:.9; margin:0 0 10px">
-          Open to SOC / Detection Engineering / Incident Response roles.
-        </p>
+        <p style="opacity:.9; margin:0 0 10px">Open to SOC / Detection Engineering / Incident Response roles.</p>
         <div class="contact-actions">
           <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=alexanderisoevf@gmail.com&su=Hello%20Alexander&body=Hi%20Alexander%2C" target="_blank" rel="noopener">✉️ Email</a>
           <a class="btn btn-ghost" href="https://linkedin.com/in/alexanderisoev" target="_blank" rel="noopener">LinkedIn</a>
@@ -184,83 +197,9 @@
       </aside>
     </div>
 
-    <section class="quote">
-      <p>“Security is not a product — it’s a mindset.”</p>
-    </section>
+    <section class="quote"><p>“Security is not a product — it’s a mindset.”</p></section>
     <footer>© <span id="year"></span> Alexander Isoev — SOC / Cybersecurity Analyst</footer>
   </main>
-
- <!-- Faceted Green Strata (irregular polygon layers) -->
-<svg class="bg-strata" viewBox="0 0 1440 900" preserveAspectRatio="none"
-     aria-hidden="true" focusable="false"
-     style="position:fixed; inset:0; width:100%; height:100vh; pointer-events:none; z-index:0; opacity:.95;">
-  <defs>
-    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="14" />
-    </filter>
-    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%"  stop-color="#11362f" stop-opacity="0.85"/>
-      <stop offset="100%" stop-color="#0e2c25" stop-opacity="0.85"/>
-    </linearGradient>
-    <linearGradient id="g2" x1="1" y1="0" x2="0" y2="1">
-      <stop offset="0%"  stop-color="#0f2f27" stop-opacity="0.80"/>
-      <stop offset="100%" stop-color="#0c241e" stop-opacity="0.80"/>
-    </linearGradient>
-    <linearGradient id="g3" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0%"  stop-color="#144238" stop-opacity="0.75"/>
-      <stop offset="100%" stop-color="#0e2a23" stop-opacity="0.75"/>
-    </linearGradient>
-    <linearGradient id="g4" x1="1" y1="1" x2="0" y2="0">
-      <stop offset="0%"  stop-color="#0a1c17" stop-opacity="0.70"/>
-      <stop offset="100%" stop-color="#09231c" stop-opacity="0.70"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="1440" height="900" fill="url(#g4)" opacity="0.45"/>
-
-  <g filter="url(#soft)">
-    <path fill="url(#g1)" d="
-      M0,160
-      C180,190 300,130 480,170
-      C650,210 780,140 960,180
-      C1140,220 1260,170 1440,200
-      L1440,0 L0,0 Z" opacity="0.95"/>
-    <path fill="url(#g2)" d="
-      M0,330
-      C140,300 320,360 520,320
-      C720,280 880,360 1060,320
-      C1240,280 1340,320 1440,300
-      L1440,120 L0,120 Z" opacity="0.90"/>
-    <path fill="url(#g3)" d="
-      M0,520
-      C160,560 340,500 520,540
-      C700,580 900,520 1080,560
-      C1260,600 1360,560 1440,570
-      L1440,260 L0,260 Z" opacity="0.85"/>
-    <path fill="url(#g2)" d="
-      M0,690
-      C180,650 360,710 560,680
-      C760,650 940,710 1140,680
-      C1320,650 1400,680 1440,670
-      L1440,420 L0,420 Z" opacity="0.80"/>
-    <path fill="url(#g1)" d="
-      M0,860
-      C220,820 420,880 640,850
-      C860,820 1060,880 1280,850
-      C1380,838 1420,842 1440,840
-      L1440,560 L0,560 Z" opacity="0.78"/>
-  </g>
-
-  <style>
-    @keyframes drift { 0%{transform:translateY(0)} 50%{transform:translateY(6px)} 100%{transform:translateY(0)} }
-    g path:nth-child(1){ animation:drift 16s ease-in-out infinite; }
-    g path:nth-child(2){ animation:drift 20s ease-in-out infinite reverse; }
-    g path:nth-child(3){ animation:drift 24s ease-in-out infinite; }
-    g path:nth-child(4){ animation:drift 28s ease-in-out infinite reverse; }
-    g path:nth-child(5){ animation:drift 32s ease-in-out infinite; }
-    @media (prefers-reduced-motion:reduce){ g path{ animation:none; } }
-  </style>
-  </svg>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();

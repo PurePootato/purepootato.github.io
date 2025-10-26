@@ -46,11 +46,26 @@
     .contact-wrap{display:grid; grid-template-columns: 2fr 1fr; gap:20px}
     .panel{background:linear-gradient(145deg, #123b33, #0e2f27); border:1px solid var(--border);
       border-radius:18px; padding:20px; box-shadow:var(--shadow)}
-
-    .gif-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px}
-    .gif-tile{position:relative; overflow:hidden; border-radius:14px; border:1px solid var(--border); background:#0d2621}
-    .gif-tile img{width:100%; height:180px; object-fit:cover; display:block; transition:transform .25s ease}
-    .gif-tile:hover img{transform:scale(1.04)}
+.gif-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* оставляем 3 колонки */
+  gap: 12px;                              /* немного меньше расстояние */
+}
+.gif-tile{
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #0d2621;
+}
+.gif-tile img{
+  width: 100%;
+  height: 155px;                          /* было 180 → делаем компактнее */
+  object-fit: cover;
+  display: block;
+  transition: transform .25s ease;
+}
+.gif-tile:hover img{transform: scale(1.04);}
     .gif-label{position:absolute; left:10px; bottom:8px; font-size:12px; background:rgba(0,0,0,.35);
       padding:4px 8px; border-radius:999px}
 
@@ -67,11 +82,42 @@
       background:var(--chip); border:1px solid var(--border); color:#cfe7e1; margin-right:8px}
 
     footer{opacity:.8; text-align:center; padding:30px 0; margin-top:30px}
-
+.quote {
+  margin-top: 70px;
+  text-align: center;
+  font-style: italic;
+  color: rgba(147, 224, 199, 0.8);
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
     @media (max-width:900px){
       .contact-wrap{grid-template-columns:1fr}
       .gif-grid{grid-template-columns:repeat(2,1fr)}
     }
+/* 1) Шире контейнер + высота до низа экрана */
+.container{
+  max-width: 1200px;               /* было 1100 */
+  padding: 60px 20px 120px;
+  min-height: calc(100vh - 70px);  /* прижимает футер вниз */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2) Баланс колонок + позиционирование для glow */
+.contact-wrap{
+  position: relative;                          /* нужно для псевдоэлемента */
+  grid-template-columns: minmax(0, 1.6fr) minmax(320px, 1fr);
+  gap: 40px;                                   /* было 24 */
+  margin-top: 30px;                            /* было 10 */
+  justify-content: center;                     /* выравниваем по центру на широких экранах */
+}
+/* 4) Sticky для правого блока (необязательно, но удобно) */
+@media (min-width: 900px){
+  .contact-card{
+    position: sticky;
+    top: 84px;                      /* не прилипает к самому краю */
+  }
+}
   </style>
 </head>
 <body>
@@ -141,7 +187,9 @@
         </div>
       </aside>
     </div>
-
+<section class="quote">
+  <p>“Security is not a product — it’s a mindset.”</p>
+</section>
     <footer>© <span id="year"></span> Alexander Isoev — SOC / Cybersecurity Analyst</footer>
   </main>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>

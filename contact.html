@@ -97,69 +97,36 @@
     }
 
     /* === Faceted Green Background — exact layout (как на референсе) === */
-    .bg-facets{ position:fixed; inset:0; z-index:0; pointer-events:none; }
-    .bg-facets .base{ position:absolute; inset:0;
-      background:linear-gradient(180deg,#0a1a16 0%, #0e2a23 100%);
-    }
-    .bg-facets .facet{ position:absolute; inset:0; }
-   /* оттенки ближе к референсу */
-.bg-facets .f1{ background:#123a32; }  /* top ridge */
-.bg-facets .f2{ background:#0f3029; }  /* second layer */
-.bg-facets .f3{ background:#15463b; }  /* main diagonal under About */
-.bg-facets .f4{ background:#103a31; }  /* right cornice by Education */
-.bg-facets .f5{ background:#0c2c25; }  /* bottom base */
-
-/* формы — подогнано под скрин */
-.bg-facets .f1{
-  /* верхняя грань с пиком справа */
-  clip-path: polygon(
-    0% 12%, 8% 15%, 22% 13%, 36% 17%, 52% 14%,
-    70% 18%, 84% 9%, 100% 16%,
-    100% 0%, 0% 0%
-  );
+    .bg-facets {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.bg-facets .f2{
-  /* убираем «ровную полосу», даём диагонали */
-  clip-path: polygon(
-    0% 28%, 10% 24%, 24% 32%, 40% 27%, 58% 33%,
-    72% 29%, 88% 34%, 100% 30%,
-    100% 12%, 0% 12%
-  );
+.bg-facets svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 
-.bg-facets .f3{
-  /* диагональный склон под About Me с локальным “ребром” у ~58% */
-  clip-path: polygon(
-    0% 45%, 10% 54%, 28% 49%, 44% 56%, 58% 47%,
-    66% 51%, 82% 48%, 100% 51%,
-    100% 28%, 0% 28%
-  );
-}
+/* Wave layers — плавные, как на референсе */
+.bg-facets .wave-1 { fill: #0f2f27; }
+.bg-facets .wave-2 { fill: #123a32; }
+.bg-facets .wave-3 { fill: #0c2c25; }
+.bg-facets .wave-4 { fill: #15463b; }
+.bg-facets .wave-5 { fill: #0a1a16; }
 
-.bg-facets .f4{
-  /* правый «карниз» в области Education */
-  clip-path: polygon(
-    0% 64%, 14% 60%, 30% 68%, 48% 62%,
-    66% 70%, 80% 65%, 92% 68%, 100% 65%,
-    100% 45%, 0% 45%
-  );
-}
-
-.bg-facets .f5{
-  /* нижняя V-образная грань по центру */
-  clip-path: polygon(
-    0% 100%, 0% 66%, 16% 72%, 34% 68%,
-    48% 79%, 50% 82%, 52% 79%,
-    70% 71%, 90% 78%, 100% 73%, 100% 100%
-  );
-}
-
-/* чуть упрощаем на узких экранах */
-@media (max-width:900px){
-  .bg-facets .f1{ clip-path: polygon(0% 14%,20% 16%,40% 16%,60% 17%,82% 12%,100% 16%,100% 0%,0% 0%); }
-  .bg-facets .f2{ clip-path: polygon(0% 30%,22% 29%,44% 31%,66% 29%,88% 33%,100% 30%,100% 14%,0% 14%); }
-  .bg-facets .f3{ clip-path: polygon(0% 47%,24% 52%,48% 55%,66% 49%,88% 51%,100% 51%,100% 30%,0% 30%); }
+/* Responsive: упрощаем на мобильных */
+@media (max-width: 900px) {
+  .bg-facets .wave-1 { fill: #0e2a23; }
+  .bg-facets .wave-2 { fill: #0f2f27; }
+  .bg-facets .wave-3 { fill: #123a32; }
+  .bg-facets .wave-4 { fill: #0c2c25; }
+  .bg-facets .wave-5 { fill: #0a1a16; }
 }
 
     /* контент поверх фона (дублирую на всякий) */
@@ -167,15 +134,40 @@
   </style>
 </head>
 <body>
-  <!-- Faceted Green Background (CSS clip-path, static) -->
-  <div class="bg-facets" aria-hidden="true">
-    <div class="facet base"></div>
-    <div class="facet f1"></div>
-    <div class="facet f2"></div>
-    <div class="facet f3"></div>
-    <div class="facet f4"></div>
-    <div class="facet f5"></div>
-  </div>
+  <!-- NEW: Soft Wavy Green Background (SVG) -->
+<div class="bg-facets" aria-hidden="true">
+  <svg viewBox="0 0 1440 1024" preserveAspectRatio="none">
+    <!-- Layer 5: Base (самый тёмный) -->
+    <path class="wave-5" d="
+      M0,1024 L0,650
+      Q180,720 360,680 Q540,640 720,700 Q900,760 1080,710 Q1260,660 1440,730
+      L1440,1024 Z" />
+
+    <!-- Layer 4 -->
+    <path class="wave-4" d="
+      M0,1024 L0,550
+      Q200,650 400,590 Q600,530 800,600 Q1000,670 1200,610 Q1400,550 1440,630
+      L1440,1024 Z" />
+
+    <!-- Layer 3 -->
+    <path class="wave-3" d="
+      M0,1024 L0,420
+      Q220,520 440,470 Q660,420 880,490 Q1100,560 1320,500 Q1440,440 1440,510
+      L1440,1024 Z" />
+
+    <!-- Layer 2 -->
+    <path class="wave-2" d="
+      M0,1024 L0,300
+      Q240,400 480,350 Q720,300 960,370 Q1200,440 1380,380 Q1440,320 1440,390
+      L1440,1024 Z" />
+
+    <!-- Layer 1: Top (самая светлая волна) -->
+    <path class="wave-1" d="
+      M0,1024 L0,150
+      Q260,250 520,200 Q780,150 1040,220 Q1300,290 1440,230
+      L1440,1024 Z" />
+  </svg>
+</div>
 
   <!-- NAV -->
   <header class="nav">

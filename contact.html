@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* === Palette from index (deep emerald + mint accent) === */
+    /* === Palette === */
     :root{
       --bg:#0a1a16; --bg-2:#0e2a23; --panel:#0f2f27; --card:#0c221d;
       --text:#eef4f2; --muted:#a7b8b3; --accent:#93e0c7; --accent-2:#6cd5b5;
@@ -19,11 +19,11 @@
 
     *{box-sizing:border-box}
     body{
-  margin:0; 
-  font-family:Inter, system-ui, -apple-system; 
-  color:var(--text);
-  background: transparent; 
-}
+      margin:0; 
+      font-family:Inter, system-ui, -apple-system; 
+      color:var(--text);
+      background: transparent; 
+    }
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
 
@@ -41,7 +41,7 @@
       max-width:1200px; margin:0 auto; padding:60px 20px 120px;
       min-height:calc(100vh - 70px);
       display:flex; flex-direction:column;
-      position:relative; z-index:1; /* выше фона */
+      position:relative; z-index:1;
     }
     h1{margin:0 0 6px}
     .sub{color:var(--muted); margin:0 0 20px}
@@ -51,16 +51,26 @@
       gap:40px; margin-top:30px;
     }
 
-    /* Panels */
-    .panel,.contact-card{
-      background:linear-gradient(145deg,#123b33,#0e2f27);
-      border:1px solid rgba(166,212,255,.35); border-radius:18px;
-      box-shadow:0 0 12px rgba(166,212,255,.18), inset 0 0 6px rgba(216,198,138,.08);
-      transition:box-shadow .3s ease,border-color .3s ease;
+    /* Panels — STANFORD STYLE */
+    .panel, .contact-card {
+      background: rgba(12, 38, 31, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(147, 224, 199, 0.18);
+      border-radius: 22px;
+      box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.25),
+        inset 0 0 25px rgba(147, 224, 199, 0.06);
+      transition: all 0.35s ease;
+      position: relative;
+      z-index: 2;
     }
-    .panel:hover,.contact-card:hover{
-      border-color:rgba(166,212,255,.55);
-      box-shadow:0 0 20px rgba(166,212,255,.35), inset 0 0 8px rgba(216,198,138,.12);
+    .panel:hover, .contact-card:hover {
+      background: rgba(12, 38, 31, 0.7);
+      transform: translateY(-3px);
+      box-shadow: 
+        0 18px 40px rgba(0, 0, 0, 0.35),
+        inset 0 0 30px rgba(147, 224, 199, 0.1);
     }
     .panel{padding:20px} .contact-card{padding:18px}
 
@@ -87,85 +97,79 @@
     footer{opacity:.8; text-align:center; padding:30px 0; margin-top:30px}
     .quote{margin-top:70px; text-align:center; font-style:italic; color:rgba(147,224,199,.8); font-size:16px; letter-spacing:.5px}
 
-    /* Sticky sidebar on wide */
     @media (min-width:900px){ .contact-card{ position:sticky; top:84px; } }
     @media (max-width:900px){
       .contact-wrap{grid-template-columns:1fr}
       .gif-grid{grid-template-columns:repeat(2,1fr)}
     }
 
-    /* === Faceted Green Background — exact layout (как на референсе) === */
+    /* === STANFORD AI LAB — "ЛОМАНЫЕ", РАЗМЫТЫЕ СЛОИ === */
     .bg-facets {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
 
-.bg-facets svg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
+    .bg-facets svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      animation: drift 35s ease-in-out infinite;
+    }
 
-/* Wave layers — плавные, как на референсе */
-.bg-facets .wave-1 { fill: #0f2f27; }
-.bg-facets .wave-2 { fill: #123a32; }
-.bg-facets .wave-3 { fill: #0c2c25; }
-.bg-facets .wave-4 { fill: #15463b; }
-.bg-facets .wave-5 { fill: #0a1a16; }
+    @keyframes drift {
+      0%, 100% { transform: translateX(0) translateY(0); }
+      50% { transform: translateX(-20px) translateY(8px); }
+    }
 
-/* Responsive: упрощаем на мобильных */
-@media (max-width: 900px) {
-  .bg-facets .wave-1 { fill: #0e2a23; }
-  .bg-facets .wave-2 { fill: #0f2f27; }
-  .bg-facets .wave-3 { fill: #123a32; }
-  .bg-facets .wave-4 { fill: #0c2c25; }
-  .bg-facets .wave-5 { fill: #0a1a16; }
-}
+    .bg-facets::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 25%, rgba(147,224,199,0.1) 0%, transparent 55%);
+      z-index: 1;
+      pointer-events: none;
+      animation: pulse 25s ease-in-out infinite;
+    }
 
-    /* контент поверх фона (дублирую на всякий) */
+    @keyframes pulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; }
+    }
+
+    @media (max-width: 900px) {
+      .bg-facets svg { animation-duration: 45s; }
+      .bg-facets::before { background: radial-gradient(circle at 50% 35%, rgba(147,224,199,0.08) 0%, transparent 65%); }
+    }
+
     header.nav, main.container, footer { position:relative; z-index:1; }
   </style>
 </head>
 <body>
-  <!-- NEW: Soft Wavy Green Background (SVG) -->
-<div class="bg-facets" aria-hidden="true">
-  <svg viewBox="0 0 1440 1024" preserveAspectRatio="none">
-    <!-- Layer 5: Base (самый тёмный) -->
-    <path class="wave-5" d="
-      M0,1024 L0,650
-      Q180,720 360,680 Q540,640 720,700 Q900,760 1080,710 Q1260,660 1440,730
-      L1440,1024 Z" />
+  <!-- STANFORD AI LAB BACKGROUND -->
+  <div class="bg-facets" aria-hidden="true">
+    <svg viewBox="0 0 1440 1024" preserveAspectRatio="none" class="organic-bg">
+      <defs>
+        <filter id="noise">
+          <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" seed="3"/>
+          <feColorMatrix type="saturate" values="1.2"/>
+        </filter>
+        <filter id="soft-blur">
+          <feGaussianBlur stdDeviation="4"/>
+        </filter>
+      </defs>
 
-    <!-- Layer 4 -->
-    <path class="wave-4" d="
-      M0,1024 L0,550
-      Q200,650 400,590 Q600,530 800,600 Q1000,670 1200,610 Q1400,550 1440,630
-      L1440,1024 Z" />
-
-    <!-- Layer 3 -->
-    <path class="wave-3" d="
-      M0,1024 L0,420
-      Q220,520 440,470 Q660,420 880,490 Q1100,560 1320,500 Q1440,440 1440,510
-      L1440,1024 Z" />
-
-    <!-- Layer 2 -->
-    <path class="wave-2" d="
-      M0,1024 L0,300
-      Q240,400 480,350 Q720,300 960,370 Q1200,440 1380,380 Q1440,320 1440,390
-      L1440,1024 Z" />
-
-    <!-- Layer 1: Top (самая светлая волна) -->
-    <path class="wave-1" d="
-      M0,1024 L0,150
-      Q260,250 520,200 Q780,150 1040,220 Q1300,290 1440,230
-      L1440,1024 Z" />
-  </svg>
-</div>
+      <path d="M0,1024 L0,720 L180,740 L360,710 L540,730 L720,760 L900,740 L1080,720 L1260,750 L1440,730 L1440,1024 Z" fill="#0a1a16" filter="url(#noise)"/>
+      <path d="M0,1024 L0,620 L200,650 L400,610 L600,630 L800,660 L1000,640 L1200,620 L1400,650 L1440,630 L1440,1024 Z" fill="#0c2c25" opacity="0.92" filter="url(#soft-blur)"/>
+      <path d="M0,1024 L0,500 L220,530 L440,490 L660,510 L880,540 L1100,520 L1320,500 L1440,520 L1440,1024 Z" fill="#123a32" opacity="0.88" filter="url(#soft-blur)"/>
+      <path d="M0,1024 L0,380 L240,410 L480,370 L720,390 L960,420 L1200,400 L1380,380 L1440,400 L1440,1024 Z" fill="#0f2f27" opacity="0.82" filter="url(#soft-blur)"/>
+      <path d="M0,1024 L0,220 L280,260 L520,220 L780,240 L1040,270 L1300,250 L1440,230 L1440,1024 Z" fill="#15463b" opacity="0.75" filter="url(#soft-blur)"/>
+    </svg>
+  </div>
 
   <!-- NAV -->
   <header class="nav">
@@ -174,7 +178,7 @@
       <nav class="nav-links">
         <a href="index.html#home">Home</a>
         <a href="experience.html">Experience</a>
-        <a href="https://github.com/PurePootato/SOC-Incident-Reports/blob/main/README.md" target="_blank" rel="noopener" title="View SOC Incident Reports on GitHub">Projects</a>
+        <a href="https://github.com/PurePootato/SOC-Incident-Reports/blob/main/README.md" target="_blank" rel="noopener">Projects</a>
         <a href="Alexander_Isoev_Education.pdf" target="_blank" rel="noopener">Education</a>
         <a href="contact.html">Contact</a>
       </nav>
@@ -186,7 +190,6 @@
     <p class="sub">Work as a SOC analyst.</p>
 
     <div class="contact-wrap">
-      <!-- GIFs -->
       <section class="panel">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px">
           <h2 style="margin:0">🍃🍃🍃</h2>
@@ -199,7 +202,6 @@
         </div>
       </section>
 
-      <!-- Contacts -->
       <aside class="contact-card">
         <h3>Let’s connect</h3>
         <p style="opacity:.9; margin:0 0 10px">Open to SOC / Detection Engineering / Incident Response roles.</p>

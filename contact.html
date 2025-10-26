@@ -9,13 +9,30 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    /* === Palette from index (deep emerald + mint accent) === */
     :root{
-      --bg:#0a1a16; --bg-2:#0e2a23; --panel:#0f2f27; --card:#0c221d;
-      --text:#eef4f2; --muted:#a7b8b3; --accent:#93e0c7; --accent-2:#6cd5b5;
-      --chip:#153a31; --border:#17453a; --shadow:0 14px 28px rgba(0,0,0,.25);
+      --bg:#0a1a16;           /* deep green */
+      --bg-2:#0e2a23;         /* darker green */
+      --panel:#0f2f27;        /* panel green */
+      --card:#0c221d;         /* cards */
+      --text:#eef4f2;         /* main text */
+      --muted:#a7b8b3;        /* secondary */
+      --accent:#93e0c7;       /* mint */
+      --accent-2:#6cd5b5;     /* mint hover */
+      --chip:#153a31;         /* pill bg */
+      --border:#17453a;       /* borders */
+      --shadow:0 14px 28px rgba(0,0,0,.25);
     }
+
     *{box-sizing:border-box}
- 
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system; color:var(--text);
+      /* same flowing gradient as on the home page */
+      background:
+        radial-gradient(900px 340px at 70% 0%, #164d40 0%, transparent 55%),
+        radial-gradient(800px 300px at -10% 10%, #1a3f35 0%, transparent 55%),
+        linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 100%);
+    }
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
 
@@ -26,187 +43,97 @@
     .brand{font-weight:800}
     .nav-links{margin-left:auto; display:flex; gap:22px; flex-wrap:wrap}
     .nav-links a{color:var(--text); opacity:.9}
-    .nav-links a[aria-current="page"]{
-  color:var(--accent);
-  font-weight:700;
-}
-    .active{color:var(--accent)}
+    .nav-links a[aria-current="page"]{ color:var(--accent); font-weight:700; }
 
-    .container{max-width:1100px; margin:0 auto; padding:60px 20px 120px}
+    /* Layout */
+    .container{
+      max-width:1200px;
+      margin:0 auto;
+      padding:60px 20px 120px;
+      min-height:calc(100vh - 70px);
+      display:flex; flex-direction:column;
+      position:relative; z-index:1; /* keep above bg waves */
+    }
     h1{margin:0 0 6px}
     .sub{color:var(--muted); margin:0 0 20px}
 
-    /* Contact page layout */
-    .contact-wrap{display:grid; grid-template-columns: 2fr 1fr; gap:20px}
-    .panel{background:linear-gradient(145deg, #123b33, #0e2f27); border:1px solid var(--border);
-      border-radius:18px; padding:20px; box-shadow:var(--shadow)}
-.gif-grid{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* оставляем 3 колонки */
-  gap: 12px;                              /* немного меньше расстояние */
-}
-.gif-tile{
-  position: relative;
-  overflow: hidden;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: #0d2621;
-}
-.gif-tile img{
-  width: 100%;
-  height: 155px;                          /* было 180 → делаем компактнее */
-  object-fit: cover;
-  display: block;
-  transition: transform .25s ease;
-}
-.gif-tile:hover img{transform: scale(1.04);}
-    .gif-label{position:absolute; left:10px; bottom:8px; font-size:12px; background:rgba(0,0,0,.35);
-      padding:4px 8px; border-radius:999px}
+    .contact-wrap{
+      display:grid;
+      grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr);
+      gap:40px;
+      margin-top:30px;
+    }
 
-    .contact-card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px}
-    .contact-card h3{margin:0 0 8px}
+    /* Panels with “platinum ice” border/glow for consistency */
+    .panel,.contact-card{
+      background:linear-gradient(145deg,#123b33,#0e2f27);
+      border:1px solid rgba(166,212,255,.35);
+      border-radius:18px;
+      box-shadow:
+        0 0 12px rgba(166,212,255,.18),
+        inset 0 0 6px rgba(216,198,138,.08);
+      transition:box-shadow .3s ease,border-color .3s ease;
+    }
+    .panel:hover,.contact-card:hover{
+      border-color:rgba(166,212,255,.55);
+      box-shadow:
+        0 0 20px rgba(166,212,255,.35),
+        inset 0 0 8px rgba(216,198,138,.12);
+    }
+
+    .panel{padding:20px}
+    .contact-card{padding:18px}
+
+    /* GIF grid */
+    .gif-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+    .gif-tile{position:relative; overflow:hidden; border-radius:14px; border:1px solid var(--border); background:#0d2621}
+    .gif-tile img{width:100%; height:155px; object-fit:cover; display:block; transition:transform .25s ease}
+    .gif-tile:hover img{transform:scale(1.04)}
+    .gif-label{position:absolute; left:10px; bottom:8px; font-size:12px; background:rgba(0,0,0,.35); padding:4px 8px; border-radius:999px}
+
+    /* Buttons */
     .contact-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
-    .btn{display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px;
-      border:1px solid #0b211c; background:var(--accent); color:#0b1a16; font-weight:700;
-      box-shadow:0 10px 22px rgba(108,213,181,.25); transition:transform .15s ease}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; padding:10px 14px;
+      border-radius:12px; border:1px solid #0b211c;
+      background:var(--accent); color:#0b1a16; font-weight:700;
+      box-shadow:0 10px 22px rgba(108,213,181,.25); transition:transform .15s ease
+    }
     .btn:hover{transform:translateY(-1px)}
     .btn-ghost{background:transparent; color:var(--accent); border:1px solid var(--border)}
 
-    .chip{display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px;
-      background:var(--chip); border:1px solid var(--border); color:#cfe7e1; margin-right:8px}
+    .chip{display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--border); color:#cfe7e1; margin-right:8px}
 
     footer{opacity:.8; text-align:center; padding:30px 0; margin-top:30px}
-.quote {
-  margin-top: 70px;
-  text-align: center;
-  font-style: italic;
-  color: rgba(147, 224, 199, 0.8);
-  font-size: 16px;
-  letter-spacing: 0.5px;
-}
+    .quote{margin-top:70px; text-align:center; font-style:italic; color:rgba(147,224,199,.8); font-size:16px; letter-spacing:.5px}
+
+    /* Sticky sidebar on wide */
+    @media (min-width:900px){
+      .contact-card{ position:sticky; top:84px; }
+    }
     @media (max-width:900px){
       .contact-wrap{grid-template-columns:1fr}
       .gif-grid{grid-template-columns:repeat(2,1fr)}
     }
-/* 1) Шире контейнер + высота до низа экрана */
-.container{
-  max-width: 1200px;               /* было 1100 */
-  padding: 60px 20px 120px;
-  min-height: calc(100vh - 70px);  /* прижимает футер вниз */
-  display: flex;
-  flex-direction: column;
-}
 
-/* 2) Баланс колонок + позиционирование для glow */
-.contact-wrap{
-  position: relative;                          /* нужно для псевдоэлемента */
-  grid-template-columns: minmax(0, 1.6fr) minmax(320px, 1fr);
-  gap: 40px;                                   /* было 24 */
-  margin-top: 30px;                            /* было 10 */
-  justify-content: center;                     /* выравниваем по центру на широких экранах */
-}
-/* 4) Sticky для правого блока (необязательно, но удобно) */
-@media (min-width: 900px){
-  .contact-card{
-    position: sticky;
-    top: 84px;                      /* не прилипает к самому краю */
-  }
-}
-    /* === Layered Green Strata (ломаные слои) === */
-:root{
-  --strata-1:#0e2c25;
-  --strata-2:#11362f;
-  --strata-3:#144238;
-  --strata-4:#0c241e;
-  --strata-5:#0a1c17;
-}
-
-/* контейнер со слоями — фиксированный фон позади всего */
-.bg-strata{
-  position: fixed;
-  inset: 0;
-  z-index: 0;            /* ниже контента */
-  pointer-events: none;  /* не перекрывает клики */
-  opacity: .55;          /* общая мягкость эффекта */
-}
-
-/* каждый слой — это многоугольник с «ломаным» краем */
-.bg-strata .layer{
-  position: absolute;
-  inset: 0;
-  will-change: transform;
-}
-
-/* === Layered Green Strata — мягкая и атмосферная версия === */
-.bg-strata {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.6;
-  background: linear-gradient(180deg, #061b15 0%, #0a221c 100%);
-  overflow: hidden;
-}
-
-.bg-strata .layer {
-  position: absolute;
-  inset: 0;
-  filter: blur(30px); /* размытие краёв слоёв */
-}
-
-/* Слои с мягкими зелёными оттенками */
-.bg-strata .l1 {
-  background: linear-gradient(135deg, rgba(30, 80, 60, 0.55), rgba(15, 40, 30, 0.4));
-  clip-path: polygon(0% 20%, 20% 28%, 50% 24%, 80% 30%, 100% 26%, 100% 0%, 0% 0%);
-}
-.bg-strata .l2 {
-  background: linear-gradient(135deg, rgba(20, 70, 55, 0.5), rgba(10, 30, 20, 0.35));
-  clip-path: polygon(0% 40%, 25% 34%, 55% 42%, 85% 36%, 100% 38%, 100% 20%, 0% 20%);
-}
-.bg-strata .l3 {
-  background: linear-gradient(135deg, rgba(25, 90, 70, 0.45), rgba(10, 25, 18, 0.35));
-  clip-path: polygon(0% 60%, 22% 54%, 52% 62%, 82% 56%, 100% 60%, 100% 40%, 0% 40%);
-}
-.bg-strata .l4 {
-  background: linear-gradient(135deg, rgba(18, 80, 65, 0.4), rgba(8, 22, 17, 0.35));
-  clip-path: polygon(0% 80%, 18% 74%, 48% 82%, 78% 76%, 100% 80%, 100% 60%, 0% 60%);
-}
-.bg-strata .l5 {
-  background: linear-gradient(135deg, rgba(15, 70, 55, 0.35), rgba(6, 18, 14, 0.3));
-  clip-path: polygon(0% 100%, 20% 94%, 50% 100%, 80% 94%, 100% 100%, 100% 80%, 0% 80%);
-}
-
-/* чтобы контент гарантированно был поверх */
-header.nav, main.container, footer{ position: relative; z-index: 1; }
-
-/* помягче для тех, у кого системное «меньше эффектов» */
-@media (prefers-reduced-motion: reduce){
-  .bg-strata{ opacity:.4; }
-}
+    /* Keep content above bg svg */
+    header.nav, main.container, footer { position:relative; z-index:1; }
   </style>
 </head>
 <body>
-   <!-- фоновые ломаные слои -->
-  <div class="bg-strata" aria-hidden="true">
-    <div class="layer l1"></div>
-    <div class="layer l2"></div>
-    <div class="layer l3"></div>
-    <div class="layer l4"></div>
-    <div class="layer l5"></div>
-  </div>
   <!-- NAV -->
   <header class="nav">
-  <div class="nav-inner">
-    <div class="brand"><a href="index.html#home" style="color:var(--text); text-decoration:none">Alexander Isoev</a></div>
-    <nav class="nav-links">
-      <a href="index.html#home">Home</a>
-      <a href="experience.html">Experience</a>
-      <a href="https://github.com/PurePootato/SOC-Incident-Reports/blob/main/README.md" target="_blank" rel="noopener" title="View SOC Incident Reports on GitHub">Projects</a>
-      <a href="Alexander_Isoev_Education.pdf" target="_blank" rel="noopener">Education</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
+    <div class="nav-inner">
+      <div class="brand"><a href="index.html#home" style="color:var(--text); text-decoration:none">Alexander Isoev</a></div>
+      <nav class="nav-links">
+        <a href="index.html#home">Home</a>
+        <a href="experience.html">Experience</a>
+        <a href="https://github.com/PurePootato/SOC-Incident-Reports/blob/main/README.md" target="_blank" rel="noopener" title="View SOC Incident Reports on GitHub">Projects</a>
+        <a href="Alexander_Isoev_Education.pdf" target="_blank" rel="noopener">Education</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
 
   <main class="container">
     <h1>Contact</h1>
@@ -220,33 +147,29 @@ header.nav, main.container, footer{ position: relative; z-index: 1; }
           <span class="chip">SOC / Blue Team</span>
         </div>
         <div class="gif-grid">
-  <div class="gif-tile">
-    <img src="SOC_rofl1.gif" alt="SOC vs Pentest" loading="lazy">
-    <span class="gif-label">SOC vs Pentest</span>
-  </div>
-
-  <div class="gif-tile">
-    <img src="SOC_rofl2.gif" alt="A typical day" loading="lazy">
-    <span class="gif-label">A typical day</span>
-  </div>
-
-  <div class="gif-tile">
-    <img src="SOC_rofl3.gif" alt="Incident Escalation" loading="lazy">
-    <span class="gif-label">Incident Escalation</span>
-  </div>
-</div>
-
+          <div class="gif-tile">
+            <img src="SOC_rofl1.gif" alt="SOC vs Pentest" loading="lazy">
+            <span class="gif-label">SOC vs Pentest</span>
+          </div>
+          <div class="gif-tile">
+            <img src="SOC_rofl2.gif" alt="A typical day" loading="lazy">
+            <span class="gif-label">A typical day</span>
+          </div>
+          <div class="gif-tile">
+            <img src="SOC_rofl3.gif" alt="Incident Escalation" loading="lazy">
+            <span class="gif-label">Incident Escalation</span>
+          </div>
+        </div>
       </section>
 
-      <!-- Контакты -->
+      <!-- Contacts -->
       <aside class="contact-card">
         <h3>Let’s connect</h3>
         <p style="opacity:.9; margin:0 0 10px">
           Open to SOC / Detection Engineering / Incident Response roles.
         </p>
         <div class="contact-actions">
-          <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=alexanderisoevf@gmail.com&su=Hello%20Alexander&body=Hi%20Alexander%2C"
-             target="_blank" rel="noopener">✉️ Email</a>
+          <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=alexanderisoevf@gmail.com&su=Hello%20Alexander&body=Hi%20Alexander%2C" target="_blank" rel="noopener">✉️ Email</a>
           <a class="btn btn-ghost" href="https://linkedin.com/in/alexanderisoev" target="_blank" rel="noopener">LinkedIn</a>
           <a class="btn btn-ghost" href="https://github.com/PurePootato" target="_blank" rel="noopener">GitHub</a>
         </div>
@@ -260,24 +183,53 @@ header.nav, main.container, footer{ position: relative; z-index: 1; }
         </div>
       </aside>
     </div>
-<section class="quote">
-  <p>“Security is not a product — it’s a mindset.”</p>
-</section>
+
+    <section class="quote">
+      <p>“Security is not a product — it’s a mindset.”</p>
+    </section>
     <footer>© <span id="year"></span> Alexander Isoev — SOC / Cybersecurity Analyst</footer>
   </main>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  <script>
-(function () {
-  const links = document.querySelectorAll('.nav-links a');
-  const isIndex = /\/(?:index\.html?)?$/.test(location.pathname);
 
-  links.forEach(a => {
-    const href = a.getAttribute('href') || '';
-    const sameHome = href.endsWith('#home') && isIndex;      
-    const samePath = a.pathname === location.pathname && !a.hash; 
-    if (sameHome || samePath) a.setAttribute('aria-current', 'page');
-  });
-})();
-</script>
+  <!-- Flowing mint waves (as on the home page) -->
+  <svg class="bg-waves" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false"
+       style="position:fixed; inset:0; width:100%; height:100vh; pointer-events:none; z-index:0; opacity:.95;">
+    <defs>
+      <filter id="blurWave" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="18" />
+      </filter>
+      <linearGradient id="wave1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"  stop-color="#7CF3C7" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#3BD09F" stop-opacity="0.07"/>
+      </linearGradient>
+      <linearGradient id="wave2" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#9AF7DA" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#5BE6B9" stop-opacity="0.05"/>
+      </linearGradient>
+    </defs>
+    <path filter="url(#blurWave)" fill="url(#wave1)"
+          d="M0,650 C260,580 380,760 580,700 C800,630 880,480 1120,520 C1280,550 1380,520 1440,540 L1440,900 L0,900 Z"/>
+    <path filter="url(#blurWave)" fill="url(#wave2)"
+          d="M0,590 C220,560 400,720 600,680 C780,640 980,520 1180,540 C1320,560 1400,560 1440,570 L1440,900 L0,900 Z"/>
+    <style>
+      @keyframes sway { 0%{transform:translateY(0) scale(1)} 50%{transform:translateY(8px) scale(1.01)} 100%{transform:translateY(0) scale(1)} }
+      path:nth-of-type(1){ animation:sway 12s ease-in-out infinite; }
+      path:nth-of-type(2){ animation:sway 16s ease-in-out infinite reverse; }
+      @media (prefers-reduced-motion:reduce){ path{animation:none} }
+    </style>
+  </svg>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    (function () {
+      const links = document.querySelectorAll('.nav-links a');
+      const isIndex = /\/(?:index\.html?)?$/.test(location.pathname);
+      links.forEach(a => {
+        const href = a.getAttribute('href') || '';
+        const sameHome = href.endsWith('#home') && isIndex;
+        const samePath = a.pathname === location.pathname && !a.hash;
+        if (sameHome || samePath) a.setAttribute('aria-current', 'page');
+      });
+    })();
+  </script>
 </body>
 </html>

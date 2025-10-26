@@ -102,33 +102,65 @@
       background:linear-gradient(180deg,#0a1a16 0%, #0e2a23 100%);
     }
     .bg-facets .facet{ position:absolute; inset:0; }
-    .bg-facets .f1{ background:#11362f; }
-    .bg-facets .f2{ background:#0f2f27; }
-    .bg-facets .f3{ background:#144238; }
-    .bg-facets .f4{ background:#10352d; }
-    .bg-facets .f5{ background:#0c241e; }
+   /* оттенки ближе к референсу */
+.bg-facets .f1{ background:#123a32; }  /* top ridge */
+.bg-facets .f2{ background:#0f3029; }  /* second layer */
+.bg-facets .f3{ background:#15463b; }  /* main diagonal under About */
+.bg-facets .f4{ background:#103a31; }  /* right cornice by Education */
+.bg-facets .f5{ background:#0c2c25; }  /* bottom base */
 
-    .bg-facets .f1{
-      clip-path:polygon(0% 13%,10% 16%,26% 14%,42% 18%,60% 15%,76% 18%,86% 12%,100% 17%,100% 0%,0% 0%);
-    }
-    .bg-facets .f2{
-      clip-path:polygon(0% 30%,9% 26%,24% 33%,40% 28%,57% 33%,74% 29%,90% 34%,100% 31%,100% 13%,0% 13%);
-    }
-    .bg-facets .f3{
-      clip-path:polygon(0% 46%,12% 55%,30% 50%,46% 56%,58% 48%,66% 52%,82% 49%,100% 52%,100% 30%,0% 30%);
-    }
-    .bg-facets .f4{
-      clip-path:polygon(0% 65%,14% 61%,30% 69%,48% 63%,66% 71%,80% 66%,92% 69%,100% 66%,100% 46%,0% 46%);
-    }
-    .bg-facets .f5{
-      clip-path:polygon(0% 100%,0% 65%,18% 72%,36% 68%,54% 76%,72% 71%,90% 78%,100% 74%,100% 100%);
-    }
+/* формы — подогнано под скрин */
+.bg-facets .f1{
+  /* верхняя грань с пиком справа */
+  clip-path: polygon(
+    0% 12%, 8% 15%, 22% 13%, 36% 17%, 52% 14%,
+    70% 18%, 84% 9%, 100% 16%,
+    100% 0%, 0% 0%
+  );
+}
 
-    @media (max-width:900px){
-      .bg-facets .f1{ clip-path:polygon(0% 15%,20% 17%,40% 17%,60% 18%,80% 15%,100% 18%,100% 0%,0% 0%); }
-      .bg-facets .f2{ clip-path:polygon(0% 31%,22% 30%,44% 32%,66% 30%,88% 33%,100% 31%,100% 15%,0% 15%); }
-      .bg-facets .f3{ clip-path:polygon(0% 48%,24% 52%,48% 55%,66% 50%,88% 52%,100% 52%,100% 31%,0% 31%); }
-    }
+.bg-facets .f2{
+  /* убираем «ровную полосу», даём диагонали */
+  clip-path: polygon(
+    0% 28%, 10% 24%, 24% 32%, 40% 27%, 58% 33%,
+    72% 29%, 88% 34%, 100% 30%,
+    100% 12%, 0% 12%
+  );
+}
+
+.bg-facets .f3{
+  /* диагональный склон под About Me с локальным “ребром” у ~58% */
+  clip-path: polygon(
+    0% 45%, 10% 54%, 28% 49%, 44% 56%, 58% 47%,
+    66% 51%, 82% 48%, 100% 51%,
+    100% 28%, 0% 28%
+  );
+}
+
+.bg-facets .f4{
+  /* правый «карниз» в области Education */
+  clip-path: polygon(
+    0% 64%, 14% 60%, 30% 68%, 48% 62%,
+    66% 70%, 80% 65%, 92% 68%, 100% 65%,
+    100% 45%, 0% 45%
+  );
+}
+
+.bg-facets .f5{
+  /* нижняя V-образная грань по центру */
+  clip-path: polygon(
+    0% 100%, 0% 66%, 16% 72%, 34% 68%,
+    48% 79%, 50% 82%, 52% 79%,
+    70% 71%, 90% 78%, 100% 73%, 100% 100%
+  );
+}
+
+/* чуть упрощаем на узких экранах */
+@media (max-width:900px){
+  .bg-facets .f1{ clip-path: polygon(0% 14%,20% 16%,40% 16%,60% 17%,82% 12%,100% 16%,100% 0%,0% 0%); }
+  .bg-facets .f2{ clip-path: polygon(0% 30%,22% 29%,44% 31%,66% 29%,88% 33%,100% 30%,100% 14%,0% 14%); }
+  .bg-facets .f3{ clip-path: polygon(0% 47%,24% 52%,48% 55%,66% 49%,88% 51%,100% 51%,100% 30%,0% 30%); }
+}
 
     /* контент поверх фона (дублирую на всякий) */
     header.nav, main.container, footer { position:relative; z-index:1; }

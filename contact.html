@@ -105,30 +105,21 @@
       .gif-grid{grid-template-columns:repeat(2,1fr)}
     }
 
-  .bg-waves{
+  .bg-waves {
   position: fixed;
-  left: 0; right: 0;
-  top: -60vh;     /* было 0 или -12vh — поднимаем заметно выше */
+  inset: -6vh 0 0 0; /* чуть выше, чтобы верх не пустовал */
   width: 100%;
-  height: 220vh;  /* большой запас по высоте */
+  height: 120vh;     /* небольшой запас по высоте */
   pointer-events: none;
   z-index: 0;
   opacity: .95;
 }
-
 @keyframes sway{0%{transform:translateY(0) scale(1)}50%{transform:translateY(8px) scale(1.01)}100%{transform:translateY(0) scale(1)}}
 .bg-waves path:nth-of-type(1){animation:sway 12s ease-in-out infinite}
 .bg-waves path:nth-of-type(2){animation:sway 16s ease-in-out infinite reverse}
 
 @media (prefers-reduced-motion:reduce){.bg-waves path{animation:none}}
 
-/* на узких экранах чуть больше подъём/высота, чтобы точно без щели */
-@media (max-width: 1200px){
-  .bg-waves{ top: -70vh; height: 240vh; }
-}
-@media (max-width: 900px){
-  .bg-waves{ top: -80vh; height: 260vh; }
-}
 
     /* Контент над волнами */
     header.nav, main.container { position:relative; z-index:1; }
@@ -203,7 +194,7 @@
   </main>
 
   <!-- WAVES — те же, что на главной -->
-  <svg class="bg-waves" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+  <svg class="bg-waves" viewBox="0 -320 1440 1220" preserveAspectRatio="none" aria-hidden="true" focusable="false">
     <defs>
       <filter id="blurWave" x="-30%" y="-30%" width="160%" height="160%">
         <feGaussianBlur stdDeviation="18" />

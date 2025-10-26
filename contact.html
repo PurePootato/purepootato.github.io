@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --bg:#0a1a16;           /* deep green */
@@ -24,7 +25,10 @@
     }
     *{box-sizing:border-box}
     body{
-      margin:0; font-family:Inter, system-ui, -apple-system; color:var(--text);
+      margin:0;
+      font-family:Inter, system-ui, -apple-system;
+      color:var(--text);
+      /* фон — как на главной */
       background:
         radial-gradient(900px 340px at 70% 0%, #164d40 0%, transparent 55%),
         radial-gradient(800px 300px at -10% 10%, #1a3f35 0%, transparent 55%),
@@ -33,42 +37,48 @@
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
 
-    /* NAV */
+    /* NAV — как на главной */
     .nav{position:sticky; top:0; z-index:40; backdrop-filter:blur(10px); background:rgba(12,32,27,.7); border-bottom:1px solid var(--border)}
     .nav-inner{max-width:1100px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:24px}
     .brand{font-weight:800; letter-spacing:.2px}
     .nav-links{margin-left:auto; display:flex; gap:22px; flex-wrap:wrap}
     .nav-links a{color:var(--text); opacity:.9}
-    .nav-links a[aria-current="page"]{ color:var(--accent); font-weight:700; }
+    .nav-links a[aria-current="page"]{color:var(--accent); font-weight:700}
 
-    /* LAYOUT */
+    /* Layout */
     .container{max-width:1100px; margin:0 auto; padding:30px 20px}
     h1{margin:0 0 6px}
     .sub{color:var(--muted); margin:0 0 20px}
 
-    .contact-wrap{display:grid; grid-template-columns: 2fr 1fr; gap:20px}
-    @media (max-width:900px){
-      .contact-wrap{grid-template-columns:1fr}
-      .gif-grid{grid-template-columns:repeat(2,1fr)}
+    .contact-wrap{
+      display:grid;
+      grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr);
+      gap:28px;
+      align-items:start;
+      margin-top:10px;
     }
 
-    /* CARDS (как на главной) */
-    .panel{background:linear-gradient(145deg,#123b33,#0e2f27); border:1px solid var(--border); border-radius:18px; padding:20px; box-shadow:var(--shadow)}
-    .contact-card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px}
-
-    /* Общий платиновый акцент как на главной */
-    .panel, .contact-card {
-      border: 1px solid rgba(166, 212, 255, 0.35);
+    /* Карточки — стиль как на главной */
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    /* Platinum Ice accent — ровно как на главной */
+    .card{
+      border: 1px solid rgba(166,212,255,0.35);
       box-shadow:
-        0 0 12px rgba(166, 212, 255, 0.18),
-        inset 0 0 6px rgba(216, 198, 138, 0.08);
+        0 0 12px rgba(166,212,255,0.18),
+        inset 0 0 6px rgba(216,198,138,0.08);
       transition: box-shadow .3s ease, border-color .3s ease;
     }
-    .panel:hover, .contact-card:hover {
-      border-color: rgba(166, 212, 255, 0.55);
+    .card:hover{
+      border-color: rgba(166,212,255,0.55);
       box-shadow:
-        0 0 20px rgba(166, 212, 255, 0.35),
-        inset 0 0 8px rgba(216, 198, 138, 0.12);
+        0 0 20px rgba(166,212,255,0.35),
+        inset 0 0 8px rgba(216,198,138,0.12);
     }
 
     /* GIF grid */
@@ -78,22 +88,34 @@
     .gif-tile:hover img{transform:scale(1.04)}
     .gif-label{position:absolute; left:10px; bottom:8px; font-size:12px; background:rgba(0,0,0,.35); padding:4px 8px; border-radius:999px}
 
-    /* Buttons */
+    /* Buttons — как на главной */
     .contact-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
-    .btn{display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; border:1px solid #0b211c; background:var(--accent); color:#0b1a16; font-weight:700; box-shadow:0 10px 22px rgba(108,213,181,.25); transition:transform .15s ease}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px;
+      border:1px solid #0b211c; background:var(--accent); color:#0b1a16; font-weight:700;
+      box-shadow:0 10px 22px rgba(108,213,181,.25); transition:transform .15s ease
+    }
     .btn:hover{transform:translateY(-1px)}
     .btn-ghost{background:transparent; color:var(--accent); border:1px solid var(--border)}
 
-    .chip{display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--border); color:#cfe7e1; margin-right:8px}
+    .chip{display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--border); color:#cfe7e1}
 
     footer{opacity:.8; text-align:center; padding:12px 0 20px 0; margin-top:40px}
+    .quote{margin-top:40px; text-align:center; font-style:italic; color:rgba(147,224,199,.8); font-size:16px; letter-spacing:.5px}
 
-    /* WAVES (тот же фон, что на главной) */
-    .bg-waves{position:fixed; inset:0; width:100%; height:100vh; pointer-events:none; z-index:0; opacity:.95;}
+    @media (max-width:900px){
+      .contact-wrap{grid-template-columns:1fr}
+      .gif-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* Волны фона — как на главной */
+    .bg-waves{position:fixed; inset:0; width:100%; height:100vh; pointer-events:none; z-index:0; opacity:.95}
     @keyframes sway{0%{transform:translateY(0) scale(1)}50%{transform:translateY(8px) scale(1.01)}100%{transform:translateY(0) scale(1)}}
-    .bg-waves path:nth-of-type(1){animation:sway 12s ease-in-out infinite;}
-    .bg-waves path:nth-of-type(2){animation:sway 16s ease-in-out infinite reverse;}
+    .bg-waves path:nth-of-type(1){animation:sway 12s ease-in-out infinite}
+    .bg-waves path:nth-of-type(2){animation:sway 16s ease-in-out infinite reverse}
     @media (prefers-reduced-motion:reduce){.bg-waves path{animation:none}}
+
+    /* гарантируем, что контент над волнами */
     header.nav, main.container{position:relative; z-index:1}
   </style>
 </head>
@@ -117,10 +139,10 @@
     <p class="sub">Work as a SOC analyst.</p>
 
     <div class="contact-wrap">
-      <!-- GIFs -->
-      <section class="panel">
+      <!-- LEFT: GIFs -->
+      <section class="card">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px">
-          <h2 style="margin:0">🍃🍃🍃</h2>
+          <div>🍃🍃🍃</div>
           <span class="chip">SOC / Blue Team</span>
         </div>
         <div class="gif-grid">
@@ -139,12 +161,10 @@
         </div>
       </section>
 
-      <!-- Контакты -->
-      <aside class="contact-card">
-        <h3>Let’s connect</h3>
-        <p style="opacity:.9; margin:0 0 10px">
-          Open to SOC / Detection Engineering / Incident Response roles.
-        </p>
+      <!-- RIGHT: Contacts -->
+      <aside class="card">
+        <h3 style="margin:0 0 8px">Let’s connect</h3>
+        <p style="opacity:.9; margin:0 0 10px">Open to SOC / Detection Engineering / Incident Response roles.</p>
         <div class="contact-actions">
           <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=alexanderisoevf@gmail.com&su=Hello%20Alexander&body=Hi%20Alexander%2C" target="_blank" rel="noopener">✉️ Email</a>
           <a class="btn btn-ghost" href="https://linkedin.com/in/alexanderisoev" target="_blank" rel="noopener">LinkedIn</a>
@@ -161,14 +181,13 @@
       </aside>
     </div>
 
-    <section class="quote" style="margin-top:28px; text-align:center; font-style:italic; color:rgba(147,224,199,.8); font-size:16px; letter-spacing:.5px">
-      “Security is not a product — it’s a mindset.”
+    <section class="quote">
+      <p>“Security is not a product — it’s a mindset.”</p>
     </section>
-
     <footer>© <span id="year"></span> Alexander Isoev — SOC / Cybersecurity Analyst</footer>
   </main>
 
-  <!-- WAVES (как на главной) -->
+  <!-- WAVES — как на главной -->
   <svg class="bg-waves" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
     <defs>
       <filter id="blurWave" x="-30%" y="-30%" width="160%" height="160%">
@@ -180,4 +199,28 @@
       </linearGradient>
       <linearGradient id="wave2" x1="1" y1="0" x2="0" y2="1">
         <stop offset="0%"  stop-color="#9AF7DA" stop-opacity="0.15"/>
-        <stop offset="100%" stop-color="#5BE6B9" stop-
+        <stop offset="100%" stop-color="#5BE6B9" stop-opacity="0.05"/>
+      </linearGradient>
+    </defs>
+
+    <path filter="url(#blurWave)" fill="url(#wave1)"
+          d="M0,650 C260,580 380,760 580,700 C800,630 880,480 1120,520 C1280,550 1380,520 1440,540 L1440,900 L0,900 Z"/>
+    <path filter="url(#blurWave)" fill="url(#wave2)"
+          d="M0,590 C220,560 400,720 600,680 C780,640 980,520 1180,540 C1320,560 1400,560 1440,570 L1440,900 L0,900 Z"/>
+  </svg>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    (function () {
+      const links = document.querySelectorAll('.nav-links a');
+      const isIndex = /\/(?:index\.html?)?$/.test(location.pathname);
+      links.forEach(a => {
+        const href = a.getAttribute('href') || '';
+        const sameHome = href.endsWith('#home') && isIndex;
+        const samePath = a.pathname === location.pathname && !a.hash;
+        if (sameHome || samePath) a.setAttribute('aria-current', 'page');
+      });
+    })();
+  </script>
+</body>
+</html>

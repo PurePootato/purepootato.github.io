@@ -345,7 +345,7 @@
             <h3 class="cs-title">Reflected XSS</h3>
             <div class="cs-chips">
               <span class="chip">Splunk</span><span class="chip">Elastic SIEM</span>
-              <span class="chip">MITRE: T1059 / T1595</span>
+              <span class="chip">MITRE: T1059 · T1595</span>
             </div>
             <p class="cs-text">
               Investigated encoded payloads in <code>searchdata</code> param — correlated anomalies in Suricata and confirmed benign testing.
@@ -367,11 +367,13 @@
               <span class="chip">MITRE: T1055 · T1059.001</span>
             </div>
             <p class="cs-text">
-              PowerShell injection into explorer.exe, isolated host and updated detection rules. Documented containment in JIRA.
+              PowerShell injection into explorer.exe, isolated host and updated detection rules. 
+              Documented containment in JIRA.
             </p>
           </div> <!-- /cs-right -->
         </div>   <!-- /cs-card -->
       </article>
+      
      <!-- Slide 4 Linux Infra Compromise & Espionage Attempt -->
 <article class="cs-slide">
   <div class="cs-card">
@@ -386,8 +388,8 @@
         <span class="chip">MITRE: T1036 · T1071 · T1587.001</span>
       </div>
       <p class="cs-text">
-        Path traversal to execute <code>/bin/sh</code> via <code>/cgi-bin/</code> with double-encoded payloads.  
-        Correlated WAF/IDS hits and blocked activity.
+        Investigated a Linux server compromise stemming from WordPress SEO poisoning. 
+        Detected curl masquerading as Googlebot for C2 communication and unauthorized compilation of Suricata in /root.
       </p>
     </div>
   </div>
@@ -403,7 +405,7 @@
       <h3 class="cs-title">LFI Probe — /proc/self/environ</h3>
      <div class="cs-chips">
   <span class="chip">QRadar</span><span class="chip">Suricata</span>
-  <span class="chip">MITRE: T1595.002</span><span class="chip">T1006</span>
+  <span class="chip">MITRE: T1595.002 · T1006</span>
 </div>
       <p class="cs-text">
         Automated attempts to read <code>/proc/self/environ</code> for env disclosure/LFI recon.  
@@ -423,7 +425,7 @@
       <h3 class="cs-title">SQLi — UNION & Time-Based Blind</h3>
       <div class="cs-chips">
         <span class="chip">QRadar</span><span class="chip">WAF Logs</span>
-        <span class="chip">MITRE: T1190</span><span class="chip">T1595.002</span>
+        <span class="chip">MITRE: T1190 · T1595.002</span>
       </div>
       <p class="cs-text">
         Attempts against <code>/admin/update-issue-bookdeals.php</code> using <code>UNION SELECT</code> and <code>SLEEP()</code>.  
@@ -443,7 +445,7 @@
       <h3 class="cs-title">RCE — CGI Cmd Injection & Mozi</h3>
       <div class="cs-chips">
         <span class="chip">QRadar</span><span class="chip">Suricata</span>
-        <span class="chip">MITRE: T1190</span><span class="chip">T1105</span>
+        <span class="chip">MITRE: T1190 · T1105</span>
       </div>
       <p class="cs-text">
         Outbound to <code>/setup.cgi</code> using <code>wget + sh</code> to download <code>Mozi.m</code>.  
@@ -464,10 +466,11 @@
       <div class="cs-chips">
         <span class="chip">CrowdStrike</span>
         <span class="chip">Windows Logs</span>
-        <span class="chip">MITRE: T1190 · T1071 · T1543.003</span>
+        <span class="chip">MITRE: T1622 · T1071 · T1543.003</span>
       </div>
       <p class="cs-text">
-        Investigated a multi-stage RDP intrusion leading to a fileless Cobalt Strike beacon via <code>dllhost.exe</code>. Detected EDR sensor impairment, debugger evasion, and SYSTEM-level persistence.
+        Investigated a multi-stage RDP intrusion leading to a fileless Cobalt Strike beacon via <code>dllhost.exe</code>. 
+        Detected EDR sensor impairment, debugger evasion, and SYSTEM-level persistence.
       </p>
     </div>
   </div>

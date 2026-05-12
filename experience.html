@@ -220,7 +220,7 @@
         <span class="chip">Threat Investigation</span>
       </div>
       <p class="lead">
-        As a SOC Analyst at CYDEO Security, I worked on real-world incident simulations focused on phishing, malware, and PowerShell-based intrusions.
+        As a SOC Analyst at CYDEO Security, I worked on real-world incident Gained hands-on experience in advanced threat detection focused on phishing, malware, and PowerShell-based intrusions.
         My role involved proactive monitoring, log correlation, and endpoint investigation to strengthen detection logic and improve response efficiency across the SOC.
       </p>
     </section>
@@ -274,11 +274,11 @@
 
   <!-- Callout case -->
 <aside class="callout">
-  <div class="callout-title">Highlighted case — Phishing / Malicious Attachment</div>
+  <div class="callout-title">Highlighted case — Cloud Infrastructure Compromise (AWS)</div>
   <p>
-     Phishing email with a disguised attachment (<code>finance-report.pdf.exe.zip</code>) was analyzed in a sandbox and confirmed
-    as a <strong>Trojan</strong> (45/65 VT). The message impersonated a company employee to increase trust, and the embedded link
-    redirected to a <strong>malicious website</strong>.
+     Detected and neutralized a multi-stage AWS intrusion originating from hijacked IAM credentials. 
+    The adversary escalated privileges to root , executed a fileless payload (curl | bash) , and established persistence via a malicious systemd service (silent-shell.service). 
+    Correlated EDR telemetry with CloudTrail logs to identify unauthorized S3 data exfiltration (exfil.zip) and successfully secured the environment.
   </p>
 </aside>
 </section>

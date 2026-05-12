@@ -315,7 +315,7 @@
     <button class="cs-arrow cs-next" aria-label="Next slide">❯</button>
 
     <div class="cs-track">
-      <!-- Slide 1 -->
+      <!-- Slide 1 Domain Controller Compromise -->
       <article class="cs-slide">
         <div class="cs-card">
           <div class="cs-left">
@@ -335,7 +335,7 @@
         </div>
       </article>
 
-      <!-- Slide 2 -->
+      <!-- Slide 2 Reflected XSS -->
       <article class="cs-slide">
         <div class="cs-card">
           <div class="cs-left">
@@ -354,7 +354,7 @@
         </div>
       </article>
 
-      <!-- Slide 3 -->
+      <!-- Slide 3 PowerShell Process Injection -->
       <article class="cs-slide">
         <div class="cs-card">
           <div class="cs-left">
@@ -372,7 +372,7 @@
           </div> <!-- /cs-right -->
         </div>   <!-- /cs-card -->
       </article>
-     <!-- CGI-Bin Shell Execution Attempt -->
+     <!-- Slide 4 Linux Infra Compromise & Espionage Attempt -->
 <article class="cs-slide">
   <div class="cs-card">
     <div class="cs-left">
@@ -393,7 +393,7 @@
   </div>
 </article>
 
-<!-- LFI Probe — /proc/self/environ -->
+<!-- Slide 5 LFI Probe — /proc/self/environ -->
 <article class="cs-slide">
   <div class="cs-card">
     <div class="cs-left">
@@ -413,7 +413,7 @@
   </div>
 </article>
 
-<!-- SQL Injection — UNION & Time-Based Blind -->
+<!-- Slide 6 SQL Injection — UNION & Time-Based Blind -->
 <article class="cs-slide">
   <div class="cs-card">
     <div class="cs-left">
@@ -433,7 +433,7 @@
   </div>
 </article>
 
-<!-- RCE Attempt — CGI Command Injection & Mozi Download -->
+<!-- Slide 7 RCE Attempt — CGI Command Injection & Mozi Download -->
 <article class="cs-slide">
   <div class="cs-card">
     <div class="cs-left">
@@ -453,21 +453,21 @@
   </div>
 </article>
 
-<!-- PHP RCE & Directory Traversal Attempt -->
+<!-- Slide 8 Targeted RAT: Cobalt Strike -->
 <article class="cs-slide">
   <div class="cs-card">
     <div class="cs-left">
       <img class="cs-avatar" src="Alexander_Isoev.jpeg" alt="Alexander Isoev">
     </div>
     <div class="cs-right">
-      <h3 class="cs-title">PHP RCE & Directory Traversal</h3>
+      <h3 class="cs-title">Targeted RAT — Cobalt Strike</h3>
       <div class="cs-chips">
-        <span class="chip">Suricata</span><span class="chip">Apache Logs</span>
-        <span class="chip">MITRE: T1190</span><span class="chip">T1006</span><span class="chip">T1059.004</span>
+        <span class="chip">CrowdStrike</span>
+        <span class="chip">Windows Logs</span>
+        <span class="chip">MITRE: T1190 · T1071 · T1543.003</span>
       </div>
       <p class="cs-text">
-        Abuse of <code>allow_url_include=1</code> / <code>auto_prepend_file</code> + traversal via
-        <code>index.php?lang=../../</code>. Blocked; detections hardened.
+        Investigated a multi-stage RDP intrusion leading to a fileless Cobalt Strike beacon via <code>dllhost.exe</code>. Detected EDR sensor impairment, debugger evasion, and SYSTEM-level persistence.
       </p>
     </div>
   </div>

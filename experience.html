@@ -566,7 +566,7 @@ const dots = Array.from(dotsBox.children);
   nextBtn.addEventListener('click', () => { next(); restart(); });
 
   // Автопрокрутка
-  function start(){ timer=setInterval(()=>{ if(!hovering) next(); },8000); }
+  function start(){ timer=setInterval(()=>{ if(!hovering) next(); },12000); }
   function stop(){ clearInterval(timer); timer=null; }
   function restart(){ stop(); start(); }
 

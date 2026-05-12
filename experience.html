@@ -322,13 +322,15 @@
             <img class="cs-avatar" src="Alexander_Isoev.jpeg" alt="Alexander Isoev">
           </div>
           <div class="cs-right">
-            <h3 class="cs-title">ColdFusion Recon</h3>
+            <h3 class="cs-title">Domain Controller Compromise</h3>
             <div class="cs-chips">
-              <span class="chip">QRadar</span><span class="chip">Suricata</span>
-              <span class="chip">MITRE: T1595.002</span>
+              <span class="chip">CrowdStrike</span>
+              <span class="chip">Active Directory</span>
+              <span class="chip">MITRE: T1003.002</span>
+              <span class="chip">T1622</span>
             </div>
             <p class="cs-text">
-              Detected probing of <code>/CFIDE/</code> paths & components. Correlated across WAF, EDR, and Suricata to confirm reconnaissance.
+              Investigated a multi-stage DC intrusion. Detected Defender impairment (<code>wevtutil</code>) and blocked high-severity OS Credential Dumping (SAM/SYSTEM hive extraction) while tracking AD reconnaissance.
             </p>
           </div>
         </div>
